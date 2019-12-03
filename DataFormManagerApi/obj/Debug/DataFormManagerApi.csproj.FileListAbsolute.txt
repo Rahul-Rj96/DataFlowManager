@@ -245,9 +245,6 @@ E:\DataFormManager\DataFormManager\DataFormManagerApi\bin\roslyn\System.Reflecti
 E:\DataFormManager\DataFormManager\DataFormManagerApi\bin\roslyn\vbc.exe
 E:\DataFormManager\DataFormManager\DataFormManagerApi\bin\roslyn\VBCSCompiler.exe
 E:\DataFormManager\DataFormManager\DataFormManagerApi\bin\roslyn\VBCSCompiler.exe.config
-E:\DataFormManager\DataFormManager\DataFormManagerApi\bin\ReleaseFlow.API.dll.config
-E:\DataFormManager\DataFormManager\DataFormManagerApi\bin\ReleaseFlow.API.dll
-E:\DataFormManager\DataFormManager\DataFormManagerApi\bin\ReleaseFlow.API.pdb
 E:\DataFormManager\DataFormManager\DataFormManagerApi\bin\Antlr3.Runtime.dll
 E:\DataFormManager\DataFormManager\DataFormManagerApi\bin\DataFormManager.Models.dll
 E:\DataFormManager\DataFormManager\DataFormManagerApi\bin\Helpers.dll
@@ -302,7 +299,10 @@ E:\DataFormManager\DataFormManager\DataFormManagerApi\bin\System.Web.WebPages.De
 E:\DataFormManager\DataFormManager\DataFormManagerApi\bin\System.Web.WebPages.Razor.xml
 E:\DataFormManager\DataFormManager\DataFormManagerApi\bin\System.Web.Http.WebHost.xml
 E:\DataFormManager\DataFormManager\DataFormManagerApi\obj\Debug\DataFormManagerApi.csprojResolveAssemblyReference.cache
-E:\DataFormManager\DataFormManager\DataFormManagerApi\obj\Debug\ReleaseFlow.API.dll
-E:\DataFormManager\DataFormManager\DataFormManagerApi\obj\Debug\ReleaseFlow.API.pdb
 E:\DataFormManager\DataFormManager\DataFormManagerApi\bin\System.IdentityModel.Tokens.Jwt.dll
 E:\DataFormManager\DataFormManager\DataFormManagerApi\bin\System.IdentityModel.Tokens.Jwt.xml
+E:\DataFormManager\DataFormManager\DataFormManagerApi\bin\DataFormManagerApi.dll.config
+E:\DataFormManager\DataFormManager\DataFormManagerApi\bin\DataFormManagerApi.dll
+E:\DataFormManager\DataFormManager\DataFormManagerApi\bin\DataFormManagerApi.pdb
+E:\DataFormManager\DataFormManager\DataFormManagerApi\obj\Debug\DataFormManagerApi.dll
+E:\DataFormManager\DataFormManager\DataFormManagerApi\obj\Debug\DataFormManagerApi.pdb

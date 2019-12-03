@@ -71,12 +71,13 @@
     <Build Include="dbo\Tables\FormType.sql" />
     <Build Include="dbo\Tables\Form.sql" />
     <Build Include="dbo\Stored Procedures\Proc_UserForms_AddMappingData.sql" />
-    <Build Include="dbo\Stored Procedures\Proc_RCKRUser_UpdateUser.sql" />
     <Build Include="dbo\Stored Procedures\Proc_RCKRUser_GetUserList.sql" />
     <Build Include="dbo\Stored Procedures\Proc_RCKRUser_GetUser.sql" />
     <Build Include="dbo\Stored Procedures\Proc_RCKRUser_DeleteUser.sql" />
     <Build Include="dbo\Stored Procedures\Proc_RCKRUser_CreateUser.sql" />
     <Build Include="dbo\Stored Procedures\Proc_Form_GetUserFormDatas.sql" />
     <Build Include="dbo\Stored Procedures\Proc_Form_AddReleaseData.sql" />
+    <Build Include="dbo\Stored Procedures\Proc_RCKRUser_IsUserExist.sql" />
+    <Build Include="dbo\Stored Procedures\Proc_RCKRUser_GetUserBySubKey.sql" />
   </ItemGroup>
 </Project>

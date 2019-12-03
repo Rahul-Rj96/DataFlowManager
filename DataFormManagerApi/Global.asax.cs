@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Routing;
 
-namespace ReleaseFlow.API
+namespace DataFormManagerApi
 {
     public class WebApiApplication : System.Web.HttpApplication
     {

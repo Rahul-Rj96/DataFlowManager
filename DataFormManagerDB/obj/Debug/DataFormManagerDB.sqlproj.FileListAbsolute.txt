@@ -18,3 +18,7 @@ E:\DataFormManager\DataFormManager\DataFormManagerDB\bin\Debug\DataFormManagerDB
 E:\DataFormManager\DataFormManager\DataFormManagerDB\bin\Debug\DataFormManagerDB.pdb
 E:\DataFormManager\DataFormManager\DataFormManagerDB\obj\Debug\DataFormManagerDB.dll
 E:\DataFormManager\DataFormManager\DataFormManagerDB\obj\Debug\DataFormManagerDB.pdb
+E:\DataFormManager\DataFormManager\DataFormManagerDB\obj\Debug\Model.xml
+E:\DataFormManager\DataFormManager\DataFormManagerDB\obj\Debug\refactor.xml
+E:\DataFormManager\DataFormManager\DataFormManagerDB\obj\Debug\postdeploy.sql
+E:\DataFormManager\DataFormManager\DataFormManagerDB\obj\Debug\predeploy.sql
