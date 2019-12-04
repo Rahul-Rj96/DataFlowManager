@@ -40,6 +40,198 @@ USE [$(DatabaseName)];
 
 
 GO
+/*
+The column [dbo].[RCKRUser].[Password] is being dropped, data loss could occur.
+
+The column [dbo].[RCKRUser].[PhoneNo] is being dropped, data loss could occur.
+
+The column [dbo].[RCKRUser].[Sub] on table [dbo].[RCKRUser] must be added, but the column has no default value and does not allow NULL values. If the table contains data, the ALTER script will not work. To avoid this issue you must either: add a default value to the column, mark it as allowing NULL values, or enable the generation of smart-defaults as a deployment option.
+*/
+
+IF EXISTS (select top 1 1 from [dbo].[RCKRUser])
+    RAISERROR (N'Rows were detected. The schema update is terminating because data loss might occur.', 16, 127) WITH NOWAIT
+
+GO
+PRINT N'Dropping [dbo].[FK_Constraint_UserId2]...';
+
+
+GO
+ALTER TABLE [dbo].[UserForms] DROP CONSTRAINT [FK_Constraint_UserId2];
+
+
+GO
+PRINT N'Dropping [dbo].[FK_Constraint_UserId]...';
+
+
+GO
+ALTER TABLE [dbo].[UserRoles] DROP CONSTRAINT [FK_Constraint_UserId];
+
+
+GO
+PRINT N'Dropping [dbo].[UK_Constraint_PhoneNo]...';
+
+
+GO
+ALTER TABLE [dbo].[RCKRUser] DROP CONSTRAINT [UK_Constraint_PhoneNo];
+
+
+GO
+PRINT N'Starting rebuilding table [dbo].[RCKRUser]...';
+
+
+GO
+BEGIN TRANSACTION;
+
+SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+
+SET XACT_ABORT ON;
+
+CREATE TABLE [dbo].[tmp_ms_xx_RCKRUser] (
+    [UserId]   INT           IDENTITY (1, 1) NOT NULL,
+    [Username] VARCHAR (255) NOT NULL,
+    [EmailId]  VARCHAR (255) NOT NULL,
+    [Sub]      VARCHAR (255) NOT NULL,
+    CONSTRAINT [tmp_ms_xx_constraint_PK_Constraint_UserId1] PRIMARY KEY CLUSTERED ([UserId] ASC),
+    CONSTRAINT [tmp_ms_xx_constraint_UK_Constraint_EmailId1] UNIQUE NONCLUSTERED ([EmailId] ASC)
+);
+
+IF EXISTS (SELECT TOP 1 1 
+           FROM   [dbo].[RCKRUser])
+    BEGIN
+        SET IDENTITY_INSERT [dbo].[tmp_ms_xx_RCKRUser] ON;
+        INSERT INTO [dbo].[tmp_ms_xx_RCKRUser] ([UserId], [Username], [EmailId])
+        SELECT   [UserId],
+                 [Username],
+                 [EmailId]
+        FROM     [dbo].[RCKRUser]
+        ORDER BY [UserId] ASC;
+        SET IDENTITY_INSERT [dbo].[tmp_ms_xx_RCKRUser] OFF;
+    END
+
+DROP TABLE [dbo].[RCKRUser];
+
+EXECUTE sp_rename N'[dbo].[tmp_ms_xx_RCKRUser]', N'RCKRUser';
+
+EXECUTE sp_rename N'[dbo].[tmp_ms_xx_constraint_PK_Constraint_UserId1]', N'PK_Constraint_UserId', N'OBJECT';
+
+EXECUTE sp_rename N'[dbo].[tmp_ms_xx_constraint_UK_Constraint_EmailId1]', N'UK_Constraint_EmailId', N'OBJECT';
+
+COMMIT TRANSACTION;
+
+SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
+
+
+GO
+PRINT N'Creating [dbo].[FK_Constraint_UserId2]...';
+
+
+GO
+ALTER TABLE [dbo].[UserForms] WITH NOCHECK
+    ADD CONSTRAINT [FK_Constraint_UserId2] FOREIGN KEY ([UserId]) REFERENCES [dbo].[RCKRUser] ([UserId]);
+
+
+GO
+PRINT N'Creating [dbo].[FK_Constraint_UserId]...';
+
+
+GO
+ALTER TABLE [dbo].[UserRoles] WITH NOCHECK
+    ADD CONSTRAINT [FK_Constraint_UserId] FOREIGN KEY ([UserId]) REFERENCES [dbo].[RCKRUser] ([UserId]);
+
+
+GO
+PRINT N'Altering [dbo].[Proc_RCKRUser_CreateUser]...';
+
+
+GO
+
+ALTER PROCEDURE [dbo].[Proc_RCKRUser_CreateUser]
+@Username varchar(255),
+@EmailId varchar(255),
+@Sub varchar(255)
+AS
+BEGIN
+INSERT INTO RCKRUser (Username,EmailId,Sub) 
+Values (@Username,@EmailId,@Sub)
+END
+GO
+PRINT N'Altering [dbo].[Proc_RCKRUser_GetUser]...';
+
+
+GO
+
+ALTER PROCEDURE [dbo].[Proc_RCKRUser_GetUser]
+@UserId int
+AS 
+BEGIN
+SELECT * FROM RCKRUser 
+WHERE UserId = @UserId
+END
+GO
+PRINT N'Altering [dbo].[Proc_RCKRUser_GetUserList]...';
+
+
+GO
+
+ALTER PROCEDURE [dbo].[Proc_RCKRUser_GetUserList]
+AS 
+BEGIN
+SELECT * FROM RCKRUser 
+END
+GO
+PRINT N'Creating [dbo].[Proc_RCKRUser_GetUserBySubKey]...';
+
+
+GO
+
+
+CREATE PROCEDURE [dbo].[Proc_RCKRUser_GetUserBySubKey]
+@Sub varchar(255)
+AS 
+BEGIN
+SELECT * FROM RCKRUser 
+WHERE Sub = @Sub
+END
+GO
+PRINT N'Creating [dbo].[Proc_RCKRUser_IsUserExist]...';
+
+
+GO
+CREATE PROCEDURE Proc_RCKRUser_IsUserExist
+    @Sub varchar(255)
+AS
+BEGIN
+
+SET NOCOUNT ON
+
+IF EXISTS(SELECT * FROM RCKRUser WHERE Sub = @Sub)
+    SELECT 'true' AS UserExists
+ELSE
+    SELECT 'false' AS UserExists
+END
+GO
+PRINT N'Refreshing [dbo].[Proc_RCKRUser_DeleteUser]...';
+
+
+GO
+EXECUTE sp_refreshsqlmodule N'[dbo].[Proc_RCKRUser_DeleteUser]';
+
+
+GO
+PRINT N'Checking existing data against newly created constraints';
+
+
+GO
+USE [$(DatabaseName)];
+
+
+GO
+ALTER TABLE [dbo].[UserForms] WITH CHECK CHECK CONSTRAINT [FK_Constraint_UserId2];
+
+ALTER TABLE [dbo].[UserRoles] WITH CHECK CHECK CONSTRAINT [FK_Constraint_UserId];
+
+
+GO
 PRINT N'Update complete.';
 
 

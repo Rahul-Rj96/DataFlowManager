@@ -10,6 +10,7 @@ using System.Net;
 using DataFormManager.Models;
 using System.Net.Http.Headers;
 using System.Web.SessionState;
+using DataFormManagerApi;
 
 namespace dataFormManagerApi.Controllers
 {
@@ -26,28 +27,33 @@ namespace dataFormManagerApi.Controllers
             UserObjectModel userObj = LoginHelper.GetAccesToken(code);
 
             var resp = new HttpResponseMessage(HttpStatusCode.Moved);
-            resp.Headers.Location = new Uri(@"http://dataformmanager.dev37.grcdev.com/Login.html");
+            resp.Headers.Location = new Uri(@"http://dataformmanager.dev37.grcdev.com/success.html");
 
-            var cookie = new CookieHeaderValue("sub-key", (string)(context.Session["Sub"]));
-            //var cookie = new CookieHeaderValue("sub-key", userObj.Sub);
+            var cookie = new CookieHeaderValue("subKey", (string)(context.Session["Sub"]));
             //cookie.Expires = DateTimeOffset.Now.AddDays(1);
             cookie.Domain = Request.RequestUri.Host;
             cookie.Path = "/";
             resp.Headers.AddCookies(new CookieHeaderValue[] { cookie });
             return resp;
-
-
         }
         
         [HttpGet, Route("getAuthCode")]
         public System.Net.Http.HttpResponseMessage GetAuthCode()
         {
             string url = LoginHelper.GetAuthCode();
-
             var response = Request.CreateResponse(HttpStatusCode.Moved);
             response.Headers.Location = new Uri(url);
             return response;
         }
 
+        [BasicAuthenticationAttribute]
+        [HttpGet, Route("success")]
+        public System.Net.Http.HttpResponseMessage successPage()
+        {
+            string url = @"http://dataformmanager.dev37.grcdev.com/success.html";
+            var response = Request.CreateResponse(HttpStatusCode.Moved);
+            response.Headers.Location = new Uri(url);
+            return response;
+        }
     }
 }

@@ -55,8 +55,6 @@ namespace Helpers
                 var data = wc.UploadValues(url, "POST", wc.QueryString);
                 var responseString = UnicodeEncoding.UTF8.GetString(data);
                 TokenObjectModel token = JsonConvert.DeserializeObject<TokenObjectModel>(responseString);
-
-
                 var stream = token.id_token;
                 var handler = new System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler();
                 var jsonToken = handler.ReadToken(stream);
@@ -91,7 +89,6 @@ namespace Helpers
 
         public static bool IsUserRegistered(string sub)
         {
-
             SqlDataReader rdr = null;
             try
             {
@@ -156,5 +153,6 @@ namespace Helpers
             HttpContext.Current.Session["Sub"] = userObj.Sub;
         }
 
+       
     }
 }
