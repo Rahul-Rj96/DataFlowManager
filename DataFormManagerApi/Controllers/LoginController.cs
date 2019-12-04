@@ -27,7 +27,7 @@ namespace dataFormManagerApi.Controllers
             UserObjectModel userObj = LoginHelper.GetAccesToken(code);
 
             var resp = new HttpResponseMessage(HttpStatusCode.Moved);
-            resp.Headers.Location = new Uri(@"http://dataformmanager.dev37.grcdev.com/success.html");
+            resp.Headers.Location = new Uri(@"http://localhost:4200/dashboard");
 
             var cookie = new CookieHeaderValue("subKey", (string)(context.Session["Sub"]));
             //cookie.Expires = DateTimeOffset.Now.AddDays(1);
