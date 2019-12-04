@@ -9,14 +9,14 @@ namespace DataFormManager.Models
     public class UserObjectModel
     {
 
-        public int Id { get; private set; }
+        public int UserId { get; private set; }
         public string Username { get; set; }
         public string EmailId { get; set; }
         public string Sub { get; set; }
 
         public UserObjectModel(int id, string username,string emailId, string sub)
         {
-            this.Id = id;
+            this.UserId = id;
             this.Username = username;
             this.EmailId = emailId;
             this.Sub = sub;

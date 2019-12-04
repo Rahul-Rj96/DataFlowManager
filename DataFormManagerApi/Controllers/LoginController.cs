@@ -7,6 +7,9 @@ using System.Web.Http.Cors;
 using Helpers;
 using System.Net.Http;
 using System.Net;
+using DataFormManager.Models;
+using System.Net.Http.Headers;
+using System.Web.SessionState;
 
 namespace dataFormManagerApi.Controllers
 {
@@ -14,18 +17,29 @@ namespace dataFormManagerApi.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class LoginController : ApiController
     {
-            [HttpGet, System.Web.Http.Route("google")]
-            public IEnumerable<string> GoogleLogin()
-            {
-                var uri = Request.RequestUri;
-                string response = null;
-                string code = null;
-                code = System.Web.HttpUtility.ParseQueryString(uri.Query)["code"];
-                response = LoginHelper.GetAccesToken(code);
-                return new string[] { code, response };
-            }
+        [HttpGet, System.Web.Http.Route("google")]
+        public HttpResponseMessage GoogleLogin()
+        {
+            var uri = Request.RequestUri;
+            HttpContext context = HttpContext.Current;
+            var code = System.Web.HttpUtility.ParseQueryString(uri.Query)["code"];
+            UserObjectModel userObj = LoginHelper.GetAccesToken(code);
 
-        [HttpGet, System.Web.Http.Route("getAuthCode")]
+            var resp = new HttpResponseMessage(HttpStatusCode.Moved);
+            resp.Headers.Location = new Uri(@"http://dataformmanager.dev37.grcdev.com/Login.html");
+
+            var cookie = new CookieHeaderValue("sub-key", (string)(context.Session["Sub"]));
+            //var cookie = new CookieHeaderValue("sub-key", userObj.Sub);
+            //cookie.Expires = DateTimeOffset.Now.AddDays(1);
+            cookie.Domain = Request.RequestUri.Host;
+            cookie.Path = "/";
+            resp.Headers.AddCookies(new CookieHeaderValue[] { cookie });
+            return resp;
+
+
+        }
+        
+        [HttpGet, Route("getAuthCode")]
         public System.Net.Http.HttpResponseMessage GetAuthCode()
         {
             string url = LoginHelper.GetAuthCode();
@@ -36,4 +50,4 @@ namespace dataFormManagerApi.Controllers
         }
 
     }
-    }
+}
