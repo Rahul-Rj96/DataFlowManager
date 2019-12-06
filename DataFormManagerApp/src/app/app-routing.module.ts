@@ -10,7 +10,6 @@ const routes: Routes = [
   { path: 'userspecificform' ,component: UserspecificformComponent},
   { path: 'dashboard' , component: DashboardComponent},
   { path: '', redirectTo: '/login', pathMatch: 'full' }
-
 ];
 
 @NgModule({
@@ -18,4 +17,3 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
-

@@ -26,11 +26,11 @@ namespace dataFormManagerApi.Controllers
             var code = System.Web.HttpUtility.ParseQueryString(uri.Query)["code"];
             UserObjectModel userObj = LoginHelper.GetAccesToken(code);
             var resp = new HttpResponseMessage(HttpStatusCode.Moved);
-            resp.Headers.Location = new Uri(@"http://localhost:4200/Login.html");
+            resp.Headers.Location = new Uri(@"http://localhost:4200/login");
             var cookie = new CookieHeaderValue("subKeyelement", (string)(context.Session["Sub"]));
             //cookie.Expires = DateTimeOffset.Now.AddDays(1);
-            //cookie.Domain = Request.RequestUri.Host;
-            cookie.Domain = "dfmangular.dev37.grcdev.com";
+            cookie.Domain = Request.RequestUri.Host;
+            //cookie.Domain = "dfmangular.dev37.grcdev.com";
             cookie.Path = "/";
             resp.Headers.AddCookies(new CookieHeaderValue[] { cookie });
             return resp;

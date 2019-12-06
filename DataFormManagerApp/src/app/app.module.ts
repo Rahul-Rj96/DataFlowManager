@@ -8,13 +8,10 @@ import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
-<<<<<<< HEAD
-import { CookieService }  from 'ngx-cookie-service';
-=======
+
 import { UserspecificformComponent } from './userspecificform/userspecificform.component';
 import { FormdetailsComponent } from './formdetails/formdetails.component';
 
->>>>>>> 1897d07704fabe15e9a959e03c25bb5bf4f759ea
 
 @NgModule({
   declarations: [
@@ -31,7 +28,7 @@ import { FormdetailsComponent } from './formdetails/formdetails.component';
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [CookieService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
