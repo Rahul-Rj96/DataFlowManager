@@ -95,8 +95,6 @@ C:\Users\rahulrajesh\Documents\Visual Studio 2015\Projects\ReleaseFlow\DataFormM
 C:\Users\rahulrajesh\Documents\Visual Studio 2015\Projects\ReleaseFlow\DataFormManagerApi\obj\Debug\ReleaseFlow.API.dll
 C:\Users\rahulrajesh\Documents\Visual Studio 2015\Projects\ReleaseFlow\DataFormManagerApi\obj\Debug\ReleaseFlow.API.pdb
 C:\Users\rahulrajesh\Documents\Visual Studio 2015\Projects\DataFormManager\DataFormManagerApi\obj\Debug\DataFormManagerApi.csprojResolveAssemblyReference.cache
-C:\Users\rahulrajesh\Documents\Visual Studio 2015\Projects\DataFormManager\DataFormManagerApi\obj\Debug\ReleaseFlow.API.dll
-C:\Users\rahulrajesh\Documents\Visual Studio 2015\Projects\DataFormManager\DataFormManagerApi\obj\Debug\ReleaseFlow.API.pdb
 C:\Users\rahulrajesh\Documents\Visual Studio 2015\Projects\DataFormManager\DataFormManagerApi\bin\ApplicationInsights.config
 C:\Users\rahulrajesh\Documents\Visual Studio 2015\Projects\DataFormManager\DataFormManagerApi\bin\roslyn\csc.exe
 C:\Users\rahulrajesh\Documents\Visual Studio 2015\Projects\DataFormManager\DataFormManagerApi\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
@@ -110,9 +108,6 @@ C:\Users\rahulrajesh\Documents\Visual Studio 2015\Projects\DataFormManager\DataF
 C:\Users\rahulrajesh\Documents\Visual Studio 2015\Projects\DataFormManager\DataFormManagerApi\bin\roslyn\vbc.exe
 C:\Users\rahulrajesh\Documents\Visual Studio 2015\Projects\DataFormManager\DataFormManagerApi\bin\roslyn\VBCSCompiler.exe
 C:\Users\rahulrajesh\Documents\Visual Studio 2015\Projects\DataFormManager\DataFormManagerApi\bin\roslyn\VBCSCompiler.exe.config
-C:\Users\rahulrajesh\Documents\Visual Studio 2015\Projects\DataFormManager\DataFormManagerApi\bin\ReleaseFlow.API.dll.config
-C:\Users\rahulrajesh\Documents\Visual Studio 2015\Projects\DataFormManager\DataFormManagerApi\bin\ReleaseFlow.API.dll
-C:\Users\rahulrajesh\Documents\Visual Studio 2015\Projects\DataFormManager\DataFormManagerApi\bin\ReleaseFlow.API.pdb
 C:\Users\rahulrajesh\Documents\Visual Studio 2015\Projects\DataFormManager\DataFormManagerApi\bin\DataFormManager.Models.dll
 C:\Users\rahulrajesh\Documents\Visual Studio 2015\Projects\DataFormManager\DataFormManagerApi\bin\Helpers.dll
 C:\Users\rahulrajesh\Documents\Visual Studio 2015\Projects\DataFormManager\DataFormManagerApi\bin\Microsoft.AI.Agent.Intercept.dll
@@ -306,3 +301,16 @@ E:\DataFormManager\DataFormManager\DataFormManagerApi\bin\DataFormManagerApi.dll
 E:\DataFormManager\DataFormManager\DataFormManagerApi\bin\DataFormManagerApi.pdb
 E:\DataFormManager\DataFormManager\DataFormManagerApi\obj\Debug\DataFormManagerApi.dll
 E:\DataFormManager\DataFormManager\DataFormManagerApi\obj\Debug\DataFormManagerApi.pdb
+C:\Users\rahulrajesh\Documents\Visual Studio 2015\Projects\DataFormManager\DataFormManagerApi\bin\DataFormManagerApi.dll.config
+C:\Users\rahulrajesh\Documents\Visual Studio 2015\Projects\DataFormManager\DataFormManagerApi\bin\DataFormManagerApi.dll
+C:\Users\rahulrajesh\Documents\Visual Studio 2015\Projects\DataFormManager\DataFormManagerApi\bin\DataFormManagerApi.pdb
+C:\Users\rahulrajesh\Documents\Visual Studio 2015\Projects\DataFormManager\DataFormManagerApi\bin\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\rahulrajesh\Documents\Visual Studio 2015\Projects\DataFormManager\DataFormManagerApi\bin\Microsoft.IdentityModel.Logging.dll
+C:\Users\rahulrajesh\Documents\Visual Studio 2015\Projects\DataFormManager\DataFormManagerApi\bin\Microsoft.IdentityModel.Tokens.dll
+C:\Users\rahulrajesh\Documents\Visual Studio 2015\Projects\DataFormManager\DataFormManagerApi\bin\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\rahulrajesh\Documents\Visual Studio 2015\Projects\DataFormManager\DataFormManagerApi\bin\Microsoft.IdentityModel.JsonWebTokens.xml
+C:\Users\rahulrajesh\Documents\Visual Studio 2015\Projects\DataFormManager\DataFormManagerApi\bin\Microsoft.IdentityModel.Logging.xml
+C:\Users\rahulrajesh\Documents\Visual Studio 2015\Projects\DataFormManager\DataFormManagerApi\bin\Microsoft.IdentityModel.Tokens.xml
+C:\Users\rahulrajesh\Documents\Visual Studio 2015\Projects\DataFormManager\DataFormManagerApi\bin\System.IdentityModel.Tokens.Jwt.xml
+C:\Users\rahulrajesh\Documents\Visual Studio 2015\Projects\DataFormManager\DataFormManagerApi\obj\Debug\DataFormManagerApi.dll
+C:\Users\rahulrajesh\Documents\Visual Studio 2015\Projects\DataFormManager\DataFormManagerApi\obj\Debug\DataFormManagerApi.pdb
