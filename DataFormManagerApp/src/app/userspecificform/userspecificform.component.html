@@ -1,0 +1,9 @@
+<app-header></app-header>
+<h2>Release Forms</h2>
+<ul class="userspecificform">
+    <li *ngFor = "let form of forms" [class.selected]="form === selectedForm" (click)="onSelect(form)" >
+        <span class="badge">{{form.FormTypeId}}  </span> TaskName: {{form.TaskName}} , Status: {{form.Status}} 
+    </li>
+</ul>
+<app-formdetails [form]="selectedForm"></app-formdetails>
+<app-footer></app-footer>
