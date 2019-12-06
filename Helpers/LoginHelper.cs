@@ -19,11 +19,8 @@ namespace Helpers
 {
     public class LoginHelper
     {
-
         public static SqlConnectionStringBuilder getConnectionString()
         {
-            // Build connection string
-
             SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
             builder.DataSource = ConfigurationManager.AppSettings["ServerName"];
             builder.UserID = ConfigurationManager.AppSettings["UserId"];
@@ -35,14 +32,14 @@ namespace Helpers
 
         public static UserObjectModel GetAccesToken(string code)
         {
-            string url = "https://www.googleapis.com/oauth2/v4/token";
+            string url = ConfigurationManager.AppSettings["google_auth_url"];
             WebClient wc = new WebClient();
 
             wc.QueryString.Add("code", code);
-            wc.QueryString.Add("client_id", "892661883096-49tbcjjtktgr35m3cemah46llusc572t.apps.googleusercontent.com");
-            wc.QueryString.Add("client_secret", "B19605NTuDOU8xqqhjDzYA65");
-            wc.QueryString.Add("redirect_uri", "http://dataformmanager.dev37.grcdev.com/api/login/google/");
-            wc.QueryString.Add("grant_type", "authorization_code");
+            wc.QueryString.Add("client_id", ConfigurationManager.AppSettings["client_id"]);
+            wc.QueryString.Add("client_secret", ConfigurationManager.AppSettings["client_secret"]);
+            wc.QueryString.Add("redirect_uri", ConfigurationManager.AppSettings["redirect_uri"]);
+            wc.QueryString.Add("grant_type", ConfigurationManager.AppSettings["grant_type"]);
 
 
             if (code == null)
@@ -59,9 +56,9 @@ namespace Helpers
                 var handler = new System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler();
                 var jsonToken = handler.ReadToken(stream);
                 var tokenS = handler.ReadToken(stream) as JwtSecurityToken;
-                var sub = tokenS.Claims.First(claim => claim.Type == "sub").Value;
-                var email = tokenS.Claims.First(claim => claim.Type == "email").Value;
-                var name = tokenS.Claims.First(claim => claim.Type == "name").Value;
+                string sub = tokenS.Claims.First(claim => claim.Type == "sub").Value;
+                string email = tokenS.Claims.First(claim => claim.Type == "email").Value;
+                string name = tokenS.Claims.First(claim => claim.Type == "name").Value;
                 UserObjectModel userFakeObj = new UserObjectModel(1, name, email, sub);
                 bool isUserExists = IsUserRegistered(sub);
                 bool registerSuccess = false;
@@ -73,11 +70,8 @@ namespace Helpers
                 {
                     CreateUserSession(userFakeObj);
                 }
-
                 return userFakeObj;
-
             }
-
         }
 
         public static string GetAuthCode()
@@ -85,8 +79,6 @@ namespace Helpers
             string url = @"https://accounts.google.com/o/oauth2/v2/auth?scope=profile+email+openid&access_type=offline&include_granted_scopes=true&state=state_parameter_passthrough_value&redirect_uri=http%3A%2F%2Fdataformmanager.dev37.grcdev.com%2Fapi%2Flogin%2Fgoogle%2F&response_type=code&client_id=892661883096-49tbcjjtktgr35m3cemah46llusc572t.apps.googleusercontent.com";
             return url;
         }
-
-
         public static bool IsUserRegistered(string sub)
         {
             SqlDataReader rdr = null;
@@ -119,14 +111,13 @@ namespace Helpers
                 return false;
             }
         }
-
         public static bool RegisterUser(UserObjectModel UserObj)
         {
             try
             {
                 SqlConnectionStringBuilder builder = getConnectionString();
                 using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
-                {
+                { 
                     connection.Open();
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
@@ -145,14 +136,11 @@ namespace Helpers
                 return false;
             }
         }
-
         public static void CreateUserSession(UserObjectModel userObj)
         {
             HttpContext.Current.Session["UserId"] = userObj.UserId;
             HttpContext.Current.Session["Username"] = userObj.Username;
             HttpContext.Current.Session["Sub"] = userObj.Sub;
         }
-
-       
     }
 }
