@@ -11,9 +11,14 @@ C:\Users\rahulrajesh\Documents\Visual Studio 2015\Projects\DataFormManager\DataF
 C:\Users\midhun\Documents\DataFormManager\DataFormManager\DataFormManagerDB\bin\Debug\DataFormManagerDB.dacpac
 C:\Users\midhun\Documents\DataFormManager\DataFormManager\DataFormManagerDB\bin\Debug\DataFormManagerDB.dll
 C:\Users\midhun\Documents\DataFormManager\DataFormManager\DataFormManagerDB\bin\Debug\DataFormManagerDB.pdb
-C:\Users\midhun\Documents\DataFormManager\DataFormManager\DataFormManagerDB\obj\Debug\Model.xml
-C:\Users\midhun\Documents\DataFormManager\DataFormManager\DataFormManagerDB\obj\Debug\refactor.xml
-C:\Users\midhun\Documents\DataFormManager\DataFormManager\DataFormManagerDB\obj\Debug\postdeploy.sql
-C:\Users\midhun\Documents\DataFormManager\DataFormManager\DataFormManagerDB\obj\Debug\predeploy.sql
 C:\Users\midhun\Documents\DataFormManager\DataFormManager\DataFormManagerDB\obj\Debug\DataFormManagerDB.dll
 C:\Users\midhun\Documents\DataFormManager\DataFormManager\DataFormManagerDB\obj\Debug\DataFormManagerDB.pdb
+E:\DataFormManager\DataFormManager\DataFormManagerDB\bin\Debug\DataFormManagerDB.dacpac
+E:\DataFormManager\DataFormManager\DataFormManagerDB\bin\Debug\DataFormManagerDB.dll
+E:\DataFormManager\DataFormManager\DataFormManagerDB\bin\Debug\DataFormManagerDB.pdb
+E:\DataFormManager\DataFormManager\DataFormManagerDB\obj\Debug\DataFormManagerDB.dll
+E:\DataFormManager\DataFormManager\DataFormManagerDB\obj\Debug\DataFormManagerDB.pdb
+C:\Users\rahulrajesh\Documents\Visual Studio 2015\Projects\DataFormManager\DataFormManagerDB\obj\Debug\Model.xml
+C:\Users\rahulrajesh\Documents\Visual Studio 2015\Projects\DataFormManager\DataFormManagerDB\obj\Debug\refactor.xml
+C:\Users\rahulrajesh\Documents\Visual Studio 2015\Projects\DataFormManager\DataFormManagerDB\obj\Debug\postdeploy.sql
+C:\Users\rahulrajesh\Documents\Visual Studio 2015\Projects\DataFormManager\DataFormManagerDB\obj\Debug\predeploy.sql

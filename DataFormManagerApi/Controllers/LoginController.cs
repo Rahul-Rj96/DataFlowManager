@@ -2,16 +2,46 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
+using System.Web.Http;
+using System.Web.Http.Cors;
+using Helpers;
+using System.Net.Http;
+using System.Net;
+using DataFormManager.Models;
+using System.Net.Http.Headers;
+using System.Web.SessionState;
+using DataFormManagerApi;
 
 namespace dataFormManagerApi.Controllers
 {
-    public class LoginController : Controller
+    [RoutePrefix("api/login")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    public class LoginController : ApiController
     {
-        // GET: Login
-        public ActionResult Index()
+        [HttpGet, System.Web.Http.Route("google")]
+        public HttpResponseMessage GoogleLogin()
         {
-            return View();
+            var uri = Request.RequestUri;
+            HttpContext context = HttpContext.Current;
+            var code = System.Web.HttpUtility.ParseQueryString(uri.Query)["code"];
+            UserObjectModel userObj = LoginHelper.GetAccesToken(code);
+            var resp = new HttpResponseMessage(HttpStatusCode.Moved);
+            resp.Headers.Location = new Uri(@"http://localhost:4200/login");
+            var cookie = new CookieHeaderValue("subKeyelement", (string)(context.Session["Sub"]));
+            //cookie.Expires = DateTimeOffset.Now.AddDays(1);
+            cookie.Domain = Request.RequestUri.Host;
+            //cookie.Domain = "dfmangular.dev37.grcdev.com";
+            cookie.Path = "/";
+            resp.Headers.AddCookies(new CookieHeaderValue[] { cookie });
+            return resp;
+        }
+        [HttpGet, Route("getAuthCode")]
+        public System.Net.Http.HttpResponseMessage GetAuthCode()
+        {
+            string url = LoginHelper.GetAuthCode();
+            var response = Request.CreateResponse(HttpStatusCode.Moved);
+            response.Headers.Location = new Uri(url);
+            return response;
         }
     }
 }

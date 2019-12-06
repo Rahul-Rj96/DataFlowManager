@@ -1,11 +1,10 @@
-﻿CREATE PROCEDURE [dbo].[Proc_RCKRUser_CreateUser]
-@UserId int,
+﻿
+CREATE PROCEDURE [dbo].[Proc_RCKRUser_CreateUser]
 @Username varchar(255),
-@Password varchar(255),
 @EmailId varchar(255),
-@PhoneNo varchar(15)
-AS 
+@Sub varchar(255)
+AS
 BEGIN
-INSERT INTO RCKRUser (UserId,Username,Password,EmailId,PhoneNo) 
-Values (@UserId,@Username,@Password,@EmailId,@PhoneNo)
+INSERT INTO RCKRUser (Username,EmailId,Sub) 
+Values (@Username,@EmailId,@Sub)
 END
