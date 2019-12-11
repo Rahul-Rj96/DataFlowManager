@@ -11,6 +11,9 @@ import { HeaderComponent } from './header/header.component';
 
 import { UserspecificformComponent } from './userspecificform/userspecificform.component';
 import { FormdetailsComponent } from './formdetails/formdetails.component';
+import { AuthService } from './auth.service';
+import { AuthGuard } from './auth.guard';
+import { CookieService } from 'ngx-cookie-service'
 
 
 @NgModule({
@@ -28,7 +31,7 @@ import { FormdetailsComponent } from './formdetails/formdetails.component';
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [ AuthService, AuthGuard, CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

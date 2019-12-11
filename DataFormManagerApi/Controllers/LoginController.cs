@@ -22,26 +22,50 @@ namespace dataFormManagerApi.Controllers
         public HttpResponseMessage GoogleLogin()
         {
             var uri = Request.RequestUri;
-            HttpContext context = HttpContext.Current;
             var code = System.Web.HttpUtility.ParseQueryString(uri.Query)["code"];
             UserObjectModel userObj = LoginHelper.GetAccesToken(code);
-            var resp = new HttpResponseMessage(HttpStatusCode.Moved);
-            resp.Headers.Location = new Uri(@"http://localhost:4200/login");
-            var cookie = new CookieHeaderValue("subKeyelement", (string)(context.Session["Sub"]));
-            //cookie.Expires = DateTimeOffset.Now.AddDays(1);
-            cookie.Domain = Request.RequestUri.Host;
-            //cookie.Domain = "dfmangular.dev37.grcdev.com";
-            cookie.Path = "/";
-            resp.Headers.AddCookies(new CookieHeaderValue[] { cookie });
-            return resp;
+            HttpResponseMessage resp =  LoginHelper.CreateCookie();
+            return (resp); 
         }
         [HttpGet, Route("getAuthCode")]
-        public System.Net.Http.HttpResponseMessage GetAuthCode()
+        public HttpResponseMessage GetAuthCode()
         {
             string url = LoginHelper.GetAuthCode();
             var response = Request.CreateResponse(HttpStatusCode.Moved);
             response.Headers.Location = new Uri(url);
             return response;
         }
+
+        [HttpGet, Route("verifyCookie")]
+        public HttpResponseMessage verifyCookie()
+        {
+            
+            HttpContext context = HttpContext.Current;
+            string SessionId = "";
+            string UserId = "";
+            string Username= "";
+            string SubKey = "";
+
+            CookieHeaderValue cookie = Request.Headers.GetCookies("session").FirstOrDefault();
+            if (cookie != null)
+            {
+                CookieState cookieState = cookie["session"];
+                SessionId = cookieState["SessionId"];
+                UserId = cookieState["UserId"];
+                Username = cookieState["Username"];
+                SubKey = cookieState["SubKey"];
+            }
+
+            if (SubKey == (string)(context.Session["SubKey"]) & SessionId == (string)(context.Session["SessionId"]))
+            {           
+                return Request.CreateResponse(HttpStatusCode.OK, "success");
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, "failed");
+            }
+        }
+
+        
     }
 }

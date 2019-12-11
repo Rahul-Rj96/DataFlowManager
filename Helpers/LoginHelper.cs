@@ -14,6 +14,9 @@ using System.Web;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Web.SessionState;
+using System.Collections.Specialized;
+using System.Net.Http.Headers;
+using System.Web.Http;
 
 namespace Helpers
 {
@@ -138,9 +141,30 @@ namespace Helpers
         }
         public static void CreateUserSession(UserObjectModel userObj)
         {
+            Guid obj = Guid.NewGuid();
+            HttpContext.Current.Session ["SessionId"] = obj.ToString();
             HttpContext.Current.Session["UserId"] = userObj.UserId;
             HttpContext.Current.Session["Username"] = userObj.Username;
-            HttpContext.Current.Session["Sub"] = userObj.Sub;
+            HttpContext.Current.Session["SubKey"] = userObj.Sub;
+        }
+
+        public static HttpResponseMessage CreateCookie()
+        {
+            HttpContext context = HttpContext.Current;
+            var resp = new HttpResponseMessage(HttpStatusCode.Moved);
+            resp.Headers.Location = new Uri(@"http://dataformmanager.dev37.grcdev.com/login");
+            //var cookie = new CookieHeaderValue("subKey", (string)(context.Session["Sub"]));
+            //cookie.Expires = DateTimeOffset.Now.AddDays(1);
+            var nv = new NameValueCollection();
+            nv["SessionId"] = (string)(context.Session["SessionId"]);
+            nv["UserId"] = context.Session["UserId"].ToString();
+            nv["Username"] = (string)(context.Session["Username"]);
+            nv["SubKey"] = (string)(context.Session["SubKey"]);
+            var cookie = new CookieHeaderValue("session", nv);
+            cookie.Domain = context.Request.Url.Host;
+            cookie.Path = "/";
+            resp.Headers.AddCookies(new CookieHeaderValue[] { cookie });
+            return resp;
         }
     }
 }
