@@ -15,20 +15,24 @@ namespace DataFormManagerApi
    
 
         public class BasicAuthenticationAttribute : AuthorizationFilterAttribute
-    {
+         {
+
+
         public override void OnAuthorization(HttpActionContext actionContext)
         {
-           
-                string subKey = "";
-                var cookie = HttpContext.Current.Request.Cookies;
-                if (cookie != null)
-                {
-                    subKey = cookie["subKey"].Value;               
-                }
+            if (actionContext.Request.Headers.Authorization == null)
+            {
+                actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized);
+            }
+            else
+            {
+                string authenticationToken = actionContext.Request.Headers.Authorization.Parameter;
+                
 
-                if (LoginHelper.IsUserRegistered(subKey))
+                if (TokenHelper.IsAccessTokenValid(authenticationToken))
                 {
-                    Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(subKey), null);
+                    Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(authenticationToken), null);
+
                 }
                 else
                 {
@@ -36,5 +40,26 @@ namespace DataFormManagerApi
                 }
             }
         }
+
+        //public override void OnAuthorization(HttpActionContext actionContext)
+        //{
+
+        //        string subKey = "";
+        //        var cookie = HttpContext.Current.Request.Cookies;
+        //        if (cookie != null)
+        //        {
+        //            subKey = cookie["subKey"].Value;               
+        //        }
+
+        //        if (UserHelper.IsUserRegistered(subKey))
+        //        {
+        //            Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(subKey), null);
+        //        }
+        //        else
+        //        {
+        //            actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized);
+        //        }
+        //    }
+    }
     }
 

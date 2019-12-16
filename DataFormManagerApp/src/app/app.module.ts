@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HttpInterceptor, HTTP_INTERCEPTORS} from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,6 +14,7 @@ import { FormdetailsComponent } from './formdetails/formdetails.component';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
 import { CookieService } from 'ngx-cookie-service'
+import { TokenInterceptorService } from './token-interceptor.service';
 
 
 @NgModule({
@@ -31,7 +32,12 @@ import { CookieService } from 'ngx-cookie-service'
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [ AuthService, AuthGuard, CookieService],
+  providers: [ AuthService, AuthGuard, CookieService,
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptorService,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

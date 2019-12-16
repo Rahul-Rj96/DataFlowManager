@@ -9,33 +9,29 @@ namespace DataFormManager.Models
     public class TokenObjectModel
     {
 
-         
-        public string access_token
+        public int TokenId { get;  set; }
+        public string AccessToken { get; set; }
+        public string RefreshToken { get; set; }
+        public DateTime ExpiresIn { get; set; }
+        public string AuthorizationCode { get; set; }
+
+
+        public TokenObjectModel() { }
+        public TokenObjectModel( string AccessToken, string RefreshToken, DateTime ExpiresIn, string AuthorizationCode)
         {
-            get;
-            set;
+            this.AccessToken = AccessToken;
+            this.RefreshToken = RefreshToken;
+            this.ExpiresIn = ExpiresIn;
+            this.AuthorizationCode = AuthorizationCode;
         }
-        public int expires_in
+        public TokenObjectModel(int TokenId, string AccessToken, string RefreshToken, DateTime ExpiresIn, string AuthorizationCode)
         {
-            get;
-            set;
+            this.TokenId = TokenId;
+            this.AccessToken = AccessToken;
+            this.RefreshToken = RefreshToken;
+            this.ExpiresIn = ExpiresIn;
+            this.AuthorizationCode = AuthorizationCode;
         }
-    
-        public String scope
-        {
-            get;
-            set;
-        }
-        public String token_type
-        {
-            get;
-            set;
-        }
-        public String id_token
-        {
-            get;
-            set;
-        }
-      
     }
 }
+

@@ -21,19 +21,9 @@ using System.Web.Http;
 namespace Helpers
 {
     public class LoginHelper
-    {
-        public static SqlConnectionStringBuilder getConnectionString()
-        {
-            SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-            builder.DataSource = ConfigurationManager.AppSettings["ServerName"];
-            builder.UserID = ConfigurationManager.AppSettings["UserId"];
-            builder.Password = ConfigurationManager.AppSettings["Password"];
-            builder.InitialCatalog = ConfigurationManager.AppSettings["DbName"];
-            return builder;
-        }
+    { 
 
-
-        public static UserObjectModel GetAccesToken(string code)
+        public static TokenObjectModel GetGoogleAccesToken(string code)
         {
             string url = ConfigurationManager.AppSettings["google_auth_url"];
             WebClient wc = new WebClient();
@@ -44,17 +34,15 @@ namespace Helpers
             wc.QueryString.Add("redirect_uri", ConfigurationManager.AppSettings["redirect_uri"]);
             wc.QueryString.Add("grant_type", ConfigurationManager.AppSettings["grant_type"]);
 
-
             if (code == null)
             {
-                UserObjectModel dummyUserObj = new UserObjectModel(1000, "sachin", "sachin@rckr.com", "276219201");
-                return (dummyUserObj);
+                return null;
             }
             else
             {
                 var data = wc.UploadValues(url, "POST", wc.QueryString);
                 var responseString = UnicodeEncoding.UTF8.GetString(data);
-                TokenObjectModel token = JsonConvert.DeserializeObject<TokenObjectModel>(responseString);
+                GoogleTokenObjectModel token = JsonConvert.DeserializeObject<GoogleTokenObjectModel>(responseString);
                 var stream = token.id_token;
                 var handler = new System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler();
                 var jsonToken = handler.ReadToken(stream);
@@ -62,83 +50,34 @@ namespace Helpers
                 string sub = tokenS.Claims.First(claim => claim.Type == "sub").Value;
                 string email = tokenS.Claims.First(claim => claim.Type == "email").Value;
                 string name = tokenS.Claims.First(claim => claim.Type == "name").Value;
-                UserObjectModel userFakeObj = new UserObjectModel(1, name, email, sub);
-                bool isUserExists = IsUserRegistered(sub);
+                UserObjectModel userObj = new UserObjectModel(name, email, sub);
+                TokenObjectModel tokenObj = new TokenObjectModel();
+                bool isUserExists = UserHelper.IsUserRegistered(sub);
                 bool registerSuccess = false;
                 if (!isUserExists)
                 {
-                    registerSuccess = RegisterUser(userFakeObj) ? true : false;
+                    registerSuccess = UserHelper.RegisterUser(userObj) ? true : false;
                 }
                 if (isUserExists | registerSuccess)
                 {
-                    CreateUserSession(userFakeObj);
+                    userObj = UserHelper.getUserBySubKey(userObj.Sub);
+                    CreateUserSession(userObj);
+                    tokenObj = TokenHelper.createToken();
+                    tokenObj = TokenHelper.getTokenByAuthorizationCode(tokenObj.AuthorizationCode);
+                    UserTokensObjectModel userTokenObj = new UserTokensObjectModel(userObj.UserId, tokenObj.TokenId);
+                    bool success = UserTokensHelper.MapUserToken(userTokenObj);
                 }
-                return userFakeObj;
+                return tokenObj;
             }
         }
 
-        public static string GetAuthCode()
+       
+        public static string GetGoogleAuthCode()
         {
             string url = @"https://accounts.google.com/o/oauth2/v2/auth?scope=profile+email+openid&access_type=offline&include_granted_scopes=true&state=state_parameter_passthrough_value&redirect_uri=http%3A%2F%2Fdataformmanager.dev37.grcdev.com%2Fapi%2Flogin%2Fgoogle%2F&response_type=code&client_id=892661883096-49tbcjjtktgr35m3cemah46llusc572t.apps.googleusercontent.com";
             return url;
         }
-        public static bool IsUserRegistered(string sub)
-        {
-            SqlDataReader rdr = null;
-            try
-            {
-                SqlConnectionStringBuilder builder = getConnectionString();
-                using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
-                {
-                    connection.Open();
-                    SqlCommand cmd = new SqlCommand();
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Connection = connection;
-                    cmd.CommandText = "Proc_RCKRUser_IsUserExist";
-                    cmd.Parameters.Add(new SqlParameter("@Sub", sub));
-                    rdr = cmd.ExecuteReader();
-                    if (rdr.Read())
-                    {
-                        bool IsUserExists = bool.Parse((string)rdr["UserExists"]);
-                        return IsUserExists;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-            }
-            catch (SqlException ex)
-            {
-                Console.WriteLine("Exception:" + ex.Message);
-                return false;
-            }
-        }
-        public static bool RegisterUser(UserObjectModel UserObj)
-        {
-            try
-            {
-                SqlConnectionStringBuilder builder = getConnectionString();
-                using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
-                { 
-                    connection.Open();
-                    SqlCommand cmd = new SqlCommand();
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Connection = connection;
-                    cmd.CommandText = "Proc_RCKRUser_CreateUser";
-                    cmd.Parameters.Add(new SqlParameter("@Username", UserObj.Username));
-                    cmd.Parameters.Add(new SqlParameter("@EmailId", UserObj.EmailId));
-                    cmd.Parameters.Add(new SqlParameter("@Sub", UserObj.Sub));
-                    bool IsSuccess = cmd.ExecuteNonQuery() != 0 ? true : false;
-                    return IsSuccess;
-                }
-            }
-            catch (SqlException ex)
-            {
-                Console.WriteLine("Exception:" + ex.Message);
-                return false;
-            }
-        }
+        
         public static void CreateUserSession(UserObjectModel userObj)
         {
             Guid obj = Guid.NewGuid();
@@ -148,11 +87,11 @@ namespace Helpers
             HttpContext.Current.Session["SubKey"] = userObj.Sub;
         }
 
-        public static HttpResponseMessage CreateCookie()
+        public static HttpResponseMessage CreateCookie(string authorizationCode)
         {
             HttpContext context = HttpContext.Current;
             var resp = new HttpResponseMessage(HttpStatusCode.Moved);
-            resp.Headers.Location = new Uri(@"http://dataformmanager.dev37.grcdev.com/login");
+            resp.Headers.Location = new Uri(@"http://dataformmanager.dev37.grcdev.com/login"+"?code="+authorizationCode);
             //var cookie = new CookieHeaderValue("subKey", (string)(context.Session["Sub"]));
             //cookie.Expires = DateTimeOffset.Now.AddDays(1);
             var nv = new NameValueCollection();

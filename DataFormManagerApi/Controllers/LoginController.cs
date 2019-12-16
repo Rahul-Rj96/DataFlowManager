@@ -23,14 +23,14 @@ namespace dataFormManagerApi.Controllers
         {
             var uri = Request.RequestUri;
             var code = System.Web.HttpUtility.ParseQueryString(uri.Query)["code"];
-            UserObjectModel userObj = LoginHelper.GetAccesToken(code);
-            HttpResponseMessage resp =  LoginHelper.CreateCookie();
+            TokenObjectModel tokenObj = LoginHelper.GetGoogleAccesToken(code);
+            HttpResponseMessage resp =  LoginHelper.CreateCookie(tokenObj.AuthorizationCode);
             return (resp); 
         }
         [HttpGet, Route("getAuthCode")]
         public HttpResponseMessage GetAuthCode()
         {
-            string url = LoginHelper.GetAuthCode();
+            string url = LoginHelper.GetGoogleAuthCode();
             var response = Request.CreateResponse(HttpStatusCode.Moved);
             response.Headers.Location = new Uri(url);
             return response;
@@ -66,6 +66,44 @@ namespace dataFormManagerApi.Controllers
             }
         }
 
-        
+        [HttpPost, Route("AccessToken")]
+        public HttpResponseMessage getAccessTokenByAuthorizationCode([FromBody]CodeObject codeObj)
+        {
+            TokenObjectModel tokenObj = TokenHelper.getTokenByAuthorizationCode(codeObj.code);
+            if (tokenObj != null)
+            {
+                var message = Request.CreateResponse(HttpStatusCode.Created, tokenObj);
+                return message; ;
+            }
+            else
+            {
+                var message = Request.CreateResponse(HttpStatusCode.NotFound, "Invalid Token");
+                return message;
+            }
+            
+
+        }
+        [HttpPost, Route("RefreshToken")]
+        public HttpResponseMessage getAccessTokenByRefreshToken([FromBody]RefreshTokenObject refreshTokenObj)
+        {
+            UserObjectModel userObj = TokenHelper.getUserByRefreshToken(refreshTokenObj.RefreshToken);
+            TokenObjectModel tokenObj = TokenHelper.createToken();
+            tokenObj = TokenHelper.getTokenByAuthorizationCode(tokenObj.AuthorizationCode);
+            if (userObj!=null || tokenObj!=null)
+            {
+                UserTokensObjectModel userTokenObj = new UserTokensObjectModel(userObj.UserId, tokenObj.TokenId);
+                bool success = UserTokensHelper.MapUserToken(userTokenObj);
+                var message = Request.CreateResponse(HttpStatusCode.Created, tokenObj);
+                return message;
+                //return tokenObj;
+            }
+            else
+            {
+                var message = Request.CreateResponse(HttpStatusCode.NotFound,"Invalid Token");
+                return message;
+            }
+            
+           
+        }
     }
 }
