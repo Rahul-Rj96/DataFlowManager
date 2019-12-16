@@ -44,3 +44,9 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+
+.vs/DataFormManager/v14/.suo
+DataFormManagerApi/obj/Debug/DataFormManagerApi.dll
+DataFormManagerApi/obj/Debug/DataFormManagerApi.pdb
+DataFormManagerDB/DataFormManagerDB.dbmdl
