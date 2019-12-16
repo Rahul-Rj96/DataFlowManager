@@ -108,6 +108,22 @@ ClientBin/
 *.pfx
 *.publishsettings
 
-/DataFormManagerApi/*.config
+DataFormManagerApi/*.config
 
-/DataFormManagerApi/bin
+DataFormManagerApi/bin
+
+DataFormManager.Models/bin
+
+DataFormManager.Models/obj/
+
+DataFormManagerApi/obj/
+
+DataFormManagerDB/DataFormManagerDB.dbmdl
+
+DataFormManagerDB/obj/
+
+Helpers/bin/
+
+Helpers/obj/
+
+DataFormManagerDB/bin/

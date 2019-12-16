@@ -76,8 +76,9 @@
     <Build Include="dbo\Stored Procedures\Proc_RCKRUser_DeleteUser.sql" />
     <Build Include="dbo\Stored Procedures\Proc_RCKRUser_CreateUser.sql" />
     <Build Include="dbo\Stored Procedures\Proc_Form_GetUserFormDatas.sql" />
-    <Build Include="dbo\Stored Procedures\Proc_Form_AddReleaseData.sql" />
     <Build Include="dbo\Stored Procedures\Proc_RCKRUser_IsUserExist.sql" />
     <Build Include="dbo\Stored Procedures\Proc_RCKRUser_GetUserBySubKey.sql" />
+    <Build Include="dbo\Stored Procedures\Proc_FormType_GetFormFields.sql" />
+    <Build Include="dbo\Stored Procedures\Proc_Form_AddFormData.sql" />
   </ItemGroup>
 </Project>

@@ -71,9 +71,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormTypeHelper.cs" />
     <Compile Include="LoginHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReleaseFormHelper.cs" />
+    <Compile Include="FormHelper.cs" />
     <Compile Include="UserFormsHelper.cs" />
     <Compile Include="UserSpecificFormsHelper.cs" />
   </ItemGroup>
