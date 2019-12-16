@@ -79,5 +79,16 @@
     <Build Include="dbo\Stored Procedures\Proc_Form_AddReleaseData.sql" />
     <Build Include="dbo\Stored Procedures\Proc_RCKRUser_IsUserExist.sql" />
     <Build Include="dbo\Stored Procedures\Proc_RCKRUser_GetUserBySubKey.sql" />
+    <Build Include="dbo\Stored Procedures\Proc_Form_AddFormData.sql" />
+    <Build Include="dbo\Stored Procedures\Proc_FormType_GetFormFields.sql" />
+    <Build Include="dbo\Stored Procedures\Proc_Token_CreateToken.sql" />
+    <Build Include="dbo\Stored Procedures\Proc_Token_DeleteToken.sql" />
+    <Build Include="dbo\Stored Procedures\Proc_Token_GetToken.sql" />
+    <Build Include="dbo\Stored Procedures\Proc_Token_GetTokenByAuthorizationCode.sql" />
+    <Build Include="dbo\Stored Procedures\Proc_Token_GetTokenList.sql" />
+    <Build Include="dbo\Stored Procedures\Proc_Token_IsAccessTokenValid.sql" />
+    <Build Include="dbo\Stored Procedures\Proc_Token_IsRefreshTokenValid.sql" />
+    <Build Include="dbo\Stored Procedures\Proc_UserTokens_CreateUserToken.sql" />
+    <Build Include="dbo\Stored Procedures\Proc_UserTokens_GetUserByRefreshToken.sql" />
   </ItemGroup>
 </Project>
