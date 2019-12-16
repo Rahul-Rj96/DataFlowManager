@@ -1,10 +1,10 @@
 import { Injectable, Injector } from '@angular/core';
 import { HttpInterceptor, HttpErrorResponse, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
-import { AuthService} from './auth.service';
+import { AuthService} from './login-module/auth.service';
 import { catchError,filter,take } from 'rxjs/operators'; 
 import { throwError,BehaviorSubject, Observable} from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { RefreshTokenObject ,Token} from './token';
+import { RefreshTokenObject ,Token} from './model/token';
 import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'

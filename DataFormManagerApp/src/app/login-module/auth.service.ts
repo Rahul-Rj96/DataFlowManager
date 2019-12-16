@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import {Observable,of, throwError} from 'rxjs';
-import { Cookie } from './cookie';
+import { Cookie } from '../model/cookie';
 import { catchError, retry,map } from 'rxjs/operators';
-import { Token, CodeObject ,RefreshTokenObject} from './token';
+import { Token, CodeObject ,RefreshTokenObject} from '../model/token';
 @Injectable({
   providedIn: 'root'
 })

@@ -7,8 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { UserspecificformComponent } from './userspecificform/userspecificform.component';
 import { FormdetailsComponent } from './formdetails/formdetails.component';
 import { FormtypeComponent } from './formtype/formtype.component';
-import {HeaderComponent} from '../header/header.component';
-import {FooterComponent} from '../footer/footer.component';
+
 import { FormRoutingModule } from './form-routing.module';
 import { FormtypeService } from './formtype.service';
 import { UserSpecificFormsService } from './userspecificform.service';
@@ -16,10 +15,8 @@ import { UserSpecificFormsService } from './userspecificform.service';
 
 @NgModule({
   declarations: [
-    FooterComponent,
     UserspecificformComponent,
     FormdetailsComponent,
-    HeaderComponent,
     FormtypeComponent],
   imports: [
     FormsModule,
@@ -30,5 +27,5 @@ import { UserSpecificFormsService } from './userspecificform.service';
   providers:[FormtypeService,
     UserSpecificFormsService
   ]
-})
+}) 
 export class FormModule { }

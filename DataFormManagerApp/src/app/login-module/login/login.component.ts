@@ -4,7 +4,7 @@ import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { catchError, retry, map } from 'rxjs/operators';
-import { CodeObject, Token } from '../token';
+import { CodeObject, Token } from '../../model/token';
 
 
 @Component({
@@ -34,12 +34,12 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('accessToken', tokenObj.AccessToken);
           localStorage.setItem('refreshToken', tokenObj.RefreshToken);
           localStorage.setItem('expiresIn', tokenObj.ExpiresIn);
-          this._router.navigate(['/userspecificform']);
+          this._router.navigate(['/forms']);
         })
     }
 
     if (this._authService.loggedIn()) {
-      this._router.navigate(['/userspecificform'])
+      this._router.navigate(['/forms'])
     }
     else{
       this._router.navigate(['/login'])

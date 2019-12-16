@@ -1,4 +1,3 @@
-<app-header></app-header>
 <h2>Forms</h2>
 <ol class="userspecificform">
     <li *ngFor = "let form of forms" [class.selected]="form === selectedForm" (click)="onSelect(form)" >
@@ -6,4 +5,3 @@
     </li>
 </ol>
 <app-formdetails [form]="selectedForm"></app-formdetails>
-<app-footer></app-footer>
