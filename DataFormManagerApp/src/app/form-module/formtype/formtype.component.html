@@ -1,0 +1,12 @@
+<app-header></app-header>
+<div *ngIf="formType">
+<h2 >{{formType.FormType}}</h2>
+ <ul class="FormFields">
+    <li *ngFor = "let formField of formType.FormFields" >
+       <span class="badge">{{formField.Name}}: </span> 
+        <input type={{formField.Type}} id={{formField.Name}} [(ngModel)]="itemSet[formField.Name]"> 
+    </li>
+</ul> 
+</div>
+<button (click)="onSubmit()"> Submit</button>
+<app-footer></app-footer>
