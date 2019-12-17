@@ -7,7 +7,7 @@ const routes: Routes = [
   {path:'',
   loadChildren:'./login-module/login-module.module#LoginModuleModule',},
   {path:'forms',
-  loadChildren:'./form-module/form.module#FormModule',canActivate: [AuthGuard]}
+  loadChildren:'./form-module/form.module#FormModule',}
 
 
 ];

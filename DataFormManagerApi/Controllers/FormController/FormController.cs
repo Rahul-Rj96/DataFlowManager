@@ -7,6 +7,7 @@ namespace DataFormManagerApi.Controllers
 {
     [RoutePrefix("api/form")]
     [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [BasicAuthentication]
     public class FormDataController : ApiController
     {
         [HttpPost,Route("adddata")]

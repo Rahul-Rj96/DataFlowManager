@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormTypeModel } from '../../model/form-type-model';
-import { FormtypeService } from '../formtype.service';
-import { DataValueModel } from '../../model/data-value-model';
-import { FormDataModel } from '../../model/form-data-model';
+import { FormTypeModel } from '../../../model/form-type-model';
+import { FormtypeService } from '../../services/formtype.service';
+import { DataValueModel } from '../../../model/data-value-model';
+import { FormDataModel } from '../../../model/form-data-model';
 
 @Component({
   selector: 'app-formtype',

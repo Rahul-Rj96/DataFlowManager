@@ -14,9 +14,9 @@ namespace Helpers
    public class UserSpecificFormsHelper
     {
 
-        public static List<ReleaseObjectModel> GetUserFormDataList(int userId)
+        public static List<FormDataModel> GetUserFormDataList(int userId)
         {
-            List<ReleaseObjectModel> formDatas = new List<ReleaseObjectModel>();
+            List<FormDataModel> formDatas = new List<FormDataModel>();
             string dataString = null;
             string connString = ConfigurationManager.ConnectionStrings["ReleaseFlowDBConnectionString"].ConnectionString;       //read from config  
             try
@@ -33,7 +33,7 @@ namespace Helpers
                     while (dr.HasRows && dr.Read())
                     {
                         dataString = Convert.ToString(dr["FormData"]);
-                        ReleaseObjectModel data = JsonConvert.DeserializeObject<ReleaseObjectModel>(dataString);
+                        FormDataModel data = JsonConvert.DeserializeObject<FormDataModel>(dataString);
                         formDatas.Add(data);
                     }
                     dr.Close();

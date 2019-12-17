@@ -8,14 +8,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 
-
-
-import { AuthService } from './login-module/auth.service';
+import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
 import { CookieService } from 'ngx-cookie-service'
 import { TokenInterceptorService } from './token-interceptor.service';
-import { LoginModuleModule } from './login-module/login-module.module';
-
+// import { LoginModuleModule } from './login-module/login-module.module';
+// import { FormModule } from './form-module/form.module';
 
 @NgModule({
   declarations: [
@@ -25,8 +23,9 @@ import { LoginModuleModule } from './login-module/login-module.module';
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
-    LoginModuleModule
+    // FormsModule,
+    // FormModule,
+    // LoginModuleModule
   ],
   providers: [ AuthService, AuthGuard, CookieService,
   {

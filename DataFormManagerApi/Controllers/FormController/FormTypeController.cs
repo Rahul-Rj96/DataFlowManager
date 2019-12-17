@@ -10,6 +10,7 @@ using System.Web.Http.Cors;
 
 namespace DataFormManagerApi.Controllers.FormController
 {
+    [BasicAuthentication]
     [RoutePrefix("api/formtype")]
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class FormTypeController : ApiController
@@ -17,7 +18,7 @@ namespace DataFormManagerApi.Controllers.FormController
         [HttpGet, Route("{formName}")]
         public FormTypeModel GetFormTypeApi(String formName)
         {
-            return(FormTypeHelper.GetFormFields(formName));
+            return (FormTypeHelper.GetFormFields(formName));
         }
     }
 }

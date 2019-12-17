@@ -10,15 +10,15 @@ using System.Web.Http.Cors;
 
 namespace DataFormManagerApi.Controllers
 {
-    [BasicAuthentication]
+    //[BasicAuthentication]
     [RoutePrefix("api/userspecificforms")]
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class GetUserFormListController : ApiController
     {
         [HttpGet, Route("{userId}")]
-        public IEnumerable<ReleaseObjectModel> GetUserFormDatasApi(int userId)
+        public IEnumerable<FormDataModel> GetUserFormDatasApi(int userId)
         {
-            List<ReleaseObjectModel> dataList = UserSpecificFormsHelper.GetUserFormDataList(userId);
+            List<FormDataModel> dataList = UserSpecificFormsHelper.GetUserFormDataList(userId);
             return dataList;
         }
     }

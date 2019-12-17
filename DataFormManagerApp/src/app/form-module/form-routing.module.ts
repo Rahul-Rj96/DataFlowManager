@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { FormtypeComponent } from './formtype/formtype.component';
-import { UserspecificformComponent } from './userspecificform/userspecificform.component';
+import { FormtypeComponent } from './components/formtype/formtype.component';
+import { UserspecificformComponent } from './components/userspecificform/userspecificform.component';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '../auth.guard';
 

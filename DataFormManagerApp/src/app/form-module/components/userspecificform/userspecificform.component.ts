@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {FormDataModel} from '../../model/form-data-model';
-import { UserSpecificFormsService} from '../userspecificform.service';
+import {FormDataModel} from '../../../model/form-data-model';
+import { UserSpecificFormsService} from '../../services/userspecificform.service';
 
 
 @Component({

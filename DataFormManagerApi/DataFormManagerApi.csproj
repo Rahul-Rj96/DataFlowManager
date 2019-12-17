@@ -202,7 +202,6 @@
     <Compile Include="BasicAuthenticationAttribute.cs" />
     <Compile Include="Controllers\FormController\FormController.cs" />
     <Compile Include="Controllers\FormController\FormTypeController.cs" />
-    <Compile Include="Controllers\FormController\ReleaseFormController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\UserSpecificFormsController.cs" />
     <Compile Include="Controllers\UserFormsController.cs" />

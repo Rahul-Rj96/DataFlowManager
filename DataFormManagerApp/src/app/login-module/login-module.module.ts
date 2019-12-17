@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 
 import { LoginModuleRoutingModule } from './login-module-routing.module';
+import { AuthService } from '../auth.service';
 
 
 
@@ -17,6 +18,8 @@ import { LoginModuleRoutingModule } from './login-module-routing.module';
     CommonModule,
     LoginModuleRoutingModule,
     CommonModule
+  ],
+  providers:[AuthService
   ]
 })
 export class LoginModuleModule { }

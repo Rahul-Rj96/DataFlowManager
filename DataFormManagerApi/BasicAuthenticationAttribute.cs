@@ -12,10 +12,10 @@ using System.Web.Http.Filters;
 using Helpers;
 namespace DataFormManagerApi
 {
-   
 
-        public class BasicAuthenticationAttribute : AuthorizationFilterAttribute
-         {
+
+    public class BasicAuthenticationAttribute : AuthorizationFilterAttribute
+    {
 
 
         public override void OnAuthorization(HttpActionContext actionContext)
@@ -27,7 +27,7 @@ namespace DataFormManagerApi
             else
             {
                 string authenticationToken = actionContext.Request.Headers.Authorization.Parameter;
-                
+
 
                 if (TokenHelper.IsAccessTokenValid(authenticationToken))
                 {
@@ -61,5 +61,5 @@ namespace DataFormManagerApi
         //        }
         //    }
     }
-    }
+}
 

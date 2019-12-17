@@ -1,18 +1,18 @@
 import { Injectable, Injector } from '@angular/core';
 import { HttpInterceptor, HttpErrorResponse, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
-import { AuthService} from './login-module/auth.service';
+import { AuthService} from './auth.service';
 import { catchError,filter,take } from 'rxjs/operators'; 
 import { throwError,BehaviorSubject, Observable} from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { RefreshTokenObject ,Token} from './model/token';
-import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
 export class TokenInterceptorService implements HttpInterceptor {
 
-  constructor(private injector: Injector,private _router: Router) { }
+  constructor(private injector: Injector) { }
   intercept (request, next):Observable<HttpEvent<any>> {
+  
     let authService = this.injector.get(AuthService)
     if (authService.getAccessTokenFromLocalStorage()){  
       request = this.addToken(request, authService.getAccessTokenFromLocalStorage());

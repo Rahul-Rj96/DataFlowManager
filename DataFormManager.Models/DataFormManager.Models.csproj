@@ -47,7 +47,6 @@
     <Compile Include="FormTypeModel.cs" />
     <Compile Include="GoogleTokenObjectModel.cs" />
     <Compile Include="RefreshTokenObject.cs" />
-    <Compile Include="ReleaseObjectModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TokenObjectModel.cs" />
     <Compile Include="UserFormObjectModel.cs" />

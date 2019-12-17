@@ -95,11 +95,10 @@ namespace dataFormManagerApi.Controllers
                 bool success = UserTokensHelper.MapUserToken(userTokenObj);
                 var message = Request.CreateResponse(HttpStatusCode.Created, tokenObj);
                 return message;
-                //return tokenObj;
             }
             else
             {
-                var message = Request.CreateResponse(HttpStatusCode.NotFound,"Invalid Token");
+                var message = Request.CreateResponse(HttpStatusCode.Unauthorized,"Invalid Token");
                 return message;
             }
             
