@@ -5,6 +5,9 @@ export class Token {
     RefreshToken:string;
     ExpiresIn:string;
     AuthorizationCode:string;
+    UserId:number;
+    Username:string;
+    EmailId:string;
 }
 
 export class CodeObject {

@@ -48,6 +48,9 @@ private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
         localStorage.setItem('accessToken', tokenObj.AccessToken);
         localStorage.setItem('refreshToken', tokenObj.RefreshToken);
         localStorage.setItem('expiresIn', tokenObj.ExpiresIn);
+        localStorage.setItem('userId', tokenObj.UserId.toString());
+        localStorage.setItem('Username', tokenObj.Username);
+        localStorage.setItem('EmailId', tokenObj.EmailId);
         return next.handle(this.addToken(request, authService.getAccessTokenFromLocalStorage()));
       }));
       

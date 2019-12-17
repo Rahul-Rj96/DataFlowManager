@@ -60,3 +60,14 @@ C:\Users\rahulrajesh\Documents\Visual Studio 2015\Projects\DataFormManager\Helpe
 C:\Users\rahulrajesh\Documents\Visual Studio 2015\Projects\DataFormManager\Helpers\bin\Debug\Microsoft.IdentityModel.Logging.xml
 C:\Users\rahulrajesh\Documents\Visual Studio 2015\Projects\DataFormManager\Helpers\bin\Debug\Microsoft.IdentityModel.Tokens.xml
 C:\Users\rahulrajesh\Documents\Visual Studio 2015\Projects\DataFormManager\Helpers\bin\Debug\System.IdentityModel.Tokens.Jwt.xml
+E:\DataFormManager\DataFormManager\Helpers\bin\Debug\Microsoft.Owin.dll
+E:\DataFormManager\DataFormManager\Helpers\bin\Debug\Microsoft.Owin.Security.Cookies.dll
+E:\DataFormManager\DataFormManager\Helpers\bin\Debug\Microsoft.Owin.Security.dll
+E:\DataFormManager\DataFormManager\Helpers\bin\Debug\Owin.dll
+E:\DataFormManager\DataFormManager\Helpers\bin\Debug\System.Net.Http.Formatting.dll
+E:\DataFormManager\DataFormManager\Helpers\bin\Debug\System.Web.Http.dll
+E:\DataFormManager\DataFormManager\Helpers\bin\Debug\Microsoft.Owin.xml
+E:\DataFormManager\DataFormManager\Helpers\bin\Debug\Microsoft.Owin.Security.xml
+E:\DataFormManager\DataFormManager\Helpers\bin\Debug\Microsoft.Owin.Security.Cookies.xml
+E:\DataFormManager\DataFormManager\Helpers\bin\Debug\System.Net.Http.Formatting.xml
+E:\DataFormManager\DataFormManager\Helpers\bin\Debug\System.Web.Http.xml

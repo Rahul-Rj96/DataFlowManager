@@ -72,7 +72,9 @@ namespace dataFormManagerApi.Controllers
             TokenObjectModel tokenObj = TokenHelper.getTokenByAuthorizationCode(codeObj.code);
             if (tokenObj != null)
             {
-                var message = Request.CreateResponse(HttpStatusCode.Created, tokenObj);
+                UserObjectModel userObj = TokenHelper.getUserByAccessToken(tokenObj.AccessToken);
+                TokenObjectModel tokenUserObj = new TokenObjectModel(tokenObj.TokenId, tokenObj.AccessToken, tokenObj.RefreshToken, tokenObj.ExpiresIn, tokenObj.AuthorizationCode, userObj.UserId, userObj.Username, userObj.EmailId);
+                var message = Request.CreateResponse(HttpStatusCode.Created, tokenUserObj);
                 return message; ;
             }
             else
@@ -93,7 +95,8 @@ namespace dataFormManagerApi.Controllers
             {
                 UserTokensObjectModel userTokenObj = new UserTokensObjectModel(userObj.UserId, tokenObj.TokenId);
                 bool success = UserTokensHelper.MapUserToken(userTokenObj);
-                var message = Request.CreateResponse(HttpStatusCode.Created, tokenObj);
+                TokenObjectModel  tokenUserObj= new TokenObjectModel(tokenObj.TokenId, tokenObj.AccessToken, tokenObj.RefreshToken,tokenObj.ExpiresIn, tokenObj.AuthorizationCode, userObj.UserId, userObj.Username, userObj.EmailId);
+                var message = Request.CreateResponse(HttpStatusCode.Created, tokenUserObj);
                 return message;
             }
             else

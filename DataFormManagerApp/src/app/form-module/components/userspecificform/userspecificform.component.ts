@@ -9,7 +9,7 @@ import { UserSpecificFormsService} from '../../services/userspecificform.service
   styleUrls: ['./userspecificform.component.scss']
 })
 export class UserspecificformComponent implements OnInit {
-
+  username= localStorage.getItem('Username');
   forms:FormDataModel;
   selectedForm:FormDataModel;
   constructor(private userSpecificFormService:UserSpecificFormsService) { }

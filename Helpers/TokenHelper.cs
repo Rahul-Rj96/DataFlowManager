@@ -125,7 +125,38 @@ namespace Helpers
             }
         }
 
-
+        public static UserObjectModel getUserByAccessToken(string accessToken)
+        {
+            SqlDataReader rdr = null;
+            try
+            {
+                SqlConnectionStringBuilder builder = getConnectionString();
+                using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
+                {
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Connection = connection;
+                    cmd.CommandText = "Proc_UserTokens_GetUserByAccessToken";
+                    cmd.Parameters.Add(new SqlParameter("@AccessToken", accessToken));
+                    rdr = cmd.ExecuteReader();
+                    if (rdr.Read())
+                    {
+                        UserObjectModel userObj = new UserObjectModel((int)rdr["UserId"], (String)rdr["Username"], (String)rdr["EmailId"], (String)rdr["Sub"]);
+                        return userObj;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine("Exception:" + ex.Message);
+                return null;
+            }
+        }
         public static bool IsAccessTokenValid(string accessToken)
         {
             SqlDataReader rdr = null;
