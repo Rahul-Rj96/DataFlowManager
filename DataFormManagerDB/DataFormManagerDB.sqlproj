@@ -91,5 +91,6 @@
     <Build Include="dbo\Stored Procedures\Proc_UserTokens_GetUserByRefreshToken.sql" />
     <Build Include="dbo\Tables\Token.sql" />
     <Build Include="dbo\Tables\UserTokens.sql" />
+    <Build Include="dbo\Stored Procedures\Proc_UserTokens_GetUserByAccessToken.sql" />
   </ItemGroup>
 </Project>

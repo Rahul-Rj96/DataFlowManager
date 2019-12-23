@@ -1,8 +1,8 @@
 <div *ngIf="form">
     <h2>{{form.FormType | uppercase}} Details</h2>
-            <ul class="formdetails">
-                    <li *ngFor ="let formData of form.FormData" >
-                        <span class="badge"> {{formData.Name}} :</span> {{formData.Value}}<br/>
-                    </li>
-                </ul>
+    <ul class="formdetails">
+        <li *ngFor="let formData of form.FormData">
+            <span class="badge"> {{formData.Name}} :</span> {{formData.Value}}<br />
+        </li>
+    </ul>
 </div>

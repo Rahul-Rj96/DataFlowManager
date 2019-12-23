@@ -13,7 +13,7 @@ namespace Helpers
 {
     public class FormHelper
     {
-        public static int AddFormData(FormDataModel formData)
+        public static int AddFormData(FormDataModel formData,int userId)
         {
             int formId = new int();
             string formTypeName = formData.FormType;
@@ -29,6 +29,7 @@ namespace Helpers
                     conn.Open();
                     SqlParameter formDataParam1 = cmd.Parameters.AddWithValue("@FormData", jsonFormData);
                     SqlParameter formDataParam2 = cmd.Parameters.AddWithValue("@FormTypeName", formTypeName);
+                    SqlParameter formDataParam3 = cmd.Parameters.AddWithValue("@CreatedBy", userId);
                     var reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {

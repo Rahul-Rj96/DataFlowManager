@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormTypeModel } from '../../../model/form-type-model';
 import { FormtypeService } from '../../services/formtype.service';
 import { DataValueModel } from '../../../model/data-value-model';
 import { FormDataModel } from '../../../model/form-data-model';
+
+
 
 @Component({
   selector: 'app-formtype',
@@ -11,35 +14,39 @@ import { FormDataModel } from '../../../model/form-data-model';
 })
 export class FormtypeComponent implements OnInit {
   formType: FormTypeModel;
-  itemSet:{[key:string]:string}={};
-  dataValue:Array<DataValueModel>;
-  formData:FormDataModel;
-  id:number;
-  constructor(private formTypeService: FormtypeService) { }
+  itemSet: { [key: string]: string } = {};
+  dataValue: Array<DataValueModel>;
+  formData: FormDataModel;
+  options: Array<string>;
+  formTypeId: string;
+  constructor(private formTypeService: FormtypeService, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    
     this.getFormType();
   }
   getFormType(): void {
-    this.formTypeService.getFormType().subscribe((result) => {
+  this.route
+    .queryParams
+    .subscribe(params => {
+      this.formTypeId = params['id'] || 0;
+    });
+    this.formTypeService.getFormType(this.formTypeId).subscribe((result) => {
       this.formType = result;
-      this.formType.FormFields.forEach((item)=>{
-        this.itemSet[item.Name]=null;
+      this.formType.FormFields.forEach((item) => {
+        this.itemSet[item.Name] = null;
       })
     })
   }
 
-  onSubmit(){
-    
-    this.dataValue=[];
-    this.formType.FormFields.forEach((item)=>{
-      this.dataValue.push(new DataValueModel(item.Name,this.itemSet[item.Name])) 
+  onSubmit() {
+    this.dataValue = [];
+    this.formType.FormFields.forEach((item) => {
+      this.dataValue.push(new DataValueModel(item.Name, this.itemSet[item.Name]))
     })
-    this.formData=new FormDataModel (this.formType.FormType,this.dataValue);
+    this.formData = new FormDataModel(this.formType.FormType, this.dataValue);
     this.formTypeService.postFormData(this.formData);
-    console.log(this.formData);
-    
-
+    window.location.reload();
   }
 
 }

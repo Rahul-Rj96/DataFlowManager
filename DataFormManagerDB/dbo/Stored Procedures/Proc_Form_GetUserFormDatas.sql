@@ -3,5 +3,5 @@
  As
  begin
  select FormData from Form
- where Form.FormId in (select FormId from UserForms where UserForms.UserId=@UserId)
+ where Form.FormId in (select FormId from UserForms where UserForms.UserId=@UserId and IsDeleted=0)
  end

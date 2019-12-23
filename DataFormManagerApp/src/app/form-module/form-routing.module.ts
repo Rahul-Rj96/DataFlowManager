@@ -5,9 +5,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '../auth.guard';
 
 const routes: Routes = [
-  { path: '', component:FormtypeComponent ,canActivate: [AuthGuard]},
   { path: 'form' , component: FormtypeComponent,canActivate: [AuthGuard]},
   { path: 'userspecificform' ,component: UserspecificformComponent,canActivate: [AuthGuard]},
+  { path: '', redirectTo: 'form', pathMatch: 'full' }
 ]
 
 @NgModule({

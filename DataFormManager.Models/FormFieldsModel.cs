@@ -18,5 +18,15 @@ namespace DataFormManager.Models
             get;
             set;
         }
+        public string Id
+        {
+            get;
+            set;
+        }
+        public List<string> Values
+        {
+            get;
+            set;
+        }
     }
 }

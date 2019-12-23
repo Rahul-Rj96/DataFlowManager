@@ -37,12 +37,12 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('userId', tokenObj.UserId.toString());
           localStorage.setItem('Username', tokenObj.Username);
           localStorage.setItem('EmailId', tokenObj.EmailId);
-          this._router.navigate(['/forms/userspecificform']);
+          this._router.navigate(['dashboard']);
         })
     }
 
     if (this._authService.loggedIn()) {
-      this._router.navigate(['/forms/userspecificform'])
+      this._router.navigate(['dashboard'])
     }
     else{
       this._router.navigate(['/login'])
