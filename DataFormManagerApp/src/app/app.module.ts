@@ -12,6 +12,7 @@ import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
 import { CookieService } from 'ngx-cookie-service'
 import { TokenInterceptorService } from './token-interceptor.service';
+import { UserDashboardModule } from './user-dashboard/user-dashboard.module';
 // import { LoginModuleModule } from './login-module/login-module.module';
 // import { FormModule } from './form-module/form.module';
 
@@ -26,6 +27,7 @@ import { TokenInterceptorService } from './token-interceptor.service';
     // FormsModule,
     // FormModule,
     // LoginModuleModule
+    UserDashboardModule
   ],
   providers: [ AuthService, AuthGuard, CookieService,
   {

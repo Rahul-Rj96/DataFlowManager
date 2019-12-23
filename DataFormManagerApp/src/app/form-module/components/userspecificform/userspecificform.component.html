@@ -1,9 +1,13 @@
-
-<h3>Welcome {{username}}</h3>
-<h2>Forms</h2>
+<!-- <<app-sidenav></app-sidenav> -->
+<app-header name={{username}}></app-header>
+<!-- <div class='container'> -->
+        <!-- <div class="row text-center d-flex justify-content-center pt-5 mb-3"> -->
 <ol class="userspecificform">
     <li *ngFor = "let form of forms" [class.selected]="form === selectedForm" (click)="onSelect(form)" >
         <span class="badge"> FormType: {{form.FormType}} </span>
     </li>
 </ol>
 <app-formdetails [form]="selectedForm"></app-formdetails>
+<!-- </div> -->
+<!-- </div> -->
+<app-footer></app-footer>

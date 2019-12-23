@@ -4,6 +4,7 @@ import { LoginComponent } from './login/login.component';
 
 import { LoginModuleRoutingModule } from './login-module-routing.module';
 import { AuthService } from '../auth.service';
+import { UserDashboardModule } from '../user-dashboard/user-dashboard.module';
 
 
 
@@ -17,7 +18,8 @@ import { AuthService } from '../auth.service';
     
     CommonModule,
     LoginModuleRoutingModule,
-    CommonModule
+    CommonModule,
+    UserDashboardModule
   ],
   providers:[AuthService
   ]

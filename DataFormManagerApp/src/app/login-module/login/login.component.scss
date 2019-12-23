@@ -4,8 +4,8 @@
 .google-button {
     height: 40px;
     border-width: 0;
-    background: white;
-    color: #737373;
+    background: rgb(7, 20, 1);
+    color: #d2d42a75;
     border-radius: 5px;
     white-space: nowrap;
     box-shadow: 1px 1px 0px 1px rgba(0,0,0,0.05);
@@ -55,7 +55,7 @@
   }
   
   body {
-    background-color: #f0f0f0;
+    background-color: #1fabc4;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -65,13 +65,12 @@
 
 .wrapper {
     text-align: center;
+    width: 1300px;
+    border: 0px solid;
+    padding: 100px;
+    margin: 100px;
 }
 
-// .button {
-//     position: absolute;
-//     top: 50%;
-    
-// }
 
 .button
 {
@@ -80,3 +79,4 @@
   margin:0 auto;
 
 }
+

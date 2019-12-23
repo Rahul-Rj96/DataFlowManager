@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-// import {HttpClientModule} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 
@@ -11,6 +10,7 @@ import { FormtypeComponent } from './components/formtype/formtype.component';
 import { FormRoutingModule } from './form-routing.module';
 import { FormtypeService } from './services/formtype.service';
 import { UserSpecificFormsService } from './services/userspecificform.service';
+import { UserDashboardModule } from '../user-dashboard/user-dashboard.module';
 
 
 @NgModule({
@@ -20,9 +20,9 @@ import { UserSpecificFormsService } from './services/userspecificform.service';
     FormtypeComponent],
   imports: [
     FormsModule,
-    // HttpClientModule,
     CommonModule,
-    FormRoutingModule
+    FormRoutingModule,
+    UserDashboardModule
   ],
   providers:[FormtypeService,
     UserSpecificFormsService
