@@ -10,15 +10,13 @@ import { AppSettings } from '../../utils/app-settings';
   providedIn: 'root'
 })
 export class FormtypeService {
-
   constructor(private http: HttpClient) { }
-  private formTypeUrl = AppSettings.baseUrl+'formtype/Release';
-  getFormType(): Observable<FormTypeModel> {
-    return this.http.get<FormTypeModel>(this.formTypeUrl)
+  private formTypeUrl = AppSettings.baseUrl+"formtype/";
+  getFormType(id:string): Observable<FormTypeModel> {
+    return this.http.get<FormTypeModel>(this.formTypeUrl+id)
   }
   private formDataUrl= AppSettings.baseUrl+'form/adddata';
   postFormData(formData:FormDataModel){
      this.http.post(this.formDataUrl,formData).subscribe()
-
   }
 }

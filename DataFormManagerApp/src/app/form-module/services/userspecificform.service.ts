@@ -9,11 +9,10 @@ import { AppSettings } from '../../utils/app-settings';
   providedIn: 'root'
 })
 export class UserSpecificFormsService {
-  userId: string = localStorage.getItem('userId')
   constructor(private http:HttpClient) { }
 
   
-  private usfUrl= AppSettings.baseUrl+'userSpecificforms/'+this.userId;
+  private usfUrl= AppSettings.baseUrl+'userSpecificforms/form';
   getForms():Observable<FormDataModel>{
     return this.http.get<FormDataModel>(this.usfUrl)
   }

@@ -6,9 +6,8 @@ import { AuthGuard } from './auth.guard';
 const routes: Routes = [
   {path:'',
   loadChildren:'./login-module/login-module.module#LoginModuleModule',},
-  {path:'forms',
-  loadChildren:'./form-module/form.module#FormModule',}
-
+  {path:'dashboard',
+  loadChildren:'./dashboard/dashboard.module#DashboardModule',}
 
 ];
 
