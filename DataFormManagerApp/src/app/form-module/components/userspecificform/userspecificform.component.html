@@ -1,4 +1,3 @@
-<app-header name={{username}}></app-header>
 <br>
 <ol class="userspecificform">
     <li *ngFor = "let form of forms" [class.selected]="form === selectedForm" (click)="onSelect(form)" >
@@ -8,4 +7,3 @@
 <a [routerLink]="['../form']" [queryParams]="{ id: formName }"><button id=formName>+ {{formName}}</button></a>&nbsp;
 
 <app-formdetails [form]="selectedForm"></app-formdetails>
-<app-footer></app-footer>
