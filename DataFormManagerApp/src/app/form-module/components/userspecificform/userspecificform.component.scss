@@ -1,3 +1,18 @@
+button {
+  background-color: #587f8f;
+  border: slategrey;
+  color: white;
+  padding: 2px 5px 4px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  height: 1.7em;
+  margin-left: 25px;
+  border-radius: 4px 4px 4px 4px;
+  margin-bottom: 10px;
+  
+}
 .userspecificform {
     margin: 0 0 2em 0;
     list-style-type: unit($number: 100);

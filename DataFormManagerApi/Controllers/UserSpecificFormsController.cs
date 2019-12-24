@@ -15,14 +15,14 @@ namespace DataFormManagerApi.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class GetUserFormListController : ApiController
     {
-        [HttpGet, Route("form")]
-        public HttpResponseMessage GetUserFormDatasApi()
+        [HttpGet, Route("{formName}")]
+        public HttpResponseMessage GetUserFormDatasApi(string formName)
         {
             string accessToken = Request.Headers.Authorization.Parameter;
             UserObjectModel userObj = TokenHelper.getUserByAccessToken(accessToken);
             if (userObj != null)
             {
-                List<FormDataModel> dataList = UserSpecificFormsHelper.GetUserFormDataList(userObj.UserId);
+                List<FormDataModel> dataList = UserSpecificFormsHelper.GetUserFormDataList(userObj.UserId,formName);
                 var message = Request.CreateResponse(HttpStatusCode.OK, dataList);
                 return message;
             }

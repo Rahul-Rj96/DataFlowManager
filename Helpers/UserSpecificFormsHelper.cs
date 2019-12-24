@@ -14,7 +14,7 @@ namespace Helpers
    public class UserSpecificFormsHelper
     {
 
-        public static List<FormDataModel> GetUserFormDataList(int userId)
+        public static List<FormDataModel> GetUserFormDataList(int userId,string formTypename)
         {
             List<FormDataModel> formDatas = new List<FormDataModel>();
             string dataString = null;
@@ -27,8 +27,10 @@ namespace Helpers
                     SqlCommand cmd = new SqlCommand(spGetUserFormDatas, conn);
                     conn.Open();
                     cmd.CommandType = CommandType.StoredProcedure;
-                    SqlParameter param = cmd.Parameters.Add("@UserId", SqlDbType.Int);
-                    param.Value = userId;
+                    SqlParameter param1 = cmd.Parameters.Add("@UserId", SqlDbType.Int);
+                    param1.Value = userId;
+                    SqlParameter param2 = cmd.Parameters.Add("@FormTypeName", SqlDbType.VarChar);
+                    param2.Value = formTypename;
                     SqlDataReader dr = cmd.ExecuteReader();
                     while (dr.HasRows && dr.Read())
                     {
