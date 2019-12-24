@@ -50,6 +50,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TokenObjectModel.cs" />
     <Compile Include="UserFormObjectModel.cs" />
+    <Compile Include="UserFormPermissionObjectModel.cs" />
     <Compile Include="UserObjectModel.cs" />
     <Compile Include="UserTokensObjectModel.cs" />
   </ItemGroup>

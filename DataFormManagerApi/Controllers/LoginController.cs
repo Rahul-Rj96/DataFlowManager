@@ -89,7 +89,7 @@ namespace dataFormManagerApi.Controllers
         public HttpResponseMessage getAccessTokenByRefreshToken([FromBody]RefreshTokenObject refreshTokenObj)
         {
             UserObjectModel userObj = TokenHelper.getUserByRefreshToken(refreshTokenObj.RefreshToken);
-            TokenObjectModel tokenObj = TokenHelper.createToken();
+            TokenObjectModel tokenObj = TokenHelper.createToken(userObj);
             tokenObj = TokenHelper.getTokenByAuthorizationCode(tokenObj.AuthorizationCode);
             if (userObj!=null || tokenObj!=null)
             {

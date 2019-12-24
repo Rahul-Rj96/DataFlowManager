@@ -62,7 +62,7 @@ namespace Helpers
                 {
                     userObj = UserHelper.getUserBySubKey(userObj.Sub);
                     CreateUserSession(userObj);
-                    tokenObj = TokenHelper.createToken();
+                    tokenObj = TokenHelper.createToken(userObj);
                     tokenObj = TokenHelper.getTokenByAuthorizationCode(tokenObj.AuthorizationCode);
                     UserTokensObjectModel userTokenObj = new UserTokensObjectModel(userObj.UserId, tokenObj.TokenId);
                     bool success = UserTokensHelper.MapUserToken(userTokenObj);
