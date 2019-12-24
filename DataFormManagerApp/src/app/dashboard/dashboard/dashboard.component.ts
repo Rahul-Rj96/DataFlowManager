@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormtypeService } from 'src/app/form-module/services/formtype.service';
 
 
 @Component({
@@ -10,7 +9,7 @@ import { FormtypeService } from 'src/app/form-module/services/formtype.service';
 export class DashboardComponent implements OnInit {
 
   username= localStorage.getItem('Username');
-  constructor(private formTypeService: FormtypeService) { }
+  constructor() { }
 
   ngOnInit() {
   }

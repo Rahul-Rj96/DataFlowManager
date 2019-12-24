@@ -22,28 +22,28 @@ export class FormtypeComponent implements OnInit {
   constructor(private formTypeService: FormtypeService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    
+
     this.getFormType();
   }
   getFormType(): void {
-  this.route
-    .queryParams
-    .subscribe(params => {
-      this.formTypeId = params['id'] || 0;
-    });
+    this.route
+      .queryParams
+      .subscribe(params => {
+        this.formTypeId = params.id || 0;
+      });
     this.formTypeService.getFormType(this.formTypeId).subscribe((result) => {
       this.formType = result;
       this.formType.FormFields.forEach((item) => {
         this.itemSet[item.Name] = null;
-      })
-    })
+      });
+    });
   }
 
   onSubmit() {
     this.dataValue = [];
     this.formType.FormFields.forEach((item) => {
-      this.dataValue.push(new DataValueModel(item.Name, this.itemSet[item.Name]))
-    })
+      this.dataValue.push(new DataValueModel(item.Name, this.itemSet[item.Name]));
+    });
     this.formData = new FormDataModel(this.formType.FormType, this.dataValue);
     this.formTypeService.postFormData(this.formData);
     window.location.reload();

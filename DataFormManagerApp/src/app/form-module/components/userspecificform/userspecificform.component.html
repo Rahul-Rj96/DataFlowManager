@@ -1,13 +1,11 @@
-<!-- <<app-sidenav></app-sidenav> -->
 <app-header name={{username}}></app-header>
-<!-- <div class='container'> -->
-        <!-- <div class="row text-center d-flex justify-content-center pt-5 mb-3"> -->
+<br>
 <ol class="userspecificform">
     <li *ngFor = "let form of forms" [class.selected]="form === selectedForm" (click)="onSelect(form)" >
         <span class="badge"> FormType: {{form.FormType}} </span>
     </li>
 </ol>
+<a [routerLink]="['../form']" [queryParams]="{ id: formName }"><button id=formName>+ {{formName}}</button></a>&nbsp;
+
 <app-formdetails [form]="selectedForm"></app-formdetails>
-<!-- </div> -->
-<!-- </div> -->
 <app-footer></app-footer>

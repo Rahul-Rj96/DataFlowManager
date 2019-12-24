@@ -8,6 +8,8 @@ import { Component, OnInit ,Input} from '@angular/core';
 export class HeaderComponent implements OnInit {
 
   @Input() name: string;
+  @Input() button1: string;
+  @Input() button2: string;
   constructor() { }
 
   ngOnInit() {
