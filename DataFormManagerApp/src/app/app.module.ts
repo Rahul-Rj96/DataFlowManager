@@ -18,8 +18,7 @@ import { UserDashboardModule } from './user-dashboard/user-dashboard.module';
 
 @NgModule({
   declarations: [
-    AppComponent
-  ],
+    AppComponent  ],
   imports: [
     HttpClientModule,
     BrowserModule,
