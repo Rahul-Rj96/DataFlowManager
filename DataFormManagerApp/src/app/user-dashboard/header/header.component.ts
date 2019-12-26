@@ -1,5 +1,5 @@
-import { Component, OnInit ,Input} from '@angular/core';
-import {Router} from "@angular/router"
+import { Component, OnInit , Input} from '@angular/core';
+import {Router} from '@angular/router';
 import { AuthService } from 'src/app/auth.service';
 
 @Component({
@@ -19,10 +19,10 @@ export class HeaderComponent implements OnInit {
     console.log(this.isLoggedIn)
   }
 
-  Logout(){
+  Logout() {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
-    this._router.navigate(['/login'])
+    this._router.navigate(['/login']);
   }
   
   isUserLoggedIn(){

@@ -16,5 +16,5 @@
         </ul>
     </form>
 </div>
-<button (click)="onSubmit()"> Submit</button>
+<button (click)="onSubmit()" *ngIf="isEnabled()"> Submit</button>
 <!-- <app-footer></app-footer> -->

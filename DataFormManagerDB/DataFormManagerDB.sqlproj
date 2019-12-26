@@ -77,7 +77,7 @@
     <Build Include="dbo\Stored Procedures\Proc_Form_GetUserFormDatas.sql" />
     <Build Include="dbo\Stored Procedures\Proc_RCKRUser_IsUserExist.sql" />
     <Build Include="dbo\Stored Procedures\Proc_RCKRUser_GetUserBySubKey.sql" />
-    <Build Include="dbo\Stored Procedures\Proc_Form_AddFormData.sql" />
+    <Build Include="dbo\Stored Procedures\Proc_Form_AddForm.sql" />
     <Build Include="dbo\Stored Procedures\Proc_FormType_GetFormFields.sql" />
     <Build Include="dbo\Stored Procedures\Proc_Token_CreateToken.sql" />
     <Build Include="dbo\Stored Procedures\Proc_Token_DeleteToken.sql" />
@@ -93,5 +93,6 @@
     <Build Include="dbo\Stored Procedures\Proc_UserTokens_GetUserByAccessToken.sql" />
     <Build Include="dbo\Tables\FormTypePermissions.sql" />
     <Build Include="dbo\Stored Procedures\Proc_UserRoleFormTypePermissions_GetUserRoleFormTypePermissionByUserId.sql" />
+    <Build Include="dbo\Stored Procedures\Proc_Form_AddFormDataWithId.sql" />
   </ItemGroup>
 </Project>

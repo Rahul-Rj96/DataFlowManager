@@ -1,7 +1,8 @@
 <br>
+<h2>{{formName | uppercase}} FORM</h2>
 <ol class="userspecificform">
     <li *ngFor = "let form of forms" [class.selected]="form === selectedForm" (click)="onSelect(form)" >
-        <span class="badge"> FormType: {{form.FormType}} </span>
+        <span class="badge"> Form Id: {{form.FormId}} </span>
     </li>
 </ol>
 <a [routerLink]="['../form']" [queryParams]="{ id: formName }"><button id=formName>+ {{formName}}</button></a>&nbsp;

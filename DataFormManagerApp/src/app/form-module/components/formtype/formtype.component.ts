@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormTypeModel } from '../../../model/form-type-model';
 import { FormtypeService } from '../../services/formtype.service';
+import { UserSpecificFormsService } from '../../services/userspecificform.service';
 import { DataValueModel } from '../../../model/data-value-model';
 import { FormDataModel } from '../../../model/form-data-model';
 
@@ -14,30 +15,64 @@ import { FormDataModel } from '../../../model/form-data-model';
 })
 export class FormtypeComponent implements OnInit {
   formType: FormTypeModel;
+  form: FormDataModel;
   itemSet: { [key: string]: string } = {};
   dataValue: Array<DataValueModel>;
   formData: FormDataModel;
   options: Array<string>;
   formTypeId: string;
-  constructor(private formTypeService: FormtypeService, private route: ActivatedRoute) { }
+  FormId: number;
+  submit: boolean;
+  // tslint:disable-next-line: max-line-length
+  constructor(private formTypeService: FormtypeService, private userSpecificFormService: UserSpecificFormsService, private route: ActivatedRoute) { }
 
   ngOnInit() {
 
     this.getFormType();
   }
+
   getFormType(): void {
     this.route
       .queryParams
       .subscribe(params => {
         this.formTypeId = params.id || 0;
+        this.FormId = params.formId || 0;
+
       });
-    this.formTypeService.getFormType(this.formTypeId).subscribe((result) => {
-      this.formType = result;
-      this.formType.FormFields.forEach((item) => {
+    if (this.FormId == 0) {
+
+      this.formTypeService.getFormType(this.formTypeId).subscribe((result) => {
+        this.formType = result;
+
+
+        this.formType.FormFields.forEach((item) => {
         this.itemSet[item.Name] = null;
       });
+        this.submit = true;
     });
+    } else {
+      this.formTypeService.getFormType(this.formTypeId).subscribe((result) => {
+        this.formType = result;
+      });
+      this.userSpecificFormService.getForms(this.formTypeId).subscribe((result) => {
+        result.forEach((item) => {
+          if (item.FormId == this.FormId) {
+            this.form = item;
+          }
+        });
+        this.form.FormData.forEach((item) => {
+          this.itemSet[item.Name] = item.Value;
+        });
+      }
+      );
+      this.submit = false;
+    }
   }
+
+  isEnabled() {
+    return this.submit;
+  }
+
 
   onSubmit() {
     this.dataValue = [];
