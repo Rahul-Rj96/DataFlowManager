@@ -1,4 +1,4 @@
-<div id="sidebar-main" class="sidebar sidebar-default sidebar-separate sidebar-fixed">
+<div id="sidebar-main" class="sidebar sidebar-default sidebar-separate sidebar-fixed" *ngIf="isUserLoggedIn();else googleLogin">
 	<div class="sidebar-content">
 		<div class="sidebar-category sidebar-default">
 			<div class="sidebar-user">
@@ -15,42 +15,46 @@
 				</div>
 			<div class="category-content">
 				<ul id="fruits-nav" class="nav flex-column">
+					
 					<li class="nav-item">
-						<a href="#" class="nav-link">
+						<a href="#Release_actions" class="nav-link" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="other-fruits">
 							<i class="fa fa-pencil" aria-hidden="true"></i>
 							Release
 						</a>
-					</li>
-					<li class="nav-item">
-						<a href="#" class="nav-link">
-							<i class="fa fa-pencil" aria-hidden="true"></i>
-							Leave
-						</a>
-					</li>
-					<li class="nav-item">
-						<a href="#" class="nav-link active">
-							<i class="fa fa-pencil" aria-hidden="true"></i>
-							Bill
-						</a>
-					</li>
-					<li class="nav-item">
-						<a href="#other-fruits" class="nav-link" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="other-fruits">
-							<i class="fa fa-pencil" aria-hidden="true"></i>
-							Others
-						</a>
-						<ul id="other-fruits" class="flex-column collapse">
-							<li class="nav-item">
-								<a href="#" class="nav-link">
+						<ul id="Release_actions" class="flex-column collapse">
+							<li class="nav-item"  *ngIf="getPermission('Release','FullAccess')">
+								<a href="dashboard/forms/form?id=Release" class="nav-link">
 									<i class="fa fa-pencil" aria-hidden="true"></i>
-									Leave
+									Add
 								</a>
 							</li>
 							<li class="nav-item ">
-								<a href="#" class="nav-link">
+								<a href="dashboard/forms/userspecificform?id=Release" class="nav-link">
 									<i class="fa fa-pencil" aria-hidden="true"></i>
-									Bill
+									View
 								</a>
 							</li>
+
+						</ul>
+
+							<li class="nav-item">
+								<a href="#Leave_actions" class="nav-link" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="other-fruits">
+									<i class="fa fa-pencil" aria-hidden="true"></i>
+									Leave
+								</a>
+								<ul id="Leave_actions" class="flex-column collapse">
+									<li class="nav-item">
+										<a href="dashboard/forms/form?id=Leave" class="nav-link">
+											<i class="fa fa-pencil" aria-hidden="true"></i>
+											Add
+										</a>
+									</li>
+									<li class="nav-item ">
+										<a href="dashboard/forms/userspecificform?id=Leave" class="nav-link">
+											<i class="fa fa-pencil" aria-hidden="true"></i>
+											View
+										</a>
+									</li>
 						</ul>
 						<!-- /Sub Nav -->
 					</li>
@@ -93,6 +97,8 @@
 		<!-- /Sidebar Category -->
 	</div>
 </div>
+
+
 <!-- /main sidebar -->
 <div class="content-wrapper">
 	<div class="row clearfix">
@@ -101,3 +107,10 @@
     </div> 
 	</div> 
 </div> 
+
+<ng-template #googleLogin>
+	
+      <router-outlet></router-outlet>
+
+</ng-template>
+

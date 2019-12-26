@@ -144,12 +144,14 @@ namespace Helpers
             claimsIdentity.AddClaim(new Claim(ClaimTypes.Email, user.EmailId));
             claimsIdentity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()));
             claimsIdentity.AddClaim(new Claim(ClaimTypes.Name, user.Username));
-            claimsIdentity.AddClaim(new Claim(ClaimTypes.UserData, JsonConvert.SerializeObject(userData)));
+            //claimsIdentity.AddClaim(new Claim(ClaimTypes.UserData, JsonConvert.SerializeObject(userData)));
 
             //var roles = Enumerable.Empty<Role>(); // Not a real list.
+            //foreach (var data in userData)
+            //{ claimsIdentity.AddClaim(new Claim(ClaimTypes.UserData, JsonConvert.SerializeObject(data))); }
 
-            //foreach (var role in roles)
-            //{ claimsIdentity.AddClaim(new Claim(ClaimTypes.Role, role.RoleName)); }
+            foreach (var data in userData)
+            { claimsIdentity.AddClaim(new Claim(ClaimTypes.Role, JsonConvert.SerializeObject(data))); }
 
             return Task.FromResult(claimsIdentity);
         }

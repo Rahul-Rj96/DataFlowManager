@@ -10,10 +10,13 @@ import { AuthService } from 'src/app/auth.service';
 export class HeaderComponent implements OnInit {
 
   name= localStorage.getItem('Username');
+  isLoggedIn: boolean;
 
-  constructor(private _router: Router) { }
+  constructor(private _router: Router, private _authService: AuthService) { }
 
   ngOnInit() {
+    this.isLoggedIn = this._authService.loggedIn();
+    console.log(this.isLoggedIn)
   }
 
   Logout(){
@@ -22,6 +25,9 @@ export class HeaderComponent implements OnInit {
     this._router.navigate(['/login'])
   }
   
+  isUserLoggedIn(){
+    return this._authService.loggedIn();
+  }
 
 
 }
