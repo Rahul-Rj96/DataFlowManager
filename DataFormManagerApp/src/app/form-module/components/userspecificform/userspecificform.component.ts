@@ -11,7 +11,7 @@ import { UserSpecificFormsService } from '../../services/userspecificform.servic
 })
 export class UserspecificformComponent implements OnInit {
   username = localStorage.getItem('Username');
-  forms: FormDataModel;
+  forms: Array<FormDataModel>;
   selectedForm: FormDataModel;
   formName: string;
   constructor(private userSpecificFormService: UserSpecificFormsService, private route: ActivatedRoute) { }
@@ -25,11 +25,12 @@ export class UserspecificformComponent implements OnInit {
       .subscribe(params => {
         this.formName = params.id || 0;
       });
-    this.userSpecificFormService.getForms(this.formName).subscribe((result) => {
-      this.forms = result;
+    this.userSpecificFormService.getForms(this.formName)
+      .subscribe((result) => {
+        this.forms = result;
 
-    }
-    );
+      }
+      );
   }
 
   onSelect(form: FormDataModel): void {

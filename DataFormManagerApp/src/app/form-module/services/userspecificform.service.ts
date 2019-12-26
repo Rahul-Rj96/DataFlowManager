@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {FormDataModel} from '../../model/form-data-model';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable, of} from 'rxjs';
+import { FormDataModel } from '../../model/form-data-model';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
 import { AppSettings } from '../../utils/app-settings';
 
 
@@ -13,8 +13,8 @@ export class UserSpecificFormsService {
 
 
   private usfUrl = AppSettings.baseUrl + 'userSpecificforms/';
-  getForms(formName: string): Observable<FormDataModel> {
-    return this.http.get<FormDataModel>(this.usfUrl + formName);
+  getForms(formName: string): Observable<Array<FormDataModel>> {
+    return this.http.get<Array<FormDataModel>>(this.usfUrl + formName);
   }
 
 

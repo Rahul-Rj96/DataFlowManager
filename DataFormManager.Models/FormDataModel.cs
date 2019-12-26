@@ -8,6 +8,11 @@ namespace DataFormManager.Models
 {
     public class FormDataModel
     {
+        public int? FormId
+        {
+            get;
+            set;
+        }
         public string FormType
         {
             get;

@@ -17,8 +17,8 @@ namespace DataFormManagerApi.Controllers
         {
             string accessToken = Request.Headers.Authorization.Parameter;
             UserObjectModel userObj = TokenHelper.getUserByAccessToken(accessToken);
-            int formId = FormHelper.AddFormData(formData,userObj.UserId);
-            var message = Request.CreateResponse(HttpStatusCode.OK, formId);
+            FormHelper.AddFormData(formData,userObj.UserId);
+            var message = Request.CreateResponse(HttpStatusCode.OK);
             return message;
         }
     }
