@@ -4,10 +4,17 @@ import { HttpClient } from '@angular/common/http';
 import {Observable} from 'rxjs';
 import { Token, CodeObject ,RefreshTokenObject} from './model/token';
 import { AppSettings } from './utils/app-settings';
+import { JwtHelperService } from "@auth0/angular-jwt";
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  permissionValueObj = {
+    'Read':1,
+    'Write':2,
+    'FullAccess':3
+  }
   constructor(private http:HttpClient) { }
 
   loggedIn(){ 
@@ -32,5 +39,52 @@ export class AuthService {
   }
   getRefreshTokenFromLocalStorage(){
     return localStorage.getItem('refreshToken')
+  }
+
+  getRole(){
+    var token = localStorage.getItem('accessToken') ;
+    const helper = new JwtHelperService();   
+    const decodedToken = helper.decodeToken(token);
+   
+    for ( var formPermission of decodedToken.role){
+      var jsonObj = JSON.parse(formPermission)
+      if (jsonObj.RoleName){
+        return jsonObj.RoleName
+      }
+      else{
+        return "No role is assigned"
+      }   
+    }
+   
+  }
+
+  getPermission(formname: string, permission: string){
+    var token = localStorage.getItem('accessToken') ;
+    const helper = new JwtHelperService();   
+    const decodedToken = helper.decodeToken(token);
+    const expirationDate = helper.getTokenExpirationDate(token);
+    const isExpired = helper.isTokenExpired(token);
+    for ( var formPermission of decodedToken.role){
+      var jsonObj = JSON.parse(formPermission)
+      if (jsonObj.FormName == formname){
+          var permissionValue = this.getPermissionValue(jsonObj.Permission);
+      }      
+    }
+    if (permissionValue >= this.permissionValueObj[permission]){
+      return true
+    }
+    else{
+      return false;
+    }  
+  }
+
+  getPermissionValue(permission:string){
+    var totalPermissionValue =0;
+      for (let key in this.permissionValueObj){
+        if (key==permission){
+          totalPermissionValue+= this.permissionValueObj[key]
+        }
+      }
+      return totalPermissionValue;
   }
 }

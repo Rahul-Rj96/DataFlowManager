@@ -10,10 +10,11 @@ import { JwtHelperService } from "@auth0/angular-jwt";
 })
 export class SidenavComponent implements OnInit {
   name= localStorage.getItem('Username');
-
+  role="";
   constructor(private _authService: AuthService) { }
 
   ngOnInit() {
+    this.role = this._authService.getRole();
   }
 
 
@@ -21,50 +22,4 @@ export class SidenavComponent implements OnInit {
     return this._authService.loggedIn();
   }
 
-  getPermission(formname: string, permission: string){
-    var token = localStorage.getItem('accessToken') ;
-
-    const helper = new JwtHelperService();
-    
-    const decodedToken = helper.decodeToken(token);
-    const expirationDate = helper.getTokenExpirationDate(token);
-    const isExpired = helper.isTokenExpired(token);
-    for ( var formPermission of decodedToken.role){
-      var jsonObj = JSON.parse(formPermission)
-      if (jsonObj.FormName == formname){
-          var permissionValue = this.getPermissionValue(jsonObj.Permission);
-
-      }      
-    }
-    var permissionValueObj = {
-      'Read':1,
-      'Write':2,
-      'FullAccess':3
-    }
-    if (permissionValue >= permissionValueObj[permission]){
-      return true
-    }
-    else{
-      console.log(permissionValueObj[permission])
-
-      return false;
-
-    }
-    
-  }
-
-  getPermissionValue(permission:string){
-    var permissionValueObj = {
-      'Read':1,
-      'Write':2,
-      'FullAccess':3
-    }
-    var totalPermissionValue =0;
-      for (let key in permissionValueObj){
-        if (key==permission){
-          totalPermissionValue+= permissionValueObj[key]
-        }
-      }
-      return totalPermissionValue;
-  }
 }

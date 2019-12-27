@@ -1,6 +1,6 @@
 // Bootstrap 4 variables
-$body-color: #333;
-$gray-300: #dee2e6;
+$body-color: rgb(42, 92, 150);
+$gray-300: #b7df96;
 $font-size-base: 1rem;
 $font-size-sm: ($font-size-base * 0.875);
 $border-radius: 0.25rem;
@@ -190,5 +190,7 @@ body {
 	}
 	.content-wrapper {
 		display: table-cell;
+  		padding: 50px;
+ 		margin: 20px;
 	}
 }
