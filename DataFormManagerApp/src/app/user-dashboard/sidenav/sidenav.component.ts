@@ -18,7 +18,7 @@ export class SidenavComponent implements OnInit {
   }
 
 
-  isUserLoggedIn(){
+  isUserLoggedIn() {
     return this._authService.loggedIn();
   }
 
