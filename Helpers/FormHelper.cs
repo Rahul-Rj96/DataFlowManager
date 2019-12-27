@@ -16,6 +16,7 @@ namespace Helpers
         public static void AddFormData(FormDataModel formData,int userId)
         {
             int formId = new int();
+            int isSelfAssigned = new int();
             string formTypeName = formData.FormType;
             string connString = ConfigurationManager.ConnectionStrings["ReleaseFlowDBConnectionString"].ConnectionString;
             try
@@ -36,6 +37,11 @@ namespace Helpers
                     {
                         formId = Convert.ToInt32(reader1["FormID"]);
                     }
+                    reader1.NextResult();
+                    while (reader1.Read())
+                    {
+                        isSelfAssigned = Convert.ToInt32(reader1["IsSelfAssigned"]);
+                    }
                     reader1.Close();
                     formData.FormId = formId;
                     string jsonFormData = JsonConvert.SerializeObject(formData);
@@ -43,7 +49,14 @@ namespace Helpers
                     SqlParameter formDataParam4 = cmd2.Parameters.AddWithValue("@FormId", formId);
                     var reader2 = cmd2.ExecuteNonQuery();
                     conn.Close();
+                    if (isSelfAssigned == 1)
+                    {
+                        UserFormObjectModel userFormsData = new UserFormObjectModel() {
+                            FormId = formId,
+                            UserId = userId};
+                        UserFormsHelper.AddUserFormsData(userFormsData);
 
+                    }
 
                 }
             }
