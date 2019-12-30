@@ -1,0 +1,197 @@
+<div id="sidebar-main" class="sidebar sidebar-default sidebar-separate sidebar-fixed"
+	*ngIf="isUserLoggedIn();else googleLogin">
+	<div class="sidebar-content">
+		<div class="sidebar-category sidebar-default">
+			<div class="sidebar-user">
+				<div class="category-content">
+					<h6>{{name}}</h6>
+					<small>{{role}}</small>
+				</div>
+			</div>
+		</div>
+
+		<div class="sidebar-category sidebar-default">
+			<div class="category-title">
+				<span>Forms</span>
+			</div>
+			<div class="category-content">
+				<ul id="fruits-nav" class="nav flex-column">
+
+					<li class="nav-item">
+						<a href="#Release_actions" class="nav-link" data-toggle="collapse" role="button"
+							aria-expanded="false" aria-controls="other-fruits">
+							<i class="fa fa-pencil" aria-hidden="true"></i>
+							Release
+						</a>
+						<ul id="Release_actions" class="flex-column collapse">
+							<li class="nav-item" *ngIf="this.authService.getPermission('Release','FullAccess')">
+								<a href="dashboard/forms/form?id=Release" class="nav-link">
+									<i class="fa fa-pencil" aria-hidden="true"></i>
+									Add
+								</a>
+							</li>
+							<li class="nav-item ">
+								<a href="dashboard/forms/userspecificform?id=Release" class="nav-link">
+									<i class="fa fa-pencil" aria-hidden="true"></i>
+									View
+								</a>
+							</li>
+
+						</ul>
+
+					<li class="nav-item">
+						<a href="#Leave_actions" class="nav-link" data-toggle="collapse" role="button"
+							aria-expanded="false" aria-controls="other-fruits">
+							<i class="fa fa-pencil" aria-hidden="true"></i>
+							Leave
+						</a>
+						<ul id="Leave_actions" class="flex-column collapse">
+							<li class="nav-item">
+								<a href="dashboard/forms/form?id=Leave" class="nav-link">
+									<i class="fa fa-pencil" aria-hidden="true"></i>
+									Add
+								</a>
+							</li>
+							<li class="nav-item ">
+								<a href="dashboard/forms/userspecificform?id=Leave" class="nav-link">
+									<i class="fa fa-pencil" aria-hidden="true"></i>
+									View
+								</a>
+							</li>
+						</ul>
+
+					</li>
+				</ul>
+
+			</div>
+
+		</div>
+
+
+		<div class="sidebar-category sidebar-default" *ngIf="this.authService.getPermission('Release','FullAccess')">
+			<div class="category-title">
+				<span>Manage Users</span>
+			</div>
+			<div class="category-content">
+				<ul id="fruits-nav" class="nav flex-column">
+
+					<li class="nav-item">
+						<a href="#User_actions" class="nav-link" data-toggle="collapse" role="button"
+							aria-expanded="false" aria-controls="other-fruits">
+							<i class="fa fa-pencil" aria-hidden="true"></i>
+							User
+						</a>
+						<ul id="User_actions" class="flex-column collapse">
+							<li class="nav-item">
+								<a href="#" class="nav-link">
+									<i class="fa fa-pencil" aria-hidden="true"></i>
+									Assign Role to User
+								</a>
+							</li>
+							<li class="nav-item ">
+								<a href="#" class="nav-link">
+									<i class="fa fa-pencil" aria-hidden="true"></i>
+									Delete User
+								</a>
+							</li>
+
+						</ul>
+
+					<li class="nav-item">
+						<a href="#Role_actions" class="nav-link" data-toggle="collapse" role="button"
+							aria-expanded="false" aria-controls="other-fruits">
+							<i class="fa fa-pencil" aria-hidden="true"></i>
+							Role
+						</a>
+						<ul id="Role_actions" class="flex-column collapse">
+							<li class="nav-item">
+								<a href="#" class="nav-link">
+									<i class="fa fa-pencil" aria-hidden="true"></i>
+									Add Role
+								</a>
+							</li>
+							<li class="nav-item ">
+								<a href="#" class="nav-link">
+									<i class="fa fa-pencil" aria-hidden="true"></i>
+									Assign Role to Form
+								</a>
+							</li>
+						</ul>
+
+					</li>
+					<li class="nav-item">
+						<a href="#Permission_actions" class="nav-link" data-toggle="collapse" role="button"
+							aria-expanded="false" aria-controls="other-fruits">
+							<i class="fa fa-pencil" aria-hidden="true"></i>
+							Permission
+						</a>
+						<ul id="Permission_actions" class="flex-column collapse">
+							<li class="nav-item">
+								<a href="#" class="nav-link">
+									<i class="fa fa-pencil" aria-hidden="true"></i>
+									Add Permission
+								</a>
+							</li>
+							<li class="nav-item ">
+								<a href="#" class="nav-link">
+									<i class="fa fa-pencil" aria-hidden="true"></i>
+									Delete Permission
+								</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+
+
+		<div class="sidebar-category sidebar-default">
+			<div class="category-title">
+				<span>Settings</span>
+			</div>
+			<div class="category-content">
+				<ul id="sidebar-editable-nav" class="nav flex-column">
+					<li class="nav-item">
+						<a href="/" class="nav-link">
+							<i class="fa fa-pencil" aria-hidden="true"></i>
+							Dashboard
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="/profile" class="nav-link">
+							<i class="fa fa-pencil" aria-hidden="true"></i>
+							Profile
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="/" class="nav-link">
+							<i class="fa fa-pencil" aria-hidden="true"></i>
+							Logout
+						</a>
+					</li>
+
+				</ul>
+
+			</div>
+
+		</div>
+
+	</div>
+</div>
+
+
+
+<div class="content-wrapper">
+	<div class="row clearfix">
+		<div class="col-xs-12">
+			<router-outlet></router-outlet>
+		</div>
+	</div>
+</div>
+
+<ng-template #googleLogin>
+
+	<router-outlet></router-outlet>
+
+</ng-template>

@@ -10,7 +10,7 @@ import { FormtypeComponent } from './components/formtype/formtype.component';
 import { FormRoutingModule } from './form-routing.module';
 import { FormtypeService } from './services/formtype.service';
 import { UserSpecificFormsService } from './services/userspecificform.service';
-import { UserDashboardModule } from '../user-dashboard/user-dashboard.module';
+import { CommonComponentModule } from '../common-components/common.module';
 
 
 @NgModule({
@@ -22,10 +22,10 @@ import { UserDashboardModule } from '../user-dashboard/user-dashboard.module';
     FormsModule,
     CommonModule,
     FormRoutingModule,
-    UserDashboardModule
+    CommonComponentModule
   ],
-  providers:[FormtypeService,
+  providers: [FormtypeService,
     UserSpecificFormsService
   ]
-}) 
+})
 export class FormModule { }

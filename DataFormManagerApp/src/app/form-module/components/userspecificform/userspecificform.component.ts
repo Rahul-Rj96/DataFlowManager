@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormDataModel } from '../../../model/form-data-model';
+import { FormDataModel } from '../../models/form-data-model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserSpecificFormsService } from '../../services/userspecificform.service';
 
@@ -23,7 +23,7 @@ export class UserspecificformComponent implements OnInit {
     this.route
       .queryParams
       .subscribe(params => {
-        this.formName = params.id || 0;
+        this.formName = params.id || null;
       });
     this.userSpecificFormService.getForms(this.formName)
       .subscribe((result) => {

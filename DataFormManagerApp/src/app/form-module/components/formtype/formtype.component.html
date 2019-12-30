@@ -1,15 +1,14 @@
-<!-- <app-header></app-header> -->
 <div *ngIf="formType">
     <form>
         <h2>{{formType.FormType}}</h2>
         <ul class="FormFields">
-            <li *ngFor="let formField of formType.FormFields" >
+            <li *ngFor="let formField of formType.FormFields">
                 <span class="badge">{{formField.Name}} </span>
                 <input required *ngIf="formField.Type !== 'select' " type={{formField.Type}} id={{formField.Id}}
-                    [(ngModel)]="itemSet[formField.Name]" [ngModelOptions]="{standalone: true}" >
+                    [(ngModel)]="itemSet[formField.Name]" [ngModelOptions]="{standalone: true}">
 
                 <select *ngIf="formField.Type == 'select' " [(ngModel)]="itemSet[formField.Name]"
-                    [ngModelOptions]="{standalone: true}" >
+                    [ngModelOptions]="{standalone: true}">
                     <option *ngFor="let item of formField.Values" value={{item}}>{{item}}</option>
                 </select>
             </li>
@@ -18,4 +17,3 @@
 </div>
 <button (click)="onSubmit()" *ngIf="isEnabled()"> Submit</button>
 <button (click)="onSave()" *ngIf="isEnabled()==false">Save</button>
-<!-- <app-footer></app-footer> -->

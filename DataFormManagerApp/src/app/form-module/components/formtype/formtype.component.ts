@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormTypeModel } from '../../../model/form-type-model';
+import { FormTypeModel } from '../../models/form-type-model';
 import { FormtypeService } from '../../services/formtype.service';
 import { UserSpecificFormsService } from '../../services/userspecificform.service';
-import { DataValueModel } from '../../../model/data-value-model';
-import { FormDataModel } from '../../../model/form-data-model';
+import { DataValueModel } from '../../models/data-value-model';
+import { FormDataModel } from '../../models/form-data-model';
 
 
 
@@ -46,10 +46,10 @@ export class FormtypeComponent implements OnInit {
 
 
         this.formType.FormFields.forEach((item) => {
-        this.itemSet[item.Name] = null;
-      });
+          this.itemSet[item.Name] = null;
+        });
         this.submit = true;
-    });
+      });
     } else {
       this.formTypeService.getFormType(this.formTypeId).subscribe((result) => {
         this.formType = result;

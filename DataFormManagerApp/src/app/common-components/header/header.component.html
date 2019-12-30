@@ -1,0 +1,24 @@
+<nav class="navbar navbar-light bg-info justify-content-between">
+
+  <a class="navbar-brand"><span class="entypo-dribbble"></span> DFM</a>
+
+  <ul class="nav justify-content-end" *ngIf="isUserLoggedIn()">
+    <li class="nav-item">
+      <a class="nav-link active" href="#">Welcome {{name}}</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/">Dashboard</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/profile">Profile</a>
+    </li>
+    <li class="nav-item">
+      <button type="button" class="btn btn-primary" (click)="Logout()">Logout</button>
+
+    </li>
+  </ul>
+
+</nav>
+<div>
+  <app-sidenav></app-sidenav>
+</div>

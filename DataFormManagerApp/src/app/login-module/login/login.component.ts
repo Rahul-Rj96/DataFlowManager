@@ -3,8 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../auth.service';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { catchError, retry, map } from 'rxjs/operators';
-import { CodeObject, Token } from '../../model/token';
+import { CodeObject, Token } from '../../models/token';
+import { AppSettings } from 'src/app/utils/app-settings';
 
 
 @Component({
@@ -15,19 +15,18 @@ import { CodeObject, Token } from '../../model/token';
 export class LoginComponent implements OnInit {
 
   constructor(private httpClient: HttpClient,
-    private _authService: AuthService, private cookie: CookieService,
-    private _router: Router) { }
+              private authService: AuthService, private cookie: CookieService,
+              private router: Router) { }
 
-  baseUrl: string = "http://dataformmanager.dev37.grcdev.com/"
 
   ngOnInit() {
 
-    var authorizationCode = window.location.href.split("code=")[1];
+    const authorizationCode = window.location.href.split('code=')[1];
     if (authorizationCode) {
       let tokenObj: Token = new Token();
-      let codeObj: CodeObject = new CodeObject();
+      const codeObj: CodeObject = new CodeObject();
       codeObj.code = authorizationCode;
-      this._authService
+      this.authService
         .getAccessTokenByCode(codeObj)
         .subscribe((token: Token) => {
           tokenObj = token;
@@ -37,21 +36,19 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('userId', tokenObj.UserId.toString());
           localStorage.setItem('Username', tokenObj.Username);
           localStorage.setItem('EmailId', tokenObj.EmailId);
-          this._router.navigate(['dashboard']);
-        })
+          this.router.navigate(['dashboard']);
+        });
     }
 
-    if (this._authService.loggedIn()) {
-      this._router.navigate(['dashboard'])
-    }
-    else{
-      this._router.navigate(['/login'])
+    if (this.authService.loggedIn()) {
+      this.router.navigate(['dashboard']);
+    } else {
+      this.router.navigate(['/login']);
     }
   }
 
 
   onLogin() {
-    // this.httpClient.get(this.baseUrl + "api/login/getauthcode").subscribe();
-    window.location.href = this.baseUrl + "api/login/getauthcode";
+    window.location.href = AppSettings.baseUrl + 'api/login/getauthcode';
   }
 }

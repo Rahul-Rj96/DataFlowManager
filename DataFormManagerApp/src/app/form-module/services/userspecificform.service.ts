@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormDataModel } from '../../model/form-data-model';
+import { FormDataModel } from '../models/form-data-model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { AppSettings } from '../../utils/app-settings';

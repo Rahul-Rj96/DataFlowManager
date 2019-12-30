@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { UserDashboardRoutingModule } from './user-dashboard-routing.module';
+import { CommonComponentRoutingModule } from './common-routing.module';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
@@ -12,8 +12,8 @@ import { ProfileComponent } from './profile/profile.component';
   declarations: [HeaderComponent, FooterComponent, SidenavComponent, ProfileComponent],
   imports: [
     CommonModule,
-    UserDashboardRoutingModule
+    CommonComponentRoutingModule
   ],
   exports:[HeaderComponent,FooterComponent,SidenavComponent,ProfileComponent]
 })
-export class UserDashboardModule { }
+export class CommonComponentModule { }

@@ -4,7 +4,7 @@ import { LoginComponent } from './login/login.component';
 
 import { LoginModuleRoutingModule } from './login-module-routing.module';
 import { AuthService } from '../auth.service';
-import { UserDashboardModule } from '../user-dashboard/user-dashboard.module';
+import { CommonComponentModule } from '../common-components/common.module';
 
 
 
@@ -13,15 +13,14 @@ import { UserDashboardModule } from '../user-dashboard/user-dashboard.module';
   declarations: [
     LoginComponent
   ],
-    
+
   imports: [
-    
+
     CommonModule,
     LoginModuleRoutingModule,
-    CommonModule,
-    UserDashboardModule
+    CommonComponentModule
   ],
-  providers:[AuthService
+  providers: [AuthService
   ]
 })
 export class LoginModuleModule { }

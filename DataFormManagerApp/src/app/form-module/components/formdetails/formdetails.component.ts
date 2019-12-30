@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormDataModel } from '../../../model/form-data-model';
+import { FormDataModel } from '../../models/form-data-model';
 
 @Component({
   selector: 'app-formdetails',

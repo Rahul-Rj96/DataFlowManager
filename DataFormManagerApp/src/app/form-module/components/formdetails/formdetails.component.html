@@ -1,10 +1,11 @@
 <div *ngIf="form">
     <br>
-    <h2>{{form.FormType | uppercase}} Details : {{form.FormId}}</h2>
+    <h2>{{form.FormType | titlecase}} Details : </h2>
     <ul class="formdetails">
         <li *ngFor="let formData of form.FormData">
             <span class="badge"> {{formData.Name}} :</span> {{formData.Value}}<br />
         </li>
     </ul>
-    <a [routerLink]="['../form']" [queryParams]="{ id:form.FormType , formId:form.FormId}"><button id=add>Edit</button></a>&nbsp;
-</div> 
+    <a [routerLink]="['../form']" [queryParams]="{ id:form.FormType , formId:form.FormId}"><button
+            id=add>Edit</button></a>&nbsp;
+</div>

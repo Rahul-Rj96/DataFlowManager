@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { FormTypeModel } from '../../model/form-type-model';
+import { FormTypeModel } from '../models/form-type-model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { FormDataModel } from '../../model/form-data-model';
+import { FormDataModel } from '../models/form-data-model';
 import { AppSettings } from '../../utils/app-settings';
 
 
@@ -11,12 +11,14 @@ import { AppSettings } from '../../utils/app-settings';
 })
 export class FormtypeService {
   constructor(private http: HttpClient) { }
-  private formTypeUrl = AppSettings.baseUrl+"formtype/";
-  getFormType(id:string): Observable<FormTypeModel> {
-    return this.http.get<FormTypeModel>(this.formTypeUrl+id)
+  private formTypeUrl = AppSettings.baseUrl + 'formtype/';
+
+  private formDataUrl = AppSettings.baseUrl + 'form/adddata';
+
+  getFormType(id: string): Observable<FormTypeModel> {
+    return this.http.get<FormTypeModel>(this.formTypeUrl + id);
   }
-  private formDataUrl= AppSettings.baseUrl+'form/adddata';
-  postFormData(formData:FormDataModel){
-     this.http.post(this.formDataUrl,formData).subscribe()
+  postFormData(formData: FormDataModel) {
+    this.http.post(this.formDataUrl, formData).subscribe();
   }
 }

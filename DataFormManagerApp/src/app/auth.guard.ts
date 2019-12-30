@@ -1,30 +1,28 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { CookieService } from 'ngx-cookie-service';
-import { Cookie } from './model/cookie';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private _authService: AuthService,
-    private _router: Router,
-    private cookieService: CookieService) { }
+  constructor(private authService: AuthService,
+              private router: Router,
+              private cookieService: CookieService) { }
 
 
 
-    canActivate(): boolean {
-      if (this._authService.loggedIn()){
-        return true
+  canActivate(): boolean {
+    if (this.authService.loggedIn()) {
+      return true;
 
-      } else {
-        this._router.navigate(['/login'])
-        return false
-      }
+    } else {
+      this.router.navigate(['/login']);
+      return false;
     }
+  }
 
   // canActivate(): Promise<boolean> {
   //   return new Promise((resolve, reject) => {
