@@ -58,7 +58,7 @@ private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
 
 
   } else {
-    window.location.href = AppSettings.baseUrl + 'api/login/getauthcode';
+    window.location.href = AppSettings.baseUrl + 'login/getauthcode';
   }
 }
 }
