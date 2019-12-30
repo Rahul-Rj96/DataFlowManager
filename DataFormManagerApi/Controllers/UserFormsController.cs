@@ -10,6 +10,7 @@ using System.Web.Http.Cors;
 
 namespace DataFormManagerApi.Controllers
 {
+    [BasicAuthentication]
     [RoutePrefix("api/userforms")]
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class UserFormsController : ApiController

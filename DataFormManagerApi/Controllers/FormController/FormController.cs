@@ -3,7 +3,9 @@ using Helpers;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Controllers;
 using System.Web.Http.Cors;
+
 
 namespace DataFormManagerApi.Controllers
 {
@@ -16,6 +18,7 @@ namespace DataFormManagerApi.Controllers
         public HttpResponseMessage AddFormDataApi(FormDataModel formData)
         {
             string accessToken = Request.Headers.Authorization.Parameter;
+            var isUserHasPermission = PermissionHelper.IsUserHasPermission(accessToken,"Add");
             UserObjectModel userObj = TokenHelper.getUserByAccessToken(accessToken);
             FormHelper.AddFormData(formData,userObj.UserId);
             var message = Request.CreateResponse(HttpStatusCode.OK);

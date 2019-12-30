@@ -23,16 +23,7 @@ export class TokenInterceptorService implements HttpInterceptor {
         return this.handle401Error(request, next);
       } 
       else {
-         let errorMessage = '';
-         if (error.error instanceof ErrorEvent) {
-           // client-side error
-           errorMessage = `Error: ${error.error.message}`;
-         } else {
-           // server-side error
-           errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-         }
-         window.alert(errorMessage);
-         return throwError(errorMessage);
+         return throwError(error);
       }
     }));
   }
@@ -45,8 +36,6 @@ export class TokenInterceptorService implements HttpInterceptor {
       }
     });
   }
-
-
 
 private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
     const authService = this.injector.get(AuthService);
@@ -61,7 +50,6 @@ private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
         localStorage.setItem('accessToken', tokenObj.AccessToken);
         localStorage.setItem('refreshToken', tokenObj.RefreshToken);
         localStorage.setItem('expiresIn', tokenObj.ExpiresIn);
-        localStorage.setItem('userId', tokenObj.UserId.toString());
         localStorage.setItem('Username', tokenObj.Username);
         localStorage.setItem('EmailId', tokenObj.EmailId);
         return next.handle(this.addToken(request, authService.getAccessTokenFromLocalStorage()));
@@ -71,28 +59,3 @@ private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
   }
 }
 }
-
-
-
-
-
-
-// let authService = this.injector.get(AuthService)
-//     const accessToken = authService.getTokenFromLocalStorage();
-//     var tokenizeReq = req.clone();
-//     if (accessToken){
-//       tokenizeReq = req.clone({
-//       setHeaders: {
-//         Authorization: `Bearer ${authService.getTokenFromLocalStorage()}`
-//       }
-//     })
-//   }
-//     //return next.handle(tokenizeReq)
-//     return next.handle(tokenizeReq).pipe(catchError(error => {
-//       if (error instanceof HttpErrorResponse && error.status === 401) {
-//         return this.handle401Error(tokenizeReq, next);
-//       } else {
-//         return throwError(error);
-//       }
-//     }));
-//   }

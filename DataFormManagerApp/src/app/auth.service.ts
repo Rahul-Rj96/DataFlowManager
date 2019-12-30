@@ -4,6 +4,7 @@ import {Observable, throwError} from 'rxjs';
 import { Token, CodeObject , RefreshTokenObject} from './models/token';
 import { AppSettings } from './utils/app-settings';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { error } from 'protractor';
 
 @Injectable({
   providedIn: 'root'
@@ -36,12 +37,8 @@ export class AuthService {
     return this.http.post<Token>(AppSettings.baseUrl + 'login/RefreshToken', RefreshTokenObj);
   }
   getAccessTokenFromLocalStorage() {
-    if(localStorage.getItem('accessToken')){
       return localStorage.getItem('accessToken')
-    }
-     else {
-        window.location.href = AppSettings.baseUrl + 'login/getauthcode';
-      }
+
   }
   getRefreshTokenFromLocalStorage() {
     return localStorage.getItem('refreshToken');
@@ -62,13 +59,9 @@ export class AuthService {
         }
       }
     }
-    catch{
-      window.location.href = AppSettings.baseUrl + 'login/getauthcode';
-
-    }
-
-    
-
+    catch(e){
+      throwError(e);
+    }   
   }
 
   getPermission(formname: string, permission: string) {
@@ -91,7 +84,8 @@ export class AuthService {
       }
     }
     catch(e){
-      window.location.href = AppSettings.baseUrl + 'login/getauthcode';
+      console.log(e)
+      throwError(e);
     }
   }
 

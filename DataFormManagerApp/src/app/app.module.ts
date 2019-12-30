@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -9,6 +9,7 @@ import { AuthGuard } from './auth.guard';
 import { CookieService } from 'ngx-cookie-service';
 import { TokenInterceptorService } from './token-interceptor.service';
 import { CommonComponentModule } from './common-components/common.module';
+import { GlobalErrorHandler } from './global-error-handler.service';
 
 
 @NgModule({
@@ -25,7 +26,12 @@ import { CommonComponentModule } from './common-components/common.module';
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,
     multi: true
-  }],
+  },
+  {
+    provide: ErrorHandler,
+    useClass: GlobalErrorHandler
+  }
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -23,9 +23,18 @@ namespace dataFormManagerApi.Controllers
         {
             var uri = Request.RequestUri;
             var code = System.Web.HttpUtility.ParseQueryString(uri.Query)["code"];
-            TokenObjectModel tokenObj = LoginHelper.GetGoogleAccesToken(code);
-            HttpResponseMessage resp =  LoginHelper.CreateCookie(tokenObj.AuthorizationCode);
-            return (resp); 
+            if (code!=null)
+            {
+                TokenObjectModel tokenObj = LoginHelper.GetGoogleAccesToken(code);
+                HttpResponseMessage resp = LoginHelper.CreateCookie(tokenObj.AuthorizationCode);
+                return (resp);
+            }
+            else
+            {
+                var message = Request.CreateResponse(HttpStatusCode.NotFound, "Code is inavlid");
+                return message;
+            }
+             
         }
         [HttpGet, Route("getAuthCode")]
         public HttpResponseMessage GetAuthCode()
@@ -103,9 +112,7 @@ namespace dataFormManagerApi.Controllers
             {
                 var message = Request.CreateResponse(HttpStatusCode.Unauthorized,"Invalid Token");
                 return message;
-            }
-            
-           
+            }        
         }
     }
 }
