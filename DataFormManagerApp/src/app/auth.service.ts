@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {Observable, throwError} from 'rxjs';
 import { Token, CodeObject , RefreshTokenObject} from './models/token';
 import { AppSettings } from './utils/app-settings';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -36,44 +36,62 @@ export class AuthService {
     return this.http.post<Token>(AppSettings.baseUrl + 'login/RefreshToken', RefreshTokenObj);
   }
   getAccessTokenFromLocalStorage() {
-    return localStorage.getItem('accessToken');
+    if(localStorage.getItem('accessToken')){
+      return localStorage.getItem('accessToken')
+    }
+     else {
+        window.location.href = AppSettings.baseUrl + 'login/getauthcode';
+      }
   }
   getRefreshTokenFromLocalStorage() {
     return localStorage.getItem('refreshToken');
   }
 
   getRole() {
-    const token = localStorage.getItem('accessToken') ;
-    const helper = new JwtHelperService();
-    const decodedToken = helper.decodeToken(token);
 
-    for ( const formPermission of decodedToken.role) {
-      const jsonObj = JSON.parse(formPermission);
-      if (jsonObj.RoleName) {
-        return jsonObj.RoleName;
-      } else {
-        return 'No role is assigned';
+    const token = this.getAccessTokenFromLocalStorage();
+    const helper = new JwtHelperService();
+    try{
+      const decodedToken = helper.decodeToken(token);
+      for ( const formPermission of decodedToken.role) {
+        const jsonObj = JSON.parse(formPermission);
+        if (jsonObj.RoleName) {
+          return jsonObj.RoleName;
+        } else {
+          return 'No role is assigned';
+        }
       }
     }
+    catch{
+      window.location.href = AppSettings.baseUrl + 'login/getauthcode';
+
+    }
+
+    
 
   }
 
   getPermission(formname: string, permission: string) {
-    const token = localStorage.getItem('accessToken') ;
+    const token = this.getAccessTokenFromLocalStorage() ;
     const helper = new JwtHelperService();
-    const decodedToken = helper.decodeToken(token);
-    const expirationDate = helper.getTokenExpirationDate(token);
-    const isExpired = helper.isTokenExpired(token);
-    for ( const formPermission of decodedToken.role) {
-      const jsonObj = JSON.parse(formPermission);
-      if (jsonObj.FormName == formname) {
-          var permissionValue = this.getPermissionValue(jsonObj.Permission);
+    try{
+      const decodedToken = helper.decodeToken(token);
+      const expirationDate = helper.getTokenExpirationDate(token);
+      const isExpired = helper.isTokenExpired(token);
+      for ( const formPermission of decodedToken.role) {
+        const jsonObj = JSON.parse(formPermission);
+        if (jsonObj.FormName == formname) {
+            var permissionValue = this.getPermissionValue(jsonObj.Permission);
+        }
+      }
+      if (permissionValue >= this.permissionValueObj[permission]) {
+        return true;
+      } else {
+        return false;
       }
     }
-    if (permissionValue >= this.permissionValueObj[permission]) {
-      return true;
-    } else {
-      return false;
+    catch(e){
+      window.location.href = AppSettings.baseUrl + 'login/getauthcode';
     }
   }
 

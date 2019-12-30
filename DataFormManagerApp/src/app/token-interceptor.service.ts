@@ -6,11 +6,11 @@ import { throwError, Observable} from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { RefreshTokenObject , Token} from './models/token';
 import { AppSettings } from './utils/app-settings';
+
 @Injectable({
   providedIn: 'root'
 })
 export class TokenInterceptorService implements HttpInterceptor {
-
   constructor(private injector: Injector) { }
   intercept(request, next): Observable<HttpEvent<any>> {
 
@@ -21,8 +21,18 @@ export class TokenInterceptorService implements HttpInterceptor {
     return next.handle(request).pipe(catchError( error => {
       if (error instanceof HttpErrorResponse && error.status === 401) {
         return this.handle401Error(request, next);
-      } else {
-        return throwError(error);
+      } 
+      else {
+         let errorMessage = '';
+         if (error.error instanceof ErrorEvent) {
+           // client-side error
+           errorMessage = `Error: ${error.error.message}`;
+         } else {
+           // server-side error
+           errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+         }
+         window.alert(errorMessage);
+         return throwError(errorMessage);
       }
     }));
   }
@@ -40,7 +50,8 @@ export class TokenInterceptorService implements HttpInterceptor {
 
 private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
     const authService = this.injector.get(AuthService);
-    if (authService.getRefreshTokenFromLocalStorage()) {
+    const url = window.location.href;
+    if (authService.getRefreshTokenFromLocalStorage() && url.includes('RefreshToken')) {
     var refreshTokenObj: RefreshTokenObject = new RefreshTokenObject();
     var tokenObj: Token = new Token();
     refreshTokenObj.RefreshToken = authService.getRefreshTokenFromLocalStorage();
@@ -55,10 +66,8 @@ private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
         localStorage.setItem('EmailId', tokenObj.EmailId);
         return next.handle(this.addToken(request, authService.getAccessTokenFromLocalStorage()));
       }));
-
-
   } else {
-    window.location.href = AppSettings.baseUrl + 'api/login/getauthcode';
+    window.location.href = AppSettings.baseUrl + 'login/getauthcode';
   }
 }
 }

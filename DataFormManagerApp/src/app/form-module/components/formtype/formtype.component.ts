@@ -24,7 +24,7 @@ export class FormtypeComponent implements OnInit {
   FormId: number;
   submit: boolean;
   // tslint:disable-next-line: max-line-length
-  constructor(private formTypeService: FormtypeService, private userSpecificFormService: UserSpecificFormsService, private route: ActivatedRoute) { }
+  constructor(private formTypeService: FormtypeService, private userSpecificFormService: UserSpecificFormsService, private route: ActivatedRoute,private router: Router) { }
 
   ngOnInit() {
 
@@ -81,6 +81,7 @@ export class FormtypeComponent implements OnInit {
     });
     this.formData = new FormDataModel(this.formType.FormType, this.dataValue);
     this.formTypeService.postFormData(this.formData);
+    this.router.navigate['/form']
     window.location.reload();
   }
 
