@@ -85,4 +85,14 @@ export class FormtypeComponent implements OnInit {
     window.location.reload();
   }
 
+  onSave() {
+    this.dataValue = [];
+    this.formType.FormFields.forEach((item) =>{
+      this.dataValue.push(new DataValueModel(item.Name, this.itemSet[item.Name]));
+    });
+    this.formData = new FormDataModel(this.formType.FormType, this.dataValue, this.form.FormId);
+    this.formTypeService.putFormData(this.formData);
+    window.location.reload();
+  }
+
 }

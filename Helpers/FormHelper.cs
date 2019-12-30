@@ -65,5 +65,31 @@ namespace Helpers
                 Console.WriteLine("Exception:" + ex.Message);
             }
         }
+
+        public static void UpdateFormData(FormDataModel formData)
+        {
+            int? formId = formData.FormId;
+            string jsonFormData = JsonConvert.SerializeObject(formData);
+            string connString = ConfigurationManager.ConnectionStrings["ReleaseFlowDBConnectionString"].ConnectionString;
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connString))
+                {
+                    String spAddFormData1 = @"dbo.[Proc_Form_UpdateFormData]";
+                    SqlCommand cmd1 = new SqlCommand(spAddFormData1, conn);
+                    cmd1.CommandType = CommandType.StoredProcedure;
+                    conn.Open();
+                    SqlParameter formDataParam1 = cmd1.Parameters.AddWithValue("@FormData", jsonFormData);
+                    SqlParameter formDataParam2 = cmd1.Parameters.AddWithValue("@FormId", formId);
+                    var reader1 = cmd1.ExecuteNonQuery();
+                    conn.Close();
+                    }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception:" + ex.Message);
+            }
+
+        }
     }
 }

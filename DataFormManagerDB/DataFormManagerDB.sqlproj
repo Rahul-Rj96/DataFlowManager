@@ -94,5 +94,6 @@
     <Build Include="dbo\Tables\FormTypePermissions.sql" />
     <Build Include="dbo\Stored Procedures\Proc_UserRoleFormTypePermissions_GetUserRoleFormTypePermissionByUserId.sql" />
     <Build Include="dbo\Stored Procedures\Proc_Form_AddFormDataWithId.sql" />
+    <Build Include="dbo\Stored Procedures\Proc_Form_UpdateFormData.sql" />
   </ItemGroup>
 </Project>
