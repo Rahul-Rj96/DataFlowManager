@@ -8,4 +8,5 @@
     </ul>
     <a [routerLink]="['../form']" [queryParams]="{ id:form.FormType , formId:form.FormId}"><button
             id=add>Edit</button></a>&nbsp;
+    <button (click)="onDelete()">Delete</button>
 </div>

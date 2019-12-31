@@ -15,7 +15,7 @@ namespace DataFormManagerApi.Controllers
     [BasicAuthentication]
     public class FormDataController : ApiController
     {
-        [HttpPost,Route("data")]
+        [HttpPost, Route("add")]
         public HttpResponseMessage AddFormDataApi(FormDataModel formData)
         {
             string accessToken = Request.Headers.Authorization.Parameter;
@@ -34,7 +34,7 @@ namespace DataFormManagerApi.Controllers
                 
         }
 
-        [HttpPut, Route("data")]
+        [HttpPut, Route("update")]
         public HttpResponseMessage UpdateFormDataApi(FormDataModel formData)
         {
             string accessToken = Request.Headers.Authorization.Parameter;
@@ -50,8 +50,27 @@ namespace DataFormManagerApi.Controllers
                 return message;
             }
         }
-            
-   }
+
+
+        [HttpDelete, Route("{formId}")]
+        public HttpResponseMessage DeleteFormDataApi(int formId)
+        {
+            string accessToken = Request.Headers.Authorization.Parameter;
+            if (PermissionHelper.IsUserHasPermission(accessToken,"Release" , "FullAccess"))
+            {
+                FormHelper.DeleteFormData(formId);
+                var message = Request.CreateResponse(HttpStatusCode.OK);
+                return message;
+            }
+            else
+            {
+                var message = Request.CreateResponse(HttpStatusCode.Forbidden, "User does not have the permission to perform this action");
+                return message;
+            }
+
+        }
+    }
+
 }
 
 
