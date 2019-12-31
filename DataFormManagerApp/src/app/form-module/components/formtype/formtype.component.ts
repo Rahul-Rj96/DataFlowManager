@@ -24,7 +24,7 @@ export class FormtypeComponent implements OnInit {
   FormId: number;
   submit: boolean;
   // tslint:disable-next-line: max-line-length
-  constructor(private formTypeService: FormtypeService, private userSpecificFormService: UserSpecificFormsService, private route: ActivatedRoute,private router: Router) { }
+  constructor(private formTypeService: FormtypeService, private userSpecificFormService: UserSpecificFormsService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
 
@@ -81,17 +81,17 @@ export class FormtypeComponent implements OnInit {
     });
     this.formData = new FormDataModel(this.formType.FormType, this.dataValue);
     this.formTypeService.postFormData(this.formData);
-    this.router.navigate(['dashboard/forms/userspecificform'], { queryParams: { id: this.formTypeId } }); 
+    this.router.navigate(['dashboard/forms/userspecificform'], { queryParams: { id: this.formTypeId } });
   }
 
   onSave() {
     this.dataValue = [];
-    this.formType.FormFields.forEach((item) =>{
+    this.formType.FormFields.forEach((item) => {
       this.dataValue.push(new DataValueModel(item.Name, this.itemSet[item.Name]));
     });
     this.formData = new FormDataModel(this.formType.FormType, this.dataValue, this.form.FormId);
     this.formTypeService.putFormData(this.formData);
-    this.router.navigate(['dashboard/forms/userspecificform'], { queryParams: { id: this.formTypeId } }); 
+    this.router.navigate(['dashboard/forms/userspecificform'], { queryParams: { id: this.formTypeId } });
    }
 
 }

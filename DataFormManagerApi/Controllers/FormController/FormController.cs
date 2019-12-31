@@ -14,7 +14,7 @@ namespace DataFormManagerApi.Controllers
     [BasicAuthentication]
     public class FormDataController : ApiController
     {
-        [HttpPost,Route("data")]
+        [HttpPost, Route("add")]
         public HttpResponseMessage AddFormDataApi(FormDataModel formData)
         {
             string accessToken = Request.Headers.Authorization.Parameter;
@@ -25,13 +25,21 @@ namespace DataFormManagerApi.Controllers
             return message;
         }
 
-        [HttpPut, Route("data")]
+        [HttpPut, Route("update")]
         public HttpResponseMessage UpdateFormDataApi(FormDataModel formData)
         {
             FormHelper.UpdateFormData(formData);
             var message = Request.CreateResponse(HttpStatusCode.OK);
             return message;
             
+        }
+
+        [HttpDelete, Route("{formId}")]
+        public HttpResponseMessage DeleteFormDataApi(int formId)
+        {
+            FormHelper.DeleteFormData(formId);
+            var message = Request.CreateResponse(HttpStatusCode.OK);
+            return message;
         }
     }
 }

@@ -14,7 +14,7 @@ export class UserspecificformComponent implements OnInit {
   forms: Array<FormDataModel>;
   selectedForm: FormDataModel;
   formName: string;
-  constructor(private userSpecificFormService: UserSpecificFormsService, private route: ActivatedRoute) { }
+  constructor(private userSpecificFormService: UserSpecificFormsService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.getForms();
