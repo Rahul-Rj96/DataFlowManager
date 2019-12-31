@@ -16,7 +16,7 @@ export class AuthService {
     // tslint:disable-next-line: object-literal-key-quotes
     'Write': 2,
     // tslint:disable-next-line: object-literal-key-quotes
-    'FullAccess': 3
+    'FullAccess': 4
   };
   constructor(private http: HttpClient) { }
 
@@ -64,6 +64,14 @@ export class AuthService {
     }   
   }
 
+  isAdmin(){
+    if (this.getRole()=='admin'){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
   getPermission(formname: string, permission: string) {
     const token = this.getAccessTokenFromLocalStorage() ;
     const helper = new JwtHelperService();
@@ -71,10 +79,11 @@ export class AuthService {
       const decodedToken = helper.decodeToken(token);
       const expirationDate = helper.getTokenExpirationDate(token);
       const isExpired = helper.isTokenExpired(token);
+      var permissionValue = 0;
       for ( const formPermission of decodedToken.role) {
         const jsonObj = JSON.parse(formPermission);
         if (jsonObj.FormName == formname) {
-            var permissionValue = this.getPermissionValue(jsonObj.Permission);
+           permissionValue = permissionValue + this.permissionValueObj[jsonObj.Permission];
         }
       }
       if (permissionValue >= this.permissionValueObj[permission]) {
@@ -84,18 +93,7 @@ export class AuthService {
       }
     }
     catch(e){
-      console.log(e)
       throwError(e);
     }
-  }
-
-  getPermissionValue(permission: string) {
-    let totalPermissionValue = 0;
-    for (const key in this.permissionValueObj) {
-        if (key == permission) {
-          totalPermissionValue += this.permissionValueObj[key];
-        }
-      }
-    return totalPermissionValue;
   }
 }

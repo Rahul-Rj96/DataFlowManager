@@ -68,7 +68,7 @@
 		</div>
 
 
-		<div class="sidebar-category sidebar-default" *ngIf="this.authService.getPermission('Release','FullAccess')">
+		<div class="sidebar-category sidebar-default" *ngIf="this.authService.isAdmin()">
 			<div class="category-title">
 				<span>Manage Users</span>
 			</div>

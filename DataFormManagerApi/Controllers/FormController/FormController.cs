@@ -1,5 +1,6 @@
 ﻿using DataFormManager.Models;
 using Helpers;
+using System;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -18,22 +19,39 @@ namespace DataFormManagerApi.Controllers
         public HttpResponseMessage AddFormDataApi(FormDataModel formData)
         {
             string accessToken = Request.Headers.Authorization.Parameter;
-            var isUserHasPermission = PermissionHelper.IsUserHasPermission(accessToken,"Add");
-            UserObjectModel userObj = TokenHelper.getUserByAccessToken(accessToken);
-            FormHelper.AddFormData(formData,userObj.UserId);
-            var message = Request.CreateResponse(HttpStatusCode.OK);
-            return message;
+            if (PermissionHelper.IsUserHasPermission(accessToken, formData.FormType, "FullAccess"))
+            {
+                UserObjectModel userObj = TokenHelper.getUserByAccessToken(accessToken);
+                FormHelper.AddFormData(formData, userObj.UserId);
+                var message = Request.CreateResponse(HttpStatusCode.OK);
+                return message;
+            }
+            else
+            {
+                var message = Request.CreateResponse(HttpStatusCode.Forbidden, "User does not have the permission to perform this action");
+                return message;
+            }
+                
         }
 
         [HttpPut, Route("data")]
         public HttpResponseMessage UpdateFormDataApi(FormDataModel formData)
         {
-            FormHelper.UpdateFormData(formData);
-            var message = Request.CreateResponse(HttpStatusCode.OK);
-            return message;
-            
+            string accessToken = Request.Headers.Authorization.Parameter;
+            if (PermissionHelper.IsUserHasPermission(accessToken, formData.FormType, "Write"))
+            {
+                FormHelper.UpdateFormData(formData);
+                var message = Request.CreateResponse(HttpStatusCode.OK);
+                return message;
+            }
+            else
+            {
+                var message = Request.CreateResponse(HttpStatusCode.Forbidden,"User does not have the permission to perform this action");
+                return message;
+            }
         }
-    }
+            
+   }
 }
 
 
