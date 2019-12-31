@@ -81,21 +81,17 @@ export class FormtypeComponent implements OnInit {
     });
     this.formData = new FormDataModel(this.formType.FormType, this.dataValue);
     this.formTypeService.postFormData(this.formData);
-    // this.router.navigate['/form']
-    window.location.reload();
+    this.router.navigate(['dashboard/forms/userspecificform'], { queryParams: { id: this.formTypeId } }); 
   }
 
   onSave() {
-    debugger;
     this.dataValue = [];
     this.formType.FormFields.forEach((item) =>{
       this.dataValue.push(new DataValueModel(item.Name, this.itemSet[item.Name]));
     });
-    console.log(this.dataValue);
     this.formData = new FormDataModel(this.formType.FormType, this.dataValue, this.form.FormId);
-    console.log(this.formData);
     this.formTypeService.putFormData(this.formData);
-    //window.location.reload();
-  }
+    this.router.navigate(['dashboard/forms/userspecificform'], { queryParams: { id: this.formTypeId } }); 
+   }
 
 }
