@@ -61,6 +61,23 @@
 						</ul>
 
 					</li>
+					<!-- <li class="nav-item" *ngIf="this.authService.isAdmin()"></li> -->
+					<li class="nav-item">
+						<a href="#Assign_actions" class="nav-link" data-toggle="collapse" role="button"
+							aria-expanded="false" aria-controls="other-fruits">
+							<i class="fa fa-pencil" aria-hidden="true"></i>
+							Assign Forms
+						</a>
+						<ul id="Assign_actions" class="flex-column collapse">
+							<li class="nav-item">
+								<a href="dashboard/forms/assignform?id=Release" class="nav-link">
+									<i class="fa fa-pencil" aria-hidden="true"></i>
+									Release
+								</a>
+							</li>
+						</ul>
+
+					</li>
 				</ul>
 
 			</div>

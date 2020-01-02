@@ -51,10 +51,14 @@ namespace Helpers
                     conn.Close();
                     if (isSelfAssigned == 1)
                     {
-                        UserFormObjectModel userFormsData = new UserFormObjectModel() {
+                        UserFormObjectModel userFormsData = new UserFormObjectModel()
+                        {
                             FormId = formId,
-                            UserId = userId};
-                        UserFormsHelper.AddUserFormsData(userFormsData);
+                            UserId = userId
+                        };
+                        List<UserFormObjectModel> userFormsDatas = new List<UserFormObjectModel>();
+                        userFormsDatas.Add(userFormsData);
+                        UserFormsHelper.AddUserFormsData(userFormsDatas);
 
                     }
 
@@ -111,6 +115,98 @@ namespace Helpers
             {
                 Console.WriteLine("Exception:" + ex.Message);
             }
+        }
+
+        public static string GetFormTypeNameUsingId(int formId)
+        {
+            string formType = null;
+            string connString = ConfigurationManager.ConnectionStrings["ReleaseFlowDBConnectionString"].ConnectionString;
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connString))
+                {
+                    String spAddFormData1 = @"dbo.[Proc_Form_GetFormTypeName]";
+                    SqlCommand cmd1 = new SqlCommand(spAddFormData1, conn);
+                    cmd1.CommandType = CommandType.StoredProcedure;
+                    conn.Open();
+                    SqlParameter formDataParam1 = cmd1.Parameters.AddWithValue("@FormId", formId);
+                    var reader1 = cmd1.ExecuteReader();
+                    while(reader1.Read())
+                    {
+                        formType = Convert.ToString(reader1["FormName"]);
+                    }
+                    conn.Close();
+                    return formType;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception:" + ex.Message);
+                return formType;
+            }
+        }
+
+        public static List<FormDataModel> GetFormsToAssign()
+        {
+            List<FormDataModel> formsToAssign = new List<FormDataModel>();
+            string dataString = null;
+            string connString = ConfigurationManager.ConnectionStrings["ReleaseFlowDBConnectionString"].ConnectionString;       //read from config  
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connString))
+                {
+                    String spGetFormsToAssign = @"[dbo].[Proc_Form_GetFormsToAssign]";
+                    SqlCommand cmd = new SqlCommand(spGetFormsToAssign, conn);
+                    conn.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    while (dr.HasRows && dr.Read())
+                    {
+                        dataString = Convert.ToString(dr["FormData"]);
+                        FormDataModel data = JsonConvert.DeserializeObject<FormDataModel>(dataString);
+                        formsToAssign.Add(data);
+                    }
+                    dr.Close();
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception:" + ex.Message);
+            }
+            return formsToAssign;
+        }
+       
+        public static List<UserIdNamemodel> GetUsersToAssign()
+        {
+            List<UserIdNamemodel> users = new List<UserIdNamemodel>();
+            
+            string connString = ConfigurationManager.ConnectionStrings["ReleaseFlowDBConnectionString"].ConnectionString;       //read from config  
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connString))
+                {
+                    String spGetFormsToAssign = @"[dbo].[Proc_RCKRUser_GetUserToAssignForm]";
+                    SqlCommand cmd = new SqlCommand(spGetFormsToAssign, conn);
+                    conn.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    while (dr.HasRows && dr.Read())
+                    {
+                        UserIdNamemodel user = new UserIdNamemodel();
+                        user.UserId = Convert.ToInt32(dr["UserId"]);
+                        user.Username = Convert.ToString(dr["Username"]);                       
+                        users.Add(user);
+                    }
+                    dr.Close();
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception:" + ex.Message);
+            }
+            return users;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using DataFormManager.Models;
 using Helpers;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -55,8 +56,9 @@ namespace DataFormManagerApi.Controllers
         [HttpDelete, Route("{formId}")]
         public HttpResponseMessage DeleteFormDataApi(int formId)
         {
+            string formType = FormHelper.GetFormTypeNameUsingId(formId);
             string accessToken = Request.Headers.Authorization.Parameter;
-            if (PermissionHelper.IsUserHasPermission(accessToken,"Release" , "FullAccess"))
+            if (PermissionHelper.IsUserHasPermission(accessToken,formType , "FullAccess"))
             {
                 FormHelper.DeleteFormData(formId);
                 var message = Request.CreateResponse(HttpStatusCode.OK);
@@ -68,6 +70,41 @@ namespace DataFormManagerApi.Controllers
                 return message;
             }
 
+        }
+
+        [HttpGet, Route("{formName}")]
+        public HttpResponseMessage GetFormsToAssignApi(string formName)
+        {
+            string accessToken = Request.Headers.Authorization.Parameter;
+            if (PermissionHelper.IsUserHasPermission(accessToken, formName, "FullAccess"))
+            {
+                List<FormDataModel> dataList = FormHelper.GetFormsToAssign();
+                var message = Request.CreateResponse(HttpStatusCode.OK, dataList);
+                return message;
+            }
+            else
+            {
+                var message = Request.CreateResponse(HttpStatusCode.Forbidden, "User does not have the permission to perform this action");
+                return message;
+            }
+        }
+        
+        [HttpGet,Route("users/{formType}")]
+        public HttpResponseMessage GetUsersToAssignApi(string formType)
+        {
+
+            string accessToken = Request.Headers.Authorization.Parameter;
+            if (PermissionHelper.IsUserHasPermission(accessToken, formType, "FullAccess"))
+            {
+                List<UserIdNamemodel> userList = FormHelper.GetUsersToAssign();
+                var message = Request.CreateResponse(HttpStatusCode.OK, userList);
+                return message;
+            }
+            else
+            {
+                var message = Request.CreateResponse(HttpStatusCode.Forbidden, "User does not have the permission to perform this action");
+                return message;
+            }
         }
     }
 

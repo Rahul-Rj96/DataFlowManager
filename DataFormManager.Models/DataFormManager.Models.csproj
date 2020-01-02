@@ -51,6 +51,7 @@
     <Compile Include="TokenObjectModel.cs" />
     <Compile Include="UserFormObjectModel.cs" />
     <Compile Include="UserFormPermissionObjectModel.cs" />
+    <Compile Include="UserIdNamemodel.cs" />
     <Compile Include="UserObjectModel.cs" />
     <Compile Include="UserTokensObjectModel.cs" />
   </ItemGroup>

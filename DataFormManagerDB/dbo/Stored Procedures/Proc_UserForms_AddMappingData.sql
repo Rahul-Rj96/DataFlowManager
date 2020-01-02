@@ -1,8 +1,8 @@
 ﻿create PROCEDURE [dbo].[Proc_UserForms_AddMappingData]
-@FormId int,
-@UserId int
+(@UserFormsTable as dbo.UserFormsTable readonly)
 AS 
 BEGIN
-Insert into UserForms(FormId,UserId)
-values(@FormId,@UserId)
+Insert into UserForms(UserId,FormId)
+select UserId, FormId
+from @UserFormsTable
 END

@@ -9,11 +9,14 @@ import { AuthService } from 'src/app/auth.service';
 })
 export class SidenavComponent implements OnInit {
   name = localStorage.getItem('Username');
-  role = "";
+  role: string;
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    this.role = this.authService.getRole();
+    this.authService.$isRoleSet.subscribe(res => {
+      this.role = res;
+    });
+
   }
 
 

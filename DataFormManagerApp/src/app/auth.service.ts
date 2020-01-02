@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {Observable, throwError} from 'rxjs';
-import { Token, CodeObject , RefreshTokenObject} from './models/token';
+import { Observable, throwError, Subject } from 'rxjs';
+import { Token, CodeObject, RefreshTokenObject } from './models/token';
 import { AppSettings } from './utils/app-settings';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { error } from 'protractor';
@@ -10,6 +10,9 @@ import { error } from 'protractor';
   providedIn: 'root'
 })
 export class AuthService {
+
+  private isRoleSet: Subject<string> = new Subject();
+  public $isRoleSet: Observable<string> = this.isRoleSet.asObservable();
   permissionValueObj = {
     // tslint:disable-next-line: object-literal-key-quotes
     'Read': 1,
@@ -37,7 +40,7 @@ export class AuthService {
     return this.http.post<Token>(AppSettings.baseUrl + 'login/RefreshToken', RefreshTokenObj);
   }
   getAccessTokenFromLocalStorage() {
-      return localStorage.getItem('accessToken')
+    return localStorage.getItem('accessToken')
 
   }
   getRefreshTokenFromLocalStorage() {
@@ -47,11 +50,13 @@ export class AuthService {
   getRole() {
 
     const token = this.getAccessTokenFromLocalStorage();
+    console.log(token);
     const helper = new JwtHelperService();
-    try{
+    try {
       const decodedToken = helper.decodeToken(token);
-      for ( const formPermission of decodedToken.role) {
+      for (const formPermission of decodedToken.role) {
         const jsonObj = JSON.parse(formPermission);
+        this.isRoleSet.next(jsonObj.RoleName);
         if (jsonObj.RoleName) {
           return jsonObj.RoleName;
         } else {
@@ -59,31 +64,31 @@ export class AuthService {
         }
       }
     }
-    catch(e){
+    catch (e) {
       throwError(e);
-    }   
+    }
   }
 
-  isAdmin(){
-    if (this.getRole()=='admin'){
+  isAdmin() {
+    if (this.getRole() == 'admin') {
       return true;
-    }else{
+    } else {
       return false;
     }
   }
 
   getPermission(formname: string, permission: string) {
-    const token = this.getAccessTokenFromLocalStorage() ;
+    const token = this.getAccessTokenFromLocalStorage();
     const helper = new JwtHelperService();
-    try{
+    try {
       const decodedToken = helper.decodeToken(token);
       const expirationDate = helper.getTokenExpirationDate(token);
       const isExpired = helper.isTokenExpired(token);
       var permissionValue = 0;
-      for ( const formPermission of decodedToken.role) {
+      for (const formPermission of decodedToken.role) {
         const jsonObj = JSON.parse(formPermission);
         if (jsonObj.FormName == formname) {
-           permissionValue = permissionValue + this.permissionValueObj[jsonObj.Permission];
+          permissionValue = permissionValue + this.permissionValueObj[jsonObj.Permission];
         }
       }
       if (permissionValue >= this.permissionValueObj[permission]) {
@@ -92,7 +97,7 @@ export class AuthService {
         return false;
       }
     }
-    catch(e){
+    catch (e) {
       throwError(e);
     }
   }
