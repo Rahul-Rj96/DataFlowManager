@@ -11,13 +11,15 @@ import { FormRoutingModule } from './form-routing.module';
 import { FormtypeService } from './services/formtype.service';
 import { UserSpecificFormsService } from './services/userspecificform.service';
 import { CommonComponentModule } from '../common-components/common.module';
+import { AssignFormsComponent } from './components/assign-forms/assign-forms.component';
 
 
 @NgModule({
   declarations: [
     UserspecificformComponent,
     FormdetailsComponent,
-    FormtypeComponent],
+    FormtypeComponent,
+    AssignFormsComponent],
   imports: [
     FormsModule,
     CommonModule,

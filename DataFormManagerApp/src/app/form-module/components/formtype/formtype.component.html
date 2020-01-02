@@ -9,6 +9,7 @@
 
                 <select *ngIf="formField.Type == 'select' " [(ngModel)]="itemSet[formField.Name]"
                     [ngModelOptions]="{standalone: true}">
+                    <option value="null" selected disabled hidden> Select </option>
                     <option *ngFor="let item of formField.Values" value={{item}}>{{item}}</option>
                 </select>
             </li>

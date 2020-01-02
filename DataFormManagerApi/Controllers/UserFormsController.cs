@@ -17,7 +17,7 @@ namespace DataFormManagerApi.Controllers
     {
 
         [HttpPost]
-        public IHttpActionResult AddUserFormsDataApi(UserFormObjectModel userFormsData )
+        public IHttpActionResult AddUserFormsDataApi(List<UserFormObjectModel> userFormsData )
         {
             UserFormsHelper.AddUserFormsData(userFormsData);
             return Ok();

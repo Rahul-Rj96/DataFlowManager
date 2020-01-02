@@ -1,0 +1,14 @@
+<div *ngIf="users">
+    <h2>Assign Forms</h2>
+    <ol class="assignform">
+        <li *ngFor="let form of forms">
+            <span class="badge"> {{form.FormData[0].Value | uppercase}} </span>
+            <select class="selectuser" [(ngModel)]="itemSet[form.FormId]" >
+                <option value="null" selected disabled hidden> Select </option>
+                <option *ngFor="let user of users" value="{{user.UserId}}">{{user.Username}}
+                </option>
+            </select>
+        </li>
+    </ol>
+    <button *ngIf="isEnabled()" (click)="onSubmit()">Submit</button>
+</div>

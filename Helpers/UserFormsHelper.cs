@@ -13,11 +13,16 @@ namespace Helpers
     public class UserFormsHelper
     {
 
-        public static void AddUserFormsData(UserFormObjectModel userFormsData)
+        public static void AddUserFormsData(List<UserFormObjectModel> userFormsData)
         {
-            int formId = userFormsData.FormId;
-            int userId = userFormsData.UserId;
-            string connString = ConfigurationManager.ConnectionStrings["ReleaseFlowDBConnectionString"].ConnectionString;
+            DataTable userFormsTable = new DataTable();
+            userFormsTable.Columns.Add("UserId", typeof(Int32));
+            userFormsTable.Columns.Add("FormId", typeof(Int32));
+            foreach (UserFormObjectModel userFormdata in userFormsData)
+            {
+                userFormsTable.Rows.Add(userFormdata.UserId , userFormdata.FormId);
+            }
+        string connString = ConfigurationManager.ConnectionStrings["ReleaseFlowDBConnectionString"].ConnectionString;
             try
             {
                 using (SqlConnection conn = new SqlConnection(connString))
@@ -25,11 +30,13 @@ namespace Helpers
                     String spAddUserFormsData = @"dbo.[Proc_UserForms_AddMappingData]";
                     SqlCommand cmd = new SqlCommand(spAddUserFormsData, conn);
                     cmd.CommandType = CommandType.StoredProcedure;
-                    conn.Open();
-                    SqlParameter releaseFlowParam1 = cmd.Parameters.AddWithValue("@FormId", formId);
-                    SqlParameter releaseFlowParam2 = cmd.Parameters.AddWithValue("@UserId", userId);
-                    var reader = cmd.ExecuteNonQuery();
-                    conn.Close();
+                    if (userFormsTable.Rows.Count != 0)
+                    {
+                        conn.Open();
+                        SqlParameter releaseFlowParam1 = cmd.Parameters.AddWithValue("@UserFormsTable", userFormsTable);
+                        var reader = cmd.ExecuteNonQuery();
+                        conn.Close();
+                    }
                 }
             }
             catch (Exception ex)

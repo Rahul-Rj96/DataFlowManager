@@ -60,6 +60,7 @@
     <Folder Include="dbo\" />
     <Folder Include="dbo\Tables\" />
     <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="dbo\User Defined Types\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\UserRoles.sql" />
@@ -96,5 +97,9 @@
     <Build Include="dbo\Stored Procedures\Proc_Form_AddFormDataWithId.sql" />
     <Build Include="dbo\Stored Procedures\Proc_Form_UpdateFormData.sql" />
     <Build Include="dbo\Stored Procedures\Proc_Form_DeleteFormData.sql" />
+    <Build Include="dbo\Stored Procedures\Proc_Form_GetFormTypeName.sql" />
+    <Build Include="dbo\Stored Procedures\Proc_Form_GetFormsToAssign.sql" />
+    <Build Include="dbo\Stored Procedures\Proc_RCKRUser_GetUserToAssignForm.sql" />
+    <Build Include="dbo\User Defined Types\UserFormsTable.sql" />
   </ItemGroup>
 </Project>
