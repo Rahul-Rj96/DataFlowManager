@@ -10,6 +10,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { TokenInterceptorService } from './token-interceptor.service';
 import { CommonComponentModule } from './common-components/common.module';
 import { GlobalErrorHandler } from './global-error-handler.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { GlobalErrorHandler } from './global-error-handler.service';
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
-    CommonComponentModule
+    CommonComponentModule,
+    BrowserAnimationsModule
   ],
   providers: [ AuthService, AuthGuard, CookieService,
   {
