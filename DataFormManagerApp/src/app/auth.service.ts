@@ -52,7 +52,6 @@ export class AuthService {
     const token = this.getAccessTokenFromLocalStorage();
     console.log(token);
     const helper = new JwtHelperService();
-    try {
       const decodedToken = helper.decodeToken(token);
       for (const formPermission of decodedToken.role) {
         const jsonObj = JSON.parse(formPermission);
@@ -63,10 +62,7 @@ export class AuthService {
           return 'No role is assigned';
         }
       }
-    }
-    catch (e) {
-      throwError(e);
-    }
+
   }
 
   isAdmin() {
@@ -80,7 +76,6 @@ export class AuthService {
   getPermission(formname: string, permission: string) {
     const token = this.getAccessTokenFromLocalStorage();
     const helper = new JwtHelperService();
-    try {
       const decodedToken = helper.decodeToken(token);
       const expirationDate = helper.getTokenExpirationDate(token);
       const isExpired = helper.isTokenExpired(token);
@@ -96,9 +91,6 @@ export class AuthService {
       } else {
         return false;
       }
-    }
-    catch (e) {
-      throwError(e);
-    }
+  
   }
 }

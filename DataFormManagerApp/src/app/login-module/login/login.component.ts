@@ -47,7 +47,6 @@ export class LoginComponent implements OnInit {
     }
   }
 
-
   onLogin() {
     window.location.href = AppSettings.baseUrl + 'login/getauthcode';
   }

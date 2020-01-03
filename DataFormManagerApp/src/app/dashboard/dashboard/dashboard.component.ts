@@ -4,18 +4,27 @@ import { MatTableDataSource } from '@angular/material/table';
 import { FormDataModel } from 'src/app/form-module/models/form-data-model';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class DashboardComponent implements OnInit {
 
-  tableColumns  :  string[] = ['FormId', 'FormType','FormData','FormDescription','ViewDetail'];
+  tableColumns  :  string[] = ['FormId', 'FormType','FormData','ViewDetail'];
   dataSource: MatTableDataSource<FormDataModel>;
-  selectedForm: FormDataModel;
+  form: FormDataModel;
+  expandedElement: FormDataModel | null;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -44,7 +53,7 @@ export class DashboardComponent implements OnInit {
   }
 
   onSelect(form: FormDataModel): void {
-    this.selectedForm = form;
+    this.form = form;
   }
 
 }

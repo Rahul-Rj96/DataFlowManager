@@ -14,12 +14,13 @@ import {
   MatInputModule,
   MatSortHeader
 } from '@angular/material';
+import { FormdetailsComponent } from '../form-module/components/formdetails/formdetails.component';
 
 @NgModule({
   declarations: [DashboardComponent,
     MatPaginator,
     MatSort,
-    MatSortHeader
+    MatSortHeader,
   ],
   imports: [
     CommonModule,
@@ -28,7 +29,7 @@ import {
     MatTableModule,
     MatSelectModule,
     MatTooltipModule,
-    MatInputModule
+    MatInputModule,
   ]
 })
 export class DashboardModule { }

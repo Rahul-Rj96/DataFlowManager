@@ -81,7 +81,7 @@ export class FormtypeComponent implements OnInit {
     });
     this.formData = new FormDataModel(this.formType.FormType, this.dataValue);
     this.formTypeService.postFormData(this.formData);
-    this.router.navigate(['dashboard/forms/userspecificform'], { queryParams: { id: this.formTypeId } });
+    window.location.reload();
   }
 
   onSave() {
