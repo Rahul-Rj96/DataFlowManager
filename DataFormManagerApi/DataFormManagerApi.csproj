@@ -177,7 +177,6 @@
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Login.html" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="scripts\bootstrap.js" />
@@ -191,7 +190,6 @@
     <Content Include="scripts\jquery.validate.unobtrusive.js" />
     <Content Include="scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="scripts\modernizr-2.6.2.js" />
-    <Content Include="success.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -205,6 +203,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\UserSpecificFormsController.cs" />
     <Compile Include="Controllers\UserFormsController.cs" />
+    <Compile Include="CustomExceptionFilterAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

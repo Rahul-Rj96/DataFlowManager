@@ -13,6 +13,7 @@ namespace DataFormManagerApi.Controllers
     [BasicAuthentication]
     [RoutePrefix("api/userspecificforms")]
     [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [CustomExceptionFilter]
     public class GetUserFormListController : ApiController
     {
         [HttpGet, Route("{formName}")]
@@ -28,8 +29,7 @@ namespace DataFormManagerApi.Controllers
             }
             else
             {
-                var message = Request.CreateResponse(HttpStatusCode.NotFound, "Invalid User");
-                return message;
+                throw new Exception("Invalid User");
             }
         }
     }
