@@ -13,14 +13,25 @@ namespace DataFormManagerApi.Controllers
     [BasicAuthentication]
     [RoutePrefix("api/userforms")]
     [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [CustomExceptionFilter]
     public class UserFormsController : ApiController
     {
 
         [HttpPost]
-        public IHttpActionResult AddUserFormsDataApi(List<UserFormObjectModel> userFormsData )
+        public HttpResponseMessage AddUserFormsDataApi(List<UserFormObjectModel> userFormsData )
         {
-            UserFormsHelper.AddUserFormsData(userFormsData);
-            return Ok();
+            try
+            {
+                UserFormsHelper.AddUserFormsData(userFormsData);
+                var message = Request.CreateResponse(HttpStatusCode.OK);
+                return message;
+            }
+            catch
+            {
+                throw new Exception("Error Occurred");
+            }
+            
+            
         }
    
     }

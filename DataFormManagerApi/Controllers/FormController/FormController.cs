@@ -14,6 +14,7 @@ namespace DataFormManagerApi.Controllers
     [RoutePrefix("api/form")]
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     [BasicAuthentication]
+    [CustomExceptionFilter]
     public class FormDataController : ApiController
     {
         [HttpPost, Route("add")]
@@ -29,8 +30,8 @@ namespace DataFormManagerApi.Controllers
             }
             else
             {
-                var message = Request.CreateResponse(HttpStatusCode.Forbidden, "User does not have the permission to perform this action");
-                return message;
+                throw new Exception("Permission Denied");
+                
             }
                 
         }
@@ -47,8 +48,8 @@ namespace DataFormManagerApi.Controllers
             }
             else
             {
-                var message = Request.CreateResponse(HttpStatusCode.Forbidden,"User does not have the permission to perform this action");
-                return message;
+                throw new Exception("Permission Denied");
+                
             }
         }
 
@@ -66,8 +67,8 @@ namespace DataFormManagerApi.Controllers
             }
             else
             {
-                var message = Request.CreateResponse(HttpStatusCode.Forbidden, "User does not have the permission to perform this action");
-                return message;
+                throw new Exception("Permission Denied");
+
             }
 
         }
@@ -84,8 +85,7 @@ namespace DataFormManagerApi.Controllers
             }
             else
             {
-                var message = Request.CreateResponse(HttpStatusCode.Forbidden, "User does not have the permission to perform this action");
-                return message;
+                throw new Exception("Permission Denied");
             }
         }
         
@@ -102,8 +102,9 @@ namespace DataFormManagerApi.Controllers
             }
             else
             {
-                var message = Request.CreateResponse(HttpStatusCode.Forbidden, "User does not have the permission to perform this action");
-                return message;
+                throw new Exception("Permission Denied");
+                //var message = Request.CreateResponse(HttpStatusCode.Forbidden, "User does not have the permission to perform this action");
+                //return message;
             }
         }
     }

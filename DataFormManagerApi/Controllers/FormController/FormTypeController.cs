@@ -13,12 +13,21 @@ namespace DataFormManagerApi.Controllers.FormController
     [BasicAuthentication]
     [RoutePrefix("api/formtype")]
     [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [CustomExceptionFilter]
     public class FormTypeController : ApiController
     {
         [HttpGet, Route("{formName}")]
         public FormTypeModel GetFormTypeApi(String formName)
         {
-            return (FormTypeHelper.GetFormFields(formName));
+            try
+            {
+                return (FormTypeHelper.GetFormFields(formName));
+            }
+            catch
+            {
+                throw new Exception("Error Occurred");
+            }
+            
         }
     }
 }
