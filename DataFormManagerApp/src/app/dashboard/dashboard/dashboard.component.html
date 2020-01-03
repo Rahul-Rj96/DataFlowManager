@@ -15,15 +15,15 @@
         <td><mat-cell *matCellDef="let element">{{element.FormType}}</mat-cell></td>
     </ng-container>
 
-    <ng-container  matColumnDef="FormData">
+    <!-- <ng-container  matColumnDef="FormData">
         <th><mat-header-cell *matHeaderCellDef  mat-sort-header>Form Data</mat-header-cell></th>
         <td><mat-cell *matCellDef="let element">{{element.FormData[0].Value}}</mat-cell></td>
-    </ng-container>
+    </ng-container> -->
 
    
     <ng-container  matColumnDef="ViewDetail">
         <th><mat-header-cell *matHeaderCellDef>View Details</mat-header-cell></th>
-        <td>        <mat-cell *matCellDef="let element" ><button (click)="onSelect(element)">click</button></mat-cell>
+        <td>        <mat-cell *matCellDef="let element" ><button (click)="onSelect(element)">{{element.FormData[0].Value}}</button></mat-cell>
         </td>
     </ng-container>
 
@@ -37,7 +37,7 @@
 
 <br>
 
-<div *ngIf="form">
+<div class="extendedview" *ngIf="form">
   <br>
   <h2>{{form.FormType | titlecase}} Details : </h2>
   <ul class="formdetails">
@@ -45,5 +45,8 @@
           <span class="badge"> {{formData.Name}} :</span> {{formData.Value}}<br />
       </li>
   </ul>
+  <a [routerLink]="['forms']" [queryParams]="{ id:form.FormType , formId:form.FormId}"><button class="buttons"
+    id=add>Edit</button></a>&nbsp;
+<button class="buttons" (click)="onDelete()">Delete</button>
 </div>
 

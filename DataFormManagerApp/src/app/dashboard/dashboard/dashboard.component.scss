@@ -1,23 +1,22 @@
 table {
   width: 100%;
-  
+  background-color:rgb(182, 195, 201);
 }
-
-.mat-form-field {
-  font-size: 14px;
-  width: 300%;
+.buttons {
+  background-color: #587f8f;
+  border: slategrey;
+  color: white;
+  padding: 2px 5px 4px 5px;
+  text-align: center;
+  width: 90px;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px ;
+  height: 1.7em;
+  margin-left: 100px;
+  border-radius: 4px 4px 4px 4px;
+  margin-bottom: 10px; 
 }
-
-td, th {
-  width: 25%;
-}
-
-.mat-elevation-z8{
-
-  width: 300%;
-
-}
-
 button {
   background-color: #587f8f;
   border: slategrey;
@@ -27,24 +26,31 @@ button {
   width: 90px;
   text-decoration: none;
   display: inline-block;
-  font-size: 20px;
-  height: 1.7em;
+  font-size: 13px;
+  height: 2em;
   border-radius: 4px 4px 4px 4px;
-  margin-bottom: 10px;
-  
+  margin-bottom: 10px; 
 }
 
-.formdetails {
+
+.mat-elevation-z8 {
+    margin: 0 0 2em 0;
+    list-style-type: unit($number: 100);
+    padding: 0;
+    width: 50em;
+  }
+
+  .extendedview {
     margin: 0 0 2em 0;
     list-style-type: unit($number: 100);
     padding: 0;
     width: 25em;
   }
-  .formdetails li {
+  .extendedview li {
     //cursor: pointer;
     position: relative;
     left: 0;
-    background-color: #EEE;
+    background-color:rgb(182, 195, 201);
     margin: .5em;
     padding: .3em 0;
     height: 2.4em;
@@ -63,7 +69,7 @@ button {
 //     background-color: #BBD8DC;
 //     color: white;
 //   }
-  .formdetails .badge {
+  .extendedview .badge {
     display: inline-block;
     font-size: small;
     text-align: left;
