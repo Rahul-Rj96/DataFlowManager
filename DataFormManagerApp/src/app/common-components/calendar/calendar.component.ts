@@ -1,6 +1,6 @@
 import {
-  Component ,
-  OnInit ,
+  Component,
+  OnInit,
   ChangeDetectionStrategy,
   ViewChild,
   TemplateRef
@@ -15,7 +15,7 @@ import {
   isSameMonth,
   addHours
 } from 'date-fns';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   CalendarEvent,
@@ -30,6 +30,9 @@ const colors: any = {
   red: {
     primary: '#ad2121',
     secondary: '#FAE3E3'
+  },
+  green: {
+    primary: '#32CD32'
   },
   blue: {
     primary: '#1e90ff',
@@ -61,21 +64,21 @@ export class CalendarComponent {
   };
 
   actions: CalendarEventAction[] = [
-    {
-      label: '<i class="fa fa-fw fa-pencil"></i>',
-      a11yLabel: 'Edit',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.handleEvent('Edited', event);
-      }
-    },
-    {
-      label: '<i class="fa fa-fw fa-times"></i>',
-      a11yLabel: 'Delete',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.events = this.events.filter(iEvent => iEvent !== event);
-        this.handleEvent('Deleted', event);
-      }
-    }
+    // {
+    //   label: '<i class="fa fa-fw fa-pencil"></i>',
+    //   a11yLabel: 'Edit',
+    //   onClick: ({ event }: { event: CalendarEvent }): void => {
+    //     this.handleEvent('Edited', event);
+    //   }
+    // },
+    // {
+    //   label: '<i class="fa fa-fw fa-times"></i>',
+    //   a11yLabel: 'Delete',
+    //   onClick: ({ event }: { event: CalendarEvent }): void => {
+    //     this.events = this.events.filter(iEvent => iEvent !== event);
+    //     this.handleEvent('Deleted', event);
+    //   }
+    // }
   ];
 
   refresh: Subject<any> = new Subject();
@@ -84,9 +87,9 @@ export class CalendarComponent {
   event: CalendarEvent;
   data: Array<FormDataModel>;
 
-  activeDayIsOpen: boolean;
+  activeDayIsOpen: boolean = false;
 
-  constructor(private modal: NgbModal , private userSpecificFormService: UserSpecificFormsService) {}
+  constructor(private modal: NgbModal, private userSpecificFormService: UserSpecificFormsService) { }
 
   // tslint:disable-next-line: use-lifecycle-interface
   ngOnInit() {
@@ -95,37 +98,34 @@ export class CalendarComponent {
         this.data = res;
         this.data.forEach(element => {
           if (element.FormType == 'Release') {
-          let newDate = new Date(element.FormData[5].Value);
-          this.event = {
-          id : element.FormId,
-          title : element.FormType,
-          allDay : true,
-          actions : this.actions,
-          start : newDate,
-          color : colors.blue,
-          draggable : true,
-          resizable : {
-      beforeStart: true ,
-      afterEnd: true
-   }
-    }; }
-          if ( element.FormType == 'Leave') {
+            let newDate = new Date(element.FormData[5].Value);
+            this.event = {
+              id: element.FormId,
+              title: element.FormType,
+              allDay: true,
+              actions: this.actions,
+              start: newDate,
+              color: colors.green
 
-      this.event = {
-        id : element.FormId,
-        title : element.FormType,
-        allDay : true,
-        actions : this.actions,
-        start : new Date(element.FormData[1].Value),
-        end : new Date(element.FormData[2].Value),
-        color : colors.red
-      } ;
-    }
+            };
+          }
+          if (element.FormType == 'Leave') {
+
+            this.event = {
+              id: element.FormId,
+              title: element.FormType,
+              allDay: true,
+              actions: this.actions,
+              start: new Date(element.FormData[1].Value),
+              end: new Date(element.FormData[2].Value),
+              color: colors.red
+            };
+          }
           this.events.push(this.event);
         });
-
-        });
-       }
+        this.refresh.next(this.events);
+      });
+  }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
@@ -164,22 +164,22 @@ export class CalendarComponent {
     this.modal.open(this.modalContent, { size: 'lg' });
   }
 
-  addEvent(): void {
-    this.events = [
-      ...this.events,
-      {
-        title: 'New event',
-        start: startOfDay(new Date()),
-        end: endOfDay(new Date()),
-        color: colors.red,
-        draggable: true,
-        resizable: {
-          beforeStart: true,
-          afterEnd: true
-        }
-      }
-    ];
-  }
+  // addEvent(): void {
+  //   this.events = [
+  //     ...this.events,
+  //     {
+  //       title: 'New event',
+  //       start: startOfDay(new Date()),
+  //       end: endOfDay(new Date()),
+  //       color: colors.red,
+  //       draggable: true,
+  //       resizable: {
+  //         beforeStart: true,
+  //         afterEnd: true
+  //       }
+  //     }
+  //   ];
+  // }
 
   deleteEvent(eventToDelete: CalendarEvent) {
     this.events = this.events.filter(event => event !== eventToDelete);

@@ -1,5 +1,5 @@
 <div id="sidebar-main" class="sidebar sidebar-default sidebar-separate sidebar-fixed"
-	*ngIf="isUserLoggedIn();else googleLogin">
+	*ngIf="isUserLoggedIn()">
 	<div class="sidebar-content">
 		<div class="sidebar-category sidebar-default">
 			<div class="sidebar-user">
@@ -61,8 +61,7 @@
 						</ul>
 
 					</li>
-					<!-- <li class="nav-item" *ngIf="this.authService.isAdmin()"></li> -->
-					<li class="nav-item">
+					<li class="nav-item" *ngIf="this.authService.isAdmin()">
 						<a href="#Assign_actions" class="nav-link" data-toggle="collapse" role="button"
 							aria-expanded="false" aria-controls="other-fruits">
 							<i class="fa fa-pencil" aria-hidden="true"></i>
