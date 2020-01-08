@@ -13,6 +13,16 @@ namespace DataFormManager.Models
             get;
             set;
         }
+        public string FormName
+        {
+            get;
+            set;
+        }
+        public DatesModel EffectiveDate
+        {
+            get;
+            set;
+        }
         public List<FormFieldsModel> FormFields
         {
             get;
