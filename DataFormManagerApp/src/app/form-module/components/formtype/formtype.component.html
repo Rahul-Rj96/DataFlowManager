@@ -5,9 +5,9 @@
             <li *ngFor="let formField of formType.FormFields">
                 <span class="badge">{{formField.Name}} </span>
                 <input required *ngIf="formField.Type !== 'select' " type={{formField.Type}} id={{formField.Id}}
-                    [(ngModel)]="itemSet[formField.Name]" [ngModelOptions]="{standalone: true}">
+                    [(ngModel)]="itemSet[formField.Id]" [ngModelOptions]="{standalone: true}">
 
-                <select *ngIf="formField.Type == 'select' " [(ngModel)]="itemSet[formField.Name]"
+                <select *ngIf="formField.Type == 'select' " [(ngModel)]="itemSet[formField.Id]"
                     [ngModelOptions]="{standalone: true}">
                     <option value="null" selected disabled hidden> Select </option>
                     <option *ngFor="let item of formField.Values" value={{item}}>{{item}}</option>

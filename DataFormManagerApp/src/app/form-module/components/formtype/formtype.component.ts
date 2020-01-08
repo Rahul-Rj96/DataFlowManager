@@ -50,7 +50,7 @@ export class FormtypeComponent implements OnInit {
 
 
         this.formType.FormFields.forEach((item) => {
-          this.itemSet[item.Name] = null;
+          this.itemSet[item.Id] = null;
         });
         this.submit = true;
       });
@@ -81,19 +81,18 @@ export class FormtypeComponent implements OnInit {
   onSubmit() {
     this.dataValue = [];
     this.formType.FormFields.forEach((item) => {
-      this.dataValue.push(new DataValueModel(item.Name, this.itemSet[item.Name]));
+      this.dataValue.push(new DataValueModel(item.Id, this.itemSet[item.Id]));
     });
     this.dataValue.forEach((item) => {
-      if (item.Name == 'ReleaseDate' || item.Name == 'From') {
+      if (item.Name == this.formType.EffectiveDate.StartDate) {
         this.StartDate = item.Value;
       }
-      if (item.Name == 'ReleaseDate' || item.Name == 'To') {
+      if (item.Name == this.formType.EffectiveDate.EndDate) {
         this.EndDate = item.Value;
       }
     });
     this.effectiveDates = new Datesmodel(this.StartDate, this.EndDate);
     this.formData = new FormDataModel(this.formType.FormType, this.dataValue,  this.effectiveDates);
-    console.log(this.formData);
     this.formTypeService.postFormData(this.formData);
     window.location.reload();
   }
@@ -101,19 +100,18 @@ export class FormtypeComponent implements OnInit {
   onSave() {
     this.dataValue = [];
     this.formType.FormFields.forEach((item) => {
-      this.dataValue.push(new DataValueModel(item.Name, this.itemSet[item.Name]));
+      this.dataValue.push(new DataValueModel(item.Id, this.itemSet[item.Id]));
     });
     this.dataValue.forEach((item) => {
-      if (item.Name == 'ReleaseDate' || item.Name == 'From') {
+      if (item.Name == this.formType.EffectiveDate.StartDate) {
         this.StartDate = item.Value;
       }
-      if (item.Name == 'ReleaseDate' || item.Name == 'To') {
+      if (item.Name == this.formType.EffectiveDate.EndDate) {
         this.EndDate = item.Value;
       }
     });
     this.effectiveDates = new Datesmodel(this.StartDate, this.EndDate);
     this.formData = new FormDataModel(this.formType.FormType, this.dataValue, this.effectiveDates, this.form.FormId);
-    console.log(this.formData);
     this.formTypeService.putFormData(this.formData);
     this.router.navigate(['dashboard/forms/userspecificform'], { queryParams: { id: this.formTypeId } });
    }
