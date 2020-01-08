@@ -25,7 +25,7 @@ namespace DataFormManagerApi.Controllers
             {
                 UserObjectModel userObj = TokenHelper.getUserByAccessToken(accessToken);
                 FormHelper.AddFormData(formData, userObj.UserId);
-                var message = Request.CreateResponse(HttpStatusCode.OK);
+                var message = Request.CreateResponse(HttpStatusCode.Created,"Created");
                 return message;
             }
             else
@@ -43,7 +43,7 @@ namespace DataFormManagerApi.Controllers
             if (PermissionHelper.IsUserHasPermission(accessToken, formData.FormType, "Write"))
             {
                 FormHelper.UpdateFormData(formData);
-                var message = Request.CreateResponse(HttpStatusCode.OK);
+                var message = Request.CreateResponse(HttpStatusCode.OK,"Updated");
                 return message;
             }
             else
@@ -62,7 +62,7 @@ namespace DataFormManagerApi.Controllers
             if (PermissionHelper.IsUserHasPermission(accessToken,formType , "FullAccess"))
             {
                 FormHelper.DeleteFormData(formId);
-                var message = Request.CreateResponse(HttpStatusCode.OK);
+                var message = Request.CreateResponse(HttpStatusCode.OK,"Deleted");
                 return message;
             }
             else

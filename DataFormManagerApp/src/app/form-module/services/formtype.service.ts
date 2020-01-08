@@ -23,13 +23,23 @@ export class FormtypeService {
     return this.http.get<FormTypeModel>(this.formTypeUrl + id);
   }
   postFormData(formData: FormDataModel) {
-    this.http.post(this.formDataUrl + 'add', formData).subscribe();
+    this.http.post(this.formDataUrl + 'add', formData).subscribe(
+      (response) => {
+        window.alert(response);
+      }
+    );
   }
   putFormData(formData: FormDataModel) {
-    this.http.put(this.formDataUrl + 'update', formData).subscribe();
+    this.http.put(this.formDataUrl + 'update', formData).subscribe(
+      (response) => {
+      window.alert(response);
+    });
   }
   deleteFormData(id: number) {
-    this.http.delete(this.formDataUrl + id).subscribe();
+    this.http.delete(this.formDataUrl + id).subscribe(
+      (response) => {
+        window.alert(response);
+      });
   }
   getFormsToAssign(formName: string): Observable<Array<FormDataModel>> {
     return this.http.get<Array<FormDataModel>>(this.formDataUrl + formName);
@@ -38,6 +48,10 @@ export class FormtypeService {
     return this.http.get<Array<UserIdNameModel>>(this.formDataUrl + 'users/' + formType);
   }
   postUserFormsData(userFormsData: Array<Assignformmodel>) {
-    this.http.post(this.userFormsUrl , userFormsData).subscribe();
+    this.http.post(this.userFormsUrl , userFormsData).subscribe(
+      (response) => {
+        window.alert(response);
+      }
+    );
   }
 }
