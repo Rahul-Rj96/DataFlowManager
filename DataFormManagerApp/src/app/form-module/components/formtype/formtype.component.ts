@@ -5,6 +5,7 @@ import { FormtypeService } from '../../services/formtype.service';
 import { UserSpecificFormsService } from '../../services/userspecificform.service';
 import { DataValueModel } from '../../models/data-value-model';
 import { FormDataModel } from '../../models/form-data-model';
+import { Datesmodel } from '../../models/datesmodel';
 
 
 
@@ -23,6 +24,9 @@ export class FormtypeComponent implements OnInit {
   formTypeId: string;
   FormId: number;
   submit: boolean;
+  effectiveDates: Datesmodel;
+  StartDate: string;
+  EndDate: string;
   // tslint:disable-next-line: max-line-length
   constructor(private formTypeService: FormtypeService, private userSpecificFormService: UserSpecificFormsService, private route: ActivatedRoute, private router: Router) { }
 
@@ -79,7 +83,17 @@ export class FormtypeComponent implements OnInit {
     this.formType.FormFields.forEach((item) => {
       this.dataValue.push(new DataValueModel(item.Name, this.itemSet[item.Name]));
     });
-    this.formData = new FormDataModel(this.formType.FormType, this.dataValue);
+    this.dataValue.forEach((item) => {
+      if (item.Name == 'ReleaseDate' || item.Name == 'From') {
+        this.StartDate = item.Value;
+      }
+      if (item.Name == 'ReleaseDate' || item.Name == 'To') {
+        this.EndDate = item.Value;
+      }
+    });
+    this.effectiveDates = new Datesmodel(this.StartDate, this.EndDate);
+    this.formData = new FormDataModel(this.formType.FormType, this.dataValue,  this.effectiveDates);
+    console.log(this.formData);
     this.formTypeService.postFormData(this.formData);
     window.location.reload();
   }
@@ -89,7 +103,17 @@ export class FormtypeComponent implements OnInit {
     this.formType.FormFields.forEach((item) => {
       this.dataValue.push(new DataValueModel(item.Name, this.itemSet[item.Name]));
     });
-    this.formData = new FormDataModel(this.formType.FormType, this.dataValue, this.form.FormId);
+    this.dataValue.forEach((item) => {
+      if (item.Name == 'ReleaseDate' || item.Name == 'From') {
+        this.StartDate = item.Value;
+      }
+      if (item.Name == 'ReleaseDate' || item.Name == 'To') {
+        this.EndDate = item.Value;
+      }
+    });
+    this.effectiveDates = new Datesmodel(this.StartDate, this.EndDate);
+    this.formData = new FormDataModel(this.formType.FormType, this.dataValue, this.effectiveDates, this.form.FormId);
+    console.log(this.formData);
     this.formTypeService.putFormData(this.formData);
     this.router.navigate(['dashboard/forms/userspecificform'], { queryParams: { id: this.formTypeId } });
    }

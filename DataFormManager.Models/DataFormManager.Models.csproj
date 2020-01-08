@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="CodeObject.cs" />
     <Compile Include="DataValueModel.cs" />
+    <Compile Include="DatesModel.cs" />
     <Compile Include="FormDataModel.cs" />
     <Compile Include="FormFieldsModel.cs" />
     <Compile Include="FormTypeModel.cs" />

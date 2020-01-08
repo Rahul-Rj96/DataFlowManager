@@ -66,9 +66,9 @@ export class CalendarComponent {
   actions: CalendarEventAction[] = [
     // {
     //   label: '<i class="fa fa-fw fa-pencil"></i>',
-    //   a11yLabel: 'Edit',
+    //   a11yLabel: 'Click',
     //   onClick: ({ event }: { event: CalendarEvent }): void => {
-    //     this.handleEvent('Edited', event);
+    //     this.handleEvent('clicked', event);
     //   }
     // },
     // {
@@ -98,13 +98,12 @@ export class CalendarComponent {
         this.data = res;
         this.data.forEach(element => {
           if (element.FormType == 'Release') {
-            let newDate = new Date(element.FormData[5].Value);
             this.event = {
               id: element.FormId,
               title: element.FormType,
               allDay: true,
-              actions: this.actions,
-              start: newDate,
+              start: new Date(element.EffectiveDate.StartDate),
+              end: new Date(element.EffectiveDate.EndDate),
               color: colors.green
 
             };
@@ -115,9 +114,8 @@ export class CalendarComponent {
               id: element.FormId,
               title: element.FormType,
               allDay: true,
-              actions: this.actions,
-              start: new Date(element.FormData[1].Value),
-              end: new Date(element.FormData[2].Value),
+              start: new Date(element.EffectiveDate.StartDate),
+              end: new Date(element.EffectiveDate.EndDate),
               color: colors.red
             };
           }
@@ -160,6 +158,7 @@ export class CalendarComponent {
   }
 
   handleEvent(action: string, event: CalendarEvent): void {
+    debugger;
     this.modalData = { event, action };
     this.modal.open(this.modalContent, { size: 'lg' });
   }

@@ -23,6 +23,11 @@ namespace DataFormManager.Models
             get;
             set;
         }
+        public DatesModel EffectiveDate
+        {
+            get;
+            set;
+        }
 
     }
 }
