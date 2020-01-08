@@ -89,18 +89,40 @@
     >
     </mwl-calendar-day-view>
   </div>
+  <ng-template #modalContent let-close="close">
+    <div class="modal-header">
+      <!-- <h5 class="modal-title"></h5> -->
+      <button type="button" class="close" (click)="close()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div *ngFor = "let dt of data">
+        
+        <!-- <pre *ngIf = "modalData.event.id === data.FormId">{{ data | json }}</pre> -->
+        <div *ngIf="modalData.event.id === dt.FormId">
+          <br>
+          <h2>{{data.FormType | titlecase}} Details : </h2>
+          <ul class="formdetails">
+              <li *ngFor="let formData of dt.FormData">
+                  <span class="badge"> {{formData.Name}} :</span> {{formData.Value}}<br />
+              </li>
+          </ul>
+         
+      </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-secondary" (click)="close()">
+        OK
+      </button>
+    </div>
+  </ng-template>
   
-  <!-- Everything you see below is just for the demo, you don't need to include it in your app
+   <!--Everything you see below is just for the demo, you don't need to include it in your app
   
   <br /><br /><br />
-  
-  <h3>
-    Edit events
-    <button class="btn btn-primary pull-right" (click)="addEvent()">
-      Add new
-    </button>
-    <div class="clearfix"></div>
-  </h3>
+ 
   
   <div class="table-responsive">
     <table class="table table-bordered">
@@ -177,7 +199,7 @@
         </tr>
       </tbody>
     </table>
-  </div> -->
+  </div>
   
   <ng-template #modalContent let-close="close">
     <div class="modal-header">
@@ -187,10 +209,10 @@
       </button>
     </div>
     <div class="modal-body">
-      <!-- <div>
+      <div>
         Action:
         <pre>{{ modalData?.action }}</pre>
-      </div> -->
+      </div>
       <div>
         Event:
         <pre>{{ modalData?.event | json }}</pre>
@@ -201,4 +223,4 @@
         OK
       </button>
     </div>
-  </ng-template>
+  </ng-template> -->
