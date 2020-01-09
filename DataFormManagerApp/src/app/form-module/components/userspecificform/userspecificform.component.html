@@ -2,7 +2,7 @@
 <h2>{{formName | titlecase}} Forms</h2>
 <ol class="userspecificform">
     <li *ngFor="let form of forms" [class.selected]="form === selectedForm" (click)="onSelect(form)">
-        <span class="badge"> {{form.FormData[0].Value | uppercase}} </span>
+        <span class="badge"> {{form.FormName | titlecase}} </span>
     </li>
 </ol>
 <app-formdetails [form]="selectedForm"></app-formdetails>
