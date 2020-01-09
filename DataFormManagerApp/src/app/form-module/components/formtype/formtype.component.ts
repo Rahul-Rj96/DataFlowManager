@@ -23,10 +23,11 @@ export class FormtypeComponent implements OnInit {
   options: Array<string>;
   formTypeId: string;
   FormId: number;
-  submit: boolean;
+  savemode: boolean;
   effectiveDates: Datesmodel;
   StartDate: string;
   EndDate: string;
+  FormName: string;
   // tslint:disable-next-line: max-line-length
   constructor(private formTypeService: FormtypeService, private userSpecificFormService: UserSpecificFormsService, private route: ActivatedRoute, private router: Router) { }
 
@@ -47,16 +48,16 @@ export class FormtypeComponent implements OnInit {
 
       this.formTypeService.getFormType(this.formTypeId).subscribe((result) => {
         this.formType = result;
-
-
+        this.FormName = this.formType.FormName;
         this.formType.FormFields.forEach((item) => {
           this.itemSet[item.Id] = null;
         });
-        this.submit = true;
+        this.savemode = false;
       });
     } else {
       this.formTypeService.getFormType(this.formTypeId).subscribe((result) => {
         this.formType = result;
+        this.FormName = this.formType.FormName;
       });
       this.userSpecificFormService.getForms(this.formTypeId).subscribe((result) => {
         result.forEach((item) => {
@@ -69,12 +70,12 @@ export class FormtypeComponent implements OnInit {
         });
       }
       );
-      this.submit = false;
+      this.savemode = true;
     }
   }
 
   isEnabled() {
-    return this.submit;
+    return this.savemode;
   }
 
 
@@ -92,28 +93,17 @@ export class FormtypeComponent implements OnInit {
       }
     });
     this.effectiveDates = new Datesmodel(this.StartDate, this.EndDate);
-    this.formData = new FormDataModel(this.formType.FormType, this.dataValue,  this.effectiveDates);
-    this.formTypeService.postFormData(this.formData);
-    window.location.reload();
-  }
+    if (this.savemode == false ) {
+      this.formData = new FormDataModel(this.formType.FormType, this.itemSet[this.FormName], this.dataValue,  this.effectiveDates);
+      this.formTypeService.postFormData(this.formData);
+      window.location.reload();
+    } else {
+      // tslint:disable-next-line: max-line-length
+      this.formData = new FormDataModel(this.formType.FormType, this.itemSet[this.FormName], this.dataValue, this.effectiveDates, this.form.FormId);
+      this.formTypeService.putFormData(this.formData);
+      this.router.navigate(['dashboard/forms/userspecificform'], { queryParams: { id: this.formTypeId } });
+    }
 
-  onSave() {
-    this.dataValue = [];
-    this.formType.FormFields.forEach((item) => {
-      this.dataValue.push(new DataValueModel(item.Id, this.itemSet[item.Id]));
-    });
-    this.dataValue.forEach((item) => {
-      if (item.Name == this.formType.EffectiveDate.StartDate) {
-        this.StartDate = item.Value;
-      }
-      if (item.Name == this.formType.EffectiveDate.EndDate) {
-        this.EndDate = item.Value;
-      }
-    });
-    this.effectiveDates = new Datesmodel(this.StartDate, this.EndDate);
-    this.formData = new FormDataModel(this.formType.FormType, this.dataValue, this.effectiveDates, this.form.FormId);
-    this.formTypeService.putFormData(this.formData);
-    this.router.navigate(['dashboard/forms/userspecificform'], { queryParams: { id: this.formTypeId } });
-   }
+  }
 
 }

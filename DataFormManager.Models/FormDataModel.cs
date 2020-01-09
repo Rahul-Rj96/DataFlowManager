@@ -18,6 +18,11 @@ namespace DataFormManager.Models
             get;
             set;
         }
+        public string FormName
+        {
+            get;
+            set;
+        }
         public List<DataValueModel> FormData
         {
             get;

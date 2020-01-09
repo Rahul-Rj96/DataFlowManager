@@ -100,7 +100,7 @@ export class CalendarComponent {
           if (element.FormType == 'Release') {
             this.event = {
               id: element.FormId,
-              title: element.FormType,
+              title: element.FormName,
               allDay: true,
               start: new Date(element.EffectiveDate.StartDate),
               end: new Date(element.EffectiveDate.EndDate),
@@ -112,7 +112,7 @@ export class CalendarComponent {
 
             this.event = {
               id: element.FormId,
-              title: element.FormType,
+              title: element.FormName,
               allDay: true,
               start: new Date(element.EffectiveDate.StartDate),
               end: new Date(element.EffectiveDate.EndDate),

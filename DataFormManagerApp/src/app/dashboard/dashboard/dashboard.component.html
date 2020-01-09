@@ -23,7 +23,7 @@
    
     <ng-container  matColumnDef="ViewDetail">
         <th><mat-header-cell *matHeaderCellDef>View Details</mat-header-cell></th>
-        <td>        <mat-cell *matCellDef="let element" ><button (click)="onSelect(element)">{{element.FormData[0].Value}}</button></mat-cell>
+        <td>        <mat-cell *matCellDef="let element" ><button (click)="onSelect(element)">{{element.FormName | titlecase}}</button></mat-cell>
         </td>
     </ng-container>
 
