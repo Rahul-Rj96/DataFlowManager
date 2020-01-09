@@ -101,5 +101,6 @@
     <Build Include="dbo\Stored Procedures\Proc_Form_GetFormsToAssign.sql" />
     <Build Include="dbo\Stored Procedures\Proc_RCKRUser_GetUserToAssignForm.sql" />
     <Build Include="dbo\User Defined Types\UserFormsTable.sql" />
+    <Build Include="dbo\Stored Procedures\Proc_Form_GetLimitedUserFormDatas.sql" />
   </ItemGroup>
 </Project>

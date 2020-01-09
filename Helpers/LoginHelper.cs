@@ -74,8 +74,7 @@ namespace Helpers
        
         public static string GetGoogleAuthCode()
         {
-            string url = @"https://accounts.google.com/o/oauth2/v2/auth?scope=profile+email+openid&access_type=offline&include_granted_scopes=true&state=state_parameter_passthrough_value&redirect_uri=http%3A%2F%2Fdataformmanager.dev37.grcdev.com%2Fapi%2Flogin%2Fgoogle%2F&response_type=code&client_id=892661883096-49tbcjjtktgr35m3cemah46llusc572t.apps.googleusercontent.com";
-            return url;
+            return (ConfigurationManager.AppSettings["google_code_url"] + "&access_type=offline&include_granted_scopes=true&state=" + ConfigurationManager.AppSettings["state"] + "&redirect_uri=" + ConfigurationManager.AppSettings["redirect_uri_encoded"] + "&response_type=code&client_id=" + ConfigurationManager.AppSettings["client_id"]);
         }
         
         public static void CreateUserSession(UserObjectModel userObj)
@@ -91,7 +90,7 @@ namespace Helpers
         {
             HttpContext context = HttpContext.Current;
             var resp = new HttpResponseMessage(HttpStatusCode.Moved);
-            resp.Headers.Location = new Uri(@"http://dataformmanager.dev37.grcdev.com/login"+"?code="+authorizationCode);
+            resp.Headers.Location = new Uri(ConfigurationManager.AppSettings["base_url"]+"login" +"?code="+authorizationCode);
             //var cookie = new CookieHeaderValue("subKey", (string)(context.Session["Sub"]));
             //cookie.Expires = DateTimeOffset.Now.AddDays(1);
             var nv = new NameValueCollection();

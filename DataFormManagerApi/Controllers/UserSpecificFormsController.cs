@@ -32,5 +32,22 @@ namespace DataFormManagerApi.Controllers
                 throw new Exception("Invalid User");
             }
         }
+
+        [HttpGet, Route("{formName}/{start}/{count}")]
+        public HttpResponseMessage GetLimitedUserFormDatasApi(string formName,string start, string count)
+        {
+            string accessToken = Request.Headers.Authorization.Parameter;
+            UserObjectModel userObj = TokenHelper.getUserByAccessToken(accessToken);
+            if (userObj != null)
+            {
+                List<FormDataModel> dataList = UserSpecificFormsHelper.GetLimitedUserFormDataList(userObj.UserId, formName,start,count);
+                var message = Request.CreateResponse(HttpStatusCode.OK, dataList);
+                return message;
+            }
+            else
+            {
+                throw new Exception("Invalid User");
+            }
+        }
     }
 }
