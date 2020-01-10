@@ -44,34 +44,29 @@ export class FormtypeComponent implements OnInit {
         this.FormId = params.formId || 0;
 
       });
-    if (this.FormId == 0) {
-
-      this.formTypeService.getFormType(this.formTypeId).subscribe((result) => {
+    this.formTypeService.getFormType(this.formTypeId).subscribe((result) => {
         this.formType = result;
         this.FormName = this.formType.FormName;
-        this.formType.FormFields.forEach((item) => {
-          this.itemSet[item.Id] = null;
-        });
-        this.savemode = false;
-      });
-    } else {
-      this.formTypeService.getFormType(this.formTypeId).subscribe((result) => {
-        this.formType = result;
-        this.FormName = this.formType.FormName;
-      });
-      this.userSpecificFormService.getForms(this.formTypeId).subscribe((result) => {
-        result.forEach((item) => {
-          if (item.FormId == this.FormId) {
-            this.form = item;
+        if (this.FormId == 0) {
+          this.formType.FormFields.forEach((item) => {
+              this.itemSet[item.Id] = null;
+              this.savemode = false;
+          });
+        } else {
+          this.userSpecificFormService.getForms(this.formTypeId).subscribe((result) => {
+            result.forEach((item) => {
+              if (item.FormId == this.FormId) {
+                this.form = item;
+              }
+            });
+            this.form.FormData.forEach((item) => {
+              this.itemSet[item.Name] = item.Value;
+            });
           }
+          );
+          this.savemode = true;
+        }
         });
-        this.form.FormData.forEach((item) => {
-          this.itemSet[item.Name] = item.Value;
-        });
-      }
-      );
-      this.savemode = true;
-    }
   }
 
   isEnabled() {

@@ -1,6 +1,7 @@
 table {
   width: 100%;
   background-color:rgb(115, 127, 131);
+  text: snow;
 }
 .buttons {
   background-color: #587f8f;
@@ -32,6 +33,12 @@ button {
   margin-bottom: 10px; 
 }
 
+.mat-header-cell{
+  color: snow;
+}
+.mat-cell{
+  color: snow;
+}
 
 .mat-elevation-z8 {
     margin: 0 0 2em 0;
@@ -41,8 +48,8 @@ button {
   }
 
   .mat-elevation-z8 mat-row:hover {
-    color: rgb(202, 162, 52);
-    background-color: rgb(202, 224, 151);
+    color: rgb(199, 196, 187);
+    background-color: rgba(225, 226, 223, 0.342);
     left: .1em;
   }
   .mat-elevation-z8 mat-row.selected {

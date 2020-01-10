@@ -69,7 +69,8 @@ export class AuthService {
   }
 
   isAdmin() {
-    if (this.getRole() == 'admin') {
+    const role = this.getRole();
+    if (role.toLowerCase() == 'admin' ) {
       return true;
     } else {
       return false;
@@ -85,7 +86,7 @@ export class AuthService {
     var permissionValue = 0;
     for (const formPermission of decodedToken.role) {
         const jsonObj = JSON.parse(formPermission);
-        if (jsonObj.FormName == formname) {
+        if (jsonObj.FormName.toLowerCase() == formname.toLowerCase()) {
           permissionValue = permissionValue + this.permissionValueObj[jsonObj.Permission];
         }
       }

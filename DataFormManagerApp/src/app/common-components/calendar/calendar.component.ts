@@ -158,7 +158,6 @@ export class CalendarComponent {
   }
 
   handleEvent(action: string, event: CalendarEvent): void {
-    debugger;
     this.modalData = { event, action };
     this.modal.open(this.modalContent, { size: 'lg' });
   }
