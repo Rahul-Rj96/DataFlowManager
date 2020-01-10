@@ -18,7 +18,7 @@ namespace Helpers
             int formId = new int();
             int isSelfAssigned = new int();
             string formTypeName = formData.FormType;
-            string connString = ConfigurationManager.ConnectionStrings["ReleaseFlowDBConnectionString"].ConnectionString;
+            string connString = ConfigurationManager.ConnectionStrings["DFMDBConnectionString"].ConnectionString;
             try
             {
                 using (SqlConnection conn = new SqlConnection(connString))
@@ -73,7 +73,7 @@ namespace Helpers
         public static void UpdateFormData(FormDataModel formData)
         {
             string jsonFormData = JsonConvert.SerializeObject(formData);
-            string connString = ConfigurationManager.ConnectionStrings["ReleaseFlowDBConnectionString"].ConnectionString;
+            string connString = ConfigurationManager.ConnectionStrings["DFMDBConnectionString"].ConnectionString;
             try
             {
                 using (SqlConnection conn = new SqlConnection(connString))
@@ -97,7 +97,7 @@ namespace Helpers
 
         public static void DeleteFormData(int formId)
         {
-            string connString = ConfigurationManager.ConnectionStrings["ReleaseFlowDBConnectionString"].ConnectionString;
+            string connString = ConfigurationManager.ConnectionStrings["DFMDBConnectionString"].ConnectionString;
             try
             {
                 using (SqlConnection conn = new SqlConnection(connString))
@@ -120,7 +120,7 @@ namespace Helpers
         public static string GetFormTypeNameUsingId(int formId)
         {
             string formType = null;
-            string connString = ConfigurationManager.ConnectionStrings["ReleaseFlowDBConnectionString"].ConnectionString;
+            string connString = ConfigurationManager.ConnectionStrings["DFMDBConnectionString"].ConnectionString;
             try
             {
                 using (SqlConnection conn = new SqlConnection(connString))
@@ -150,7 +150,7 @@ namespace Helpers
         {
             List<FormDataModel> formsToAssign = new List<FormDataModel>();
             string dataString = null;
-            string connString = ConfigurationManager.ConnectionStrings["ReleaseFlowDBConnectionString"].ConnectionString;       //read from config  
+            string connString = ConfigurationManager.ConnectionStrings["DFMDBConnectionString"].ConnectionString;       //read from config  
             try
             {
                 using (SqlConnection conn = new SqlConnection(connString))
@@ -181,7 +181,7 @@ namespace Helpers
         {
             List<UserIdNamemodel> users = new List<UserIdNamemodel>();
             
-            string connString = ConfigurationManager.ConnectionStrings["ReleaseFlowDBConnectionString"].ConnectionString;       //read from config  
+            string connString = ConfigurationManager.ConnectionStrings["DFMDBConnectionString"].ConnectionString;       //read from config  
             try
             {
                 using (SqlConnection conn = new SqlConnection(connString))

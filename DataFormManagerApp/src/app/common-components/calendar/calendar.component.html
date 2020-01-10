@@ -54,9 +54,13 @@
         >
           Day
         </div>
+        
       </div>
+      
     </div>
+    
   </div>
+  
   <br />
   <div [ngSwitch]="view">
     <mwl-calendar-month-view
@@ -88,7 +92,9 @@
       (eventTimesChanged)="eventTimesChanged($event)"
     >
     </mwl-calendar-day-view>
+    
   </div>
+  
   <ng-template #modalContent let-close="close">
     <div class="modal-header">
       <!-- <h5 class="modal-title"></h5> -->

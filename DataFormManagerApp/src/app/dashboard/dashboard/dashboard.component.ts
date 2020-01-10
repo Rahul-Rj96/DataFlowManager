@@ -27,24 +27,22 @@ export class DashboardComponent implements OnInit {
   form: FormDataModel;
   expandedElement: FormDataModel | null;
 
+
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(private userSpecificFormService: UserSpecificFormsService, private formTypeService: FormtypeService) { }
 
   ngOnInit() {
-    
-    this.userSpecificFormService.getForms('all')
+
+    this.userSpecificFormService.getForms('all/0/5')
       .subscribe((res) => {
-        this.dataSource = new MatTableDataSource(res);
+        this.dataSource = new MatTableDataSource(res);   
         this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        
+        this.dataSource.sort = this.sort;  
       });
-
-
   }
-
+  
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
@@ -64,14 +62,21 @@ export class DashboardComponent implements OnInit {
   }
 
   getNext(pageIndex: number, pageSize : number) {
-    var start = pageIndex * pageSize;
-    
-    this.userSpecificFormService.getForms('all/'+start+"/"+pageSize)
-    .subscribe((res) => {
-      this.dataSource = new MatTableDataSource(res);
+    var offset = pageIndex * pageSize;
+    if (this.dataSource.paginator.length <= offset+pageSize)
+    {
+      this.userSpecificFormService.getForms('all/'+this.dataSource.paginator.length+"/"+5)
+      .subscribe(( res : FormDataModel[]) => {
+        res.forEach((item) => {
+        this.dataSource.filteredData.push(item);
+        } )        
         this.dataSource.sort = this.sort;
-  
-  });
+    
+    });
+
+    }
+    
+    
 }
 
 }
