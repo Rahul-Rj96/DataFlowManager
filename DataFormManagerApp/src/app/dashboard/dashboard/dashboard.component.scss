@@ -1,6 +1,6 @@
 table {
   width: 100%;
-  background-color:rgb(182, 195, 201);
+  background-color:rgb(115, 127, 131);
 }
 .buttons {
   background-color: #587f8f;
@@ -40,6 +40,21 @@ button {
     width: 50em;
   }
 
+  .mat-elevation-z8 mat-row:hover {
+    color: rgb(202, 162, 52);
+    background-color: rgb(202, 224, 151);
+    left: .1em;
+  }
+  .mat-elevation-z8 mat-row.selected {
+    background-color: rgb(233, 68, 27);
+    color: rgb(221, 26, 26);
+  }
+  // .mat-elevation-z8 mat-row.selected:hover {
+  //   background-color: #BBD8DC;
+  //   color: white;
+  // }
+
+
   .extendedview {
     margin: 0 0 2em 0;
     list-style-type: unit($number: 100);
@@ -56,19 +71,8 @@ button {
     height: 2.4em;
     border-radius: 4px;
   }
-//   .formdetails li:hover {
-//     color: #607D8B;
-//     background-color: #DDD;
-//     left: .1em;
-//   }
-//   .formdetails li.selected {
-//     background-color: #CFD8DC;
-//     color: white;
-//   }
-//   .formdetails li.selected:hover {
-//     background-color: #BBD8DC;
-//     color: white;
-//   }
+
+
   .extendedview .badge {
     display: inline-block;
     font-size: small;

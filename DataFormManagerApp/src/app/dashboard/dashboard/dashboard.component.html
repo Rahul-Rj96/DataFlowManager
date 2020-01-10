@@ -21,17 +21,31 @@
     </ng-container> -->
 
    
-    <ng-container  matColumnDef="ViewDetail">
-        <th><mat-header-cell *matHeaderCellDef>View Details</mat-header-cell></th>
-        <td>        <mat-cell *matCellDef="let element" ><button (click)="onSelect(element)">{{element.FormName | titlecase}}</button></mat-cell>
+    <ng-container  matColumnDef="FormName">
+        <th><mat-header-cell *matHeaderCellDef  mat-sort-header>Form Name</mat-header-cell></th>
+        <td>        <mat-cell *matCellDef="let element" >{{element.FormName | titlecase}}</mat-cell>
         </td>
     </ng-container>
 
+    <ng-container  matColumnDef="StartDate">
+        <th><mat-header-cell *matHeaderCellDef  mat-sort-header>Start Date</mat-header-cell></th>
+        <td><mat-cell *matCellDef="let element">{{element.EffectiveDate.StartDate}}</mat-cell></td>
+    </ng-container>
+
+    <ng-container  matColumnDef="EndDate">
+        <th><mat-header-cell *matHeaderCellDef  mat-sort-header>End Date</mat-header-cell></th>
+        <td><mat-cell *matCellDef="let element">{{element.EffectiveDate.EndDate}}</mat-cell></td>
+    </ng-container>
+
     <mat-header-row *matHeaderRowDef="tableColumns; sticky: true"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: tableColumns"></mat-row>
+    <mat-row *matRowDef="let row; columns: tableColumns" (click)="onSelect(row)"></mat-row>
   </table>
 
-  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  <mat-paginator 
+   [pageIndex]=0 
+   [pageSize]=2
+   (page)= "getNext($event.pageIndex,$event.pageSize)" >
+</mat-paginator>
 
 </div>
 

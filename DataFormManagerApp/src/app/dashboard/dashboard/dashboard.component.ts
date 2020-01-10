@@ -22,7 +22,7 @@ import { FormtypeService } from 'src/app/form-module/services/formtype.service';
 })
 export class DashboardComponent implements OnInit {
 
-  tableColumns: string[] = ['FormId', 'FormType', 'ViewDetail'];
+  tableColumns: string[] = ['FormId', 'FormType', 'FormName','StartDate','EndDate'];
   dataSource: MatTableDataSource<FormDataModel>;
   form: FormDataModel;
   expandedElement: FormDataModel | null;
@@ -33,13 +33,13 @@ export class DashboardComponent implements OnInit {
   constructor(private userSpecificFormService: UserSpecificFormsService, private formTypeService: FormtypeService) { }
 
   ngOnInit() {
-
-
+    
     this.userSpecificFormService.getForms('all')
       .subscribe((res) => {
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        
       });
 
 
@@ -62,5 +62,16 @@ export class DashboardComponent implements OnInit {
     window.location.reload();
 
   }
+
+  getNext(pageIndex: number, pageSize : number) {
+    var start = pageIndex * pageSize;
+    
+    this.userSpecificFormService.getForms('all/'+start+"/"+pageSize)
+    .subscribe((res) => {
+      this.dataSource = new MatTableDataSource(res);
+        this.dataSource.sort = this.sort;
+  
+  });
+}
 
 }
