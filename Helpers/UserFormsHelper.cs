@@ -22,7 +22,7 @@ namespace Helpers
             {
                 userFormsTable.Rows.Add(userFormdata.UserId , userFormdata.FormId);
             }
-        string connString = ConfigurationManager.ConnectionStrings["ReleaseFlowDBConnectionString"].ConnectionString;
+        string connString = ConfigurationManager.ConnectionStrings["DFMDBConnectionString"].ConnectionString;
             try
             {
                 using (SqlConnection conn = new SqlConnection(connString))

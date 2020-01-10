@@ -18,7 +18,7 @@ namespace Helpers
         {
             List<FormDataModel> formDatas = new List<FormDataModel>();
             string dataString = null;
-            string connString = ConfigurationManager.ConnectionStrings["ReleaseFlowDBConnectionString"].ConnectionString;       //read from config  
+            string connString = ConfigurationManager.ConnectionStrings["DFMDBConnectionString"].ConnectionString;       //read from config  
             try
             {
                 using (SqlConnection conn = new SqlConnection(connString))
@@ -55,7 +55,7 @@ namespace Helpers
             List<FormDataModel> formDatas = new List<FormDataModel>();
             string dataString = null;
             
-            string connString = ConfigurationManager.ConnectionStrings["ReleaseFlowDBConnectionString"].ConnectionString;       //read from config  
+            string connString = ConfigurationManager.ConnectionStrings["DFMDBConnectionString"].ConnectionString;       //read from config  
             try
             {
                 using (SqlConnection conn = new SqlConnection(connString))

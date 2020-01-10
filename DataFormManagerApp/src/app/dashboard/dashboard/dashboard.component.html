@@ -15,11 +15,6 @@
         <td><mat-cell *matCellDef="let element">{{element.FormType}}</mat-cell></td>
     </ng-container>
 
-    <!-- <ng-container  matColumnDef="FormData">
-        <th><mat-header-cell *matHeaderCellDef  mat-sort-header>Form Data</mat-header-cell></th>
-        <td><mat-cell *matCellDef="let element">{{element.FormData[0].Value}}</mat-cell></td>
-    </ng-container> -->
-
    
     <ng-container  matColumnDef="FormName">
         <th><mat-header-cell *matHeaderCellDef  mat-sort-header>Form Name</mat-header-cell></th>
@@ -42,8 +37,8 @@
   </table>
 
   <mat-paginator 
-   [pageIndex]=0 
-   [pageSize]=2
+   [pageIndex]= 0 
+   [pageSizeOptions] ="[2, 3, 4]" 
    (page)= "getNext($event.pageIndex,$event.pageSize)" >
 </mat-paginator>
 
