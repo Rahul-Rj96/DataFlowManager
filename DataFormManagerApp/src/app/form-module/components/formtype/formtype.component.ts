@@ -6,6 +6,7 @@ import { UserSpecificFormsService } from '../../services/userspecificform.servic
 import { DataValueModel } from '../../models/data-value-model';
 import { FormDataModel } from '../../models/form-data-model';
 import { Datesmodel } from '../../models/datesmodel';
+import { FILE } from 'dns';
 
 
 
@@ -28,6 +29,8 @@ export class FormtypeComponent implements OnInit {
   StartDate: string;
   EndDate: string;
   FormName: string;
+  //File: File;
+  fileId: string = null;
   // tslint:disable-next-line: max-line-length
   constructor(private formTypeService: FormtypeService, private userSpecificFormService: UserSpecificFormsService, private route: ActivatedRoute, private router: Router) { }
 
@@ -45,28 +48,33 @@ export class FormtypeComponent implements OnInit {
 
       });
     this.formTypeService.getFormType(this.formTypeId).subscribe((result) => {
-        this.formType = result;
-        this.FormName = this.formType.FormName;
-        if (this.FormId == 0) {
-          this.formType.FormFields.forEach((item) => {
-              this.itemSet[item.Id] = null;
-              this.savemode = false;
-          });
-        } else {
-          this.userSpecificFormService.getForms(this.formTypeId).subscribe((result) => {
-            result.forEach((item) => {
-              if (item.FormId == this.FormId) {
-                this.form = item;
-              }
-            });
-            this.form.FormData.forEach((item) => {
-              this.itemSet[item.Name] = item.Value;
-            });
-          }
-          );
-          this.savemode = true;
-        }
+      this.formType = result;
+      this.FormName = this.formType.FormName;
+      if (this.FormId == 0) {
+        this.formType.FormFields.forEach((item) => {
+          this.itemSet[item.Id] = null;
+          this.savemode = false;
         });
+      } else {
+        this.userSpecificFormService.getForms(this.formTypeId).subscribe((result) => {
+          result.forEach((item) => {
+            if (item.FormId == this.FormId) {
+              this.form = item;
+            }
+          });
+          this.form.FormData.forEach((item) => {
+            this.itemSet[item.Name] = item.Value;
+            if (item.Name == 'File') {
+              console.log(this.fileId);
+              this.fileId = item.Value;
+              console.log(this.fileId);
+            }
+          });
+        }
+        );
+        this.savemode = true;
+      }
+    });
   }
 
   isEnabled() {
@@ -88,8 +96,8 @@ export class FormtypeComponent implements OnInit {
       }
     });
     this.effectiveDates = new Datesmodel(this.StartDate, this.EndDate);
-    if (this.savemode == false ) {
-      this.formData = new FormDataModel(this.formType.FormType, this.itemSet[this.FormName], this.dataValue,  this.effectiveDates);
+    if (this.savemode == false) {
+      this.formData = new FormDataModel(this.formType.FormType, this.itemSet[this.FormName], this.dataValue, this.effectiveDates);
       this.formTypeService.postFormData(this.formData);
       window.location.reload();
     } else {
@@ -101,4 +109,18 @@ export class FormtypeComponent implements OnInit {
 
   }
 
+  onFileUpload(fieldId: string, event) {
+    var File = event.target.files as File;
+    let filedata: FormData = new FormData();
+    filedata.append(this.formType.FormType, File[0], File.name);
+    if (this.fileId == null) {
+      this.formTypeService.postFile(filedata).subscribe((res) => {
+        this.fileId = res as string;
+        this.itemSet[fieldId] = res as string;
+      });
+    } else {
+      this.formTypeService.putFile(filedata, this.fileId);
+    }
+
+  }
 }

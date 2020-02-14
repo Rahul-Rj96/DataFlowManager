@@ -1,5 +1,5 @@
 export class AppSettings {
 
-    static baseUrl = 'http://dataformmanager.dev37.grcdev.com/api/';
+    static baseUrl = 'http://dataformmanager.dev39.grcdev.com/api/';
 
 }

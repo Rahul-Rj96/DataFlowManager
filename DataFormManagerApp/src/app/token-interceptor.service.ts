@@ -19,6 +19,7 @@ export class TokenInterceptorService implements HttpInterceptor {
       request = this.addToken(request, authService.getAccessTokenFromLocalStorage());
   }
     return next.handle(request).pipe(catchError( error => {
+      debugger;
       if (error instanceof HttpErrorResponse && error.status === 401) {
         return this.handle401Error(request, next);
       } 

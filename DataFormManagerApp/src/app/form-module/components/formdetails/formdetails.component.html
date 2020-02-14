@@ -2,9 +2,12 @@
     <br>
     <h2>{{form.FormType | titlecase}} Details : </h2>
     <ul class="formdetails">
-        <li *ngFor="let formData of form.FormData">
-            <span class="badge"> {{formData.Name}} :</span> {{formData.Value}}<br />
+        <div *ngFor="let formData of form.FormData">
+        <li *ngIf="formData.Name != 'File'">
+           <span class="badge"> {{formData.Name}} :</span> {{formData.Value}}<br />
         </li>
+           <button *ngIf="formData.Name == 'File'" class="download" (click)="Download()">Download File</button>
+    </div>
     </ul>
     <a [routerLink]="['../form']" [queryParams]="{ id:form.FormType , formId:form.FormId}"><button
             id=add>Edit</button></a>&nbsp;

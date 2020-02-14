@@ -21,6 +21,21 @@ button {
     padding: 0;
     width: 25em;
   }
+  .formdetails .download{
+    background-color: #587f8f;
+    border: slategrey;
+    color: white;
+    padding: 2px 5px 4px 5px;
+    text-align: center;
+    width: 130px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    height: 1.7em;
+    margin-left: 220px;
+    border-radius: 4px 4px 4px 4px;
+    margin-bottom: 10px;
+  }
   .formdetails li {
     //cursor: pointer;
     position: relative;
@@ -31,19 +46,19 @@ button {
     height: 2.4em;
     border-radius: 4px;
   }
-//   .formdetails li:hover {
-//     color: #607D8B;
-//     background-color: #DDD;
-//     left: .1em;
-//   }
-//   .formdetails li.selected {
-//     background-color: #CFD8DC;
-//     color: white;
-//   }
-//   .formdetails li.selected:hover {
-//     background-color: #BBD8DC;
-//     color: white;
-//   }
+  // .download :hover {
+  //   color: #607D8B;
+  //   background-color: #DDD;
+  //   left: .1em;
+  // }
+  // .download .selected {
+  //   background-color: #CFD8DC;
+  //   color: white;
+  // }
+  // .formdetails li.selected:hover {
+  //   background-color: #BBD8DC;
+  //   color: white;
+  // }
   .formdetails .badge {
     display: inline-block;
     font-size: small;
